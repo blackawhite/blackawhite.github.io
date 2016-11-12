@@ -10,3 +10,5 @@ chulllll
 git push origin source
 
 切换到sourse 分支 git push
+
+在主分支上git push origin source 试试
