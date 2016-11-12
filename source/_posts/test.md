@@ -22,4 +22,9 @@ git checkout source
 
 在主分支上git merge source
 
-然后git branch -d source删除合并后的分支 
+然后git branch -d source删除合并后的分支
+
+
+在主分支上开发的东西直接git push origin source上不行的，因为此时source分支的内容并没变
+
+可以删除source分支再新建，在git push origin source 
