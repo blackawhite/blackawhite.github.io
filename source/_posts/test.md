@@ -5,7 +5,12 @@ tags:
 ---
 this is my test file.
 
-主分支开发完毕后，切回source分支git push
+主分支开发完毕后
 
+git add .
 
-aa
+git commit -m '.'
+
+git branch source 新建分支
+
+git push -u origin master
