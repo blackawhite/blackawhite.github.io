@@ -5,11 +5,4 @@ tags:
 ---
 this is my test file.
 
-chulllll
-
-git push origin source
-
-切换到sourse 分支 git push
-
-在主分支上git push origin source 试试
-aaaa
+我是主分支上修改并提交的内容
