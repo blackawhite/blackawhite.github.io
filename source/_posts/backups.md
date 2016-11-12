@@ -3,7 +3,7 @@ title: Hexo备份
 date: 2016-11-12 21:53:15
 tags:
 ---
-### 主分支开发并add，source分支commit：
+### Hexo备份
 #新建分支，删除分支命令：git branch -d source
 ``` bash
 git branch source
@@ -29,4 +29,4 @@ git push -u origin source
 git merge source
 ```
 **先备份的话，部署工作都是在source分支下进行的，也可merge后在主分支下进行，先部署就无所谓了**
-以上是备份source目录同时不影响本地部署的方法，待续...
+以上是备份source目录同时不影响本地部署的方法，另外一台电脑如何下载使用待续...
