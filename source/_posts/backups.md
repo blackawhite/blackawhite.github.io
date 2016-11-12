@@ -3,7 +3,6 @@ title: Hexo备份
 date: 2016-11-12 21:53:15
 tags:
 ---
-### Hexo备份
 #新建分支，删除分支命令：git branch -d source
 ``` bash
 git branch source
