@@ -18,4 +18,8 @@ git checkout source
 
 
 
-然后一只在source分支上开发就可以了，push完毕之后会合并到主分支
+然后一只在source分支上开发就可以了，push完毕之后再回到主分支
+
+在主分支上git merge source
+
+然后git branch -d source删除合并后的分支 
