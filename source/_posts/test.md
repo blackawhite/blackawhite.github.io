@@ -14,3 +14,6 @@ git commit -m '.'
 git branch source 新建分支
 
 git push -u origin master
+
+
+我是source分支上开发了，push完毕之后会合并到主分支
