@@ -3,7 +3,7 @@ title: Hexo备份
 date: 2016-11-12 21:53:15
 tags:
 ---
-### 在source分支下进行开发并备份：
+### 主分支开发并add，source分支commit：
 
 ``` bash
 #add后就可以分支间互相切换了，此时各分支内容时一样的
@@ -18,15 +18,15 @@ git branch source
 git checkout source
 ```
 ``` bash
+#注意提交操作是在source分支下进行的
 git commit -m '.'
 ```
 ``` bash
-#在主分支上push即可，-u可省
+#正常push即可，要指定分支的名字，拉取操作时一样要指定名字，就像git pull origin source
 git push -u origin source
 ```
 ``` bash
 #若在source分支修改或增加了内容，当切换回主分支时，发现source分支开发的内容会不见了，需要merge，merge后的分支就可以删除了，当然也可以不merge一直在source分支开发并备份
 git merge source
 ```
-**注意多个分支时进行拉取操作时一定要指定分支名，像git pull origin source**
-以上是备份source目录同时不影响本地部署的方法，待续..aaaaa
+以上是备份source目录同时不影响本地部署的方法，待续...
