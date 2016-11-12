@@ -26,7 +26,7 @@ git commit -m '.'
 git push -u origin source
 ```
 ``` bash
-#当切换回主分支时，发现新建的文章或source分支开发的内容会不见了，**需要merge**，当然也可以不merge一直在source分支开发并备份
+#当切换回主分支时，发现新建的文章或source分支开发的内容会不见了，**需要merge**，当然也可以不merge一直在source分支开发并备份，一直merge也有一个问题，例如当你删除一篇文章并提交后，回到主分支发现却还在，此时需要再次merge就没啦，所以建议一直在source目录下进行一切工作
 git merge source
 ```
 **注意的部署工作都是在source分支下进行的，也可merge后在主分支下进行**
