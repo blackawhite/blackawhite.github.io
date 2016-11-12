@@ -35,5 +35,5 @@ git checkout source
 #若在source分支修改或增加了内容，当切换回主分支时，发现source分支开发的内容会不见了，需要merge，merge后的分支就可以删除了，当然也可以不merge一直在source分支开发并备份
 git merge source
 ```
-
+**注意多个分支时进行拉取操作时一定要指定分支名，像git pull origin source**
 以上是备份source目录同时不影响本地部署的方法，待续...
