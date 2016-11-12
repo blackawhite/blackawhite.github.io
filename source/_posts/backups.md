@@ -26,10 +26,8 @@ git commit -m '.'
 git push -u origin source
 ```
 ``` bash
-#当切换回主分支时，发现source分支开发的内容会不见了，需要merge，merge后的分支就可以删除了，当然也可以不merge一直在source分支开发并备份
+#当切换回主分支时，发现新建的文章或source分支开发的内容会不见了，**需要merge**，当然也可以不merge一直在source分支开发并备份
 git merge source
 ```
 **注意的部署工作都是在source分支下进行的，也可merge后在主分支下进行**
 以上是备份source目录同时不影响本地部署的方法，待续...
-
-testtest
