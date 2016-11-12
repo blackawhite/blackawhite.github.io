@@ -10,7 +10,7 @@ tags:
 git add .
 ```
 ``` bash
-#新建分支，若已存在，git branch -d source删除后重建，因为再建的分支默认和主分支是保持一致的
+#新建分支，若已存在，也可git branch -d source删除后重建，因为再建的分支默认和主分支是保持一致的
 git branch source
 ```
 ``` bash
