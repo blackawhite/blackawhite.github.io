@@ -7,6 +7,7 @@ tags:
 ``` bash
 git branch source
 ```
+<!--more-->
 #切换到source分支
 ``` bash
 git checkout source
