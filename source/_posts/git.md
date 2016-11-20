@@ -2,6 +2,7 @@
 title: Git使用
 date: 2016-11-15 22:07:50
 tags: Git
+categories: 工具
 ---
 ### 设置
 ``` bash
@@ -10,6 +11,7 @@ git config --global user.email "dangpugui@126.com"
 git config --global user.name    #查看
 git config --list
 ```
+<!--more-->
 ### 初始化
 ``` bash
 git init    #使用Git就要先初始化
@@ -123,10 +125,9 @@ git status      #查看冲突的文件，人工解决合并文件的冲突后然
 ```
 ### 标签
 ``` bash
-releases 里程碑 版本 打标签
-git tag  查看
-git tag v1.0  打标签，也可github上直接创建
-git push origin v1.0  提交打的标签/版本
+git tag		#查看
+git tag v1.0 	#打标签，也可github上直接创建
+git push origin v1.0 	#提交打的标签/版本
 ```
 ### 进阶
 ``` bash
@@ -137,12 +138,11 @@ https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5
 
 ### 技巧
 ``` bash
-ls目录结构
-mkdir创建
-sublime hello.txt
-tab自动补全
-git config --global alias.co checkout  co等于checkout，设置别名
-git config --list，查看别名
+ls  #查看目录结构
+mkdir   #创建
+tab     #自动补全
+git config --global alias.co checkout   #co等于checkout，设置别名
+git config --list   #查看别名
 ```
 
 
