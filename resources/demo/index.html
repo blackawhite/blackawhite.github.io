@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="yesokiloveyou.com,html,css,js,惜时" />
+  <meta name="keywords" content=",,,," />
 
 
 
@@ -86,15 +86,22 @@
 
 
 
-<meta name="description" content="为之则易，不为则难">
+<meta name="description" content="#list{ width:302px; margin:50px auto;padding:0; list-style:none;}
+#list li{ font:12px/30px &quot;宋体&quot;; box-shadow:0 0 1px #333; text-indent:12px;}
+#list li a{ position:relative; display:block; height:30px;">
 <meta property="og:type" content="website">
-<meta property="og:title" content="水手">
-<meta property="og:url" content="http://wwww.yesokiloveyou.com/categories/工具/index.html">
+<meta property="og:title" content="Demo List">
+<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/index.html">
 <meta property="og:site_name" content="水手">
-<meta property="og:description" content="为之则易，不为则难">
+<meta property="og:description" content="#list{ width:302px; margin:50px auto;padding:0; list-style:none;}
+#list li{ font:12px/30px &quot;宋体&quot;; box-shadow:0 0 1px #333; text-indent:12px;}
+#list li a{ position:relative; display:block; height:30px;">
+<meta property="og:updated_time" content="2016-11-22T14:46:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="水手">
-<meta name="twitter:description" content="为之则易，不为则难">
+<meta name="twitter:title" content="Demo List">
+<meta name="twitter:description" content="#list{ width:302px; margin:50px auto;padding:0; list-style:none;}
+#list li{ font:12px/30px &quot;宋体&quot;; box-shadow:0 0 1px #333; text-indent:12px;}
+#list li a{ position:relative; display:block; height:30px;">
 
 
 
@@ -115,10 +122,16 @@
 
 
 
-  <link rel="canonical" href="http://wwww.yesokiloveyou.com/categories/工具/"/>
+  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/"/>
 
 
-  <title> 分类: 工具 | 水手 </title>
+  <title>
+  
+
+  
+    Demo List | 水手
+  
+</title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -237,47 +250,93 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        工具
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/11/15/git/" itemprop="url">
-              
-                <span itemprop="name">Git使用</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-11-15T22:07:50+08:00"
-              content="2016-11-15" >
-          11-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
     
-  </section>
-
-  
-
+      <style>
+#list{ width:302px; margin:50px auto;padding:0; list-style:none;}
+#list li{ font:12px/30px "宋体"; box-shadow:0 0 1px #333; text-indent:12px;}
+#list li a{ position:relative; display:block; height:30px;}
+#list span{ width:12px;height:12px; line-height:12px;}
+.content-wrap{ padding-top: 0; }
+</style>
+<ul id="list">
+	<li>
+		<a href="javascript:;" target="_blank" rel="external">djfkddjsf</a>
+	</li>
+	<li>
+		<a href="javascript:;" target="_blank" rel="external">djfkddjsf</a>
+	</li>
+	<li>
+		<a href="javascript:;" target="_blank" rel="external">djfkddjsfdjfkddjsfdjfkddjsfdjfkddjsfdjfkddjsf</a>
+	</li>
+	<li>
+		<a href="javascript:;" target="_blank" rel="external">djfkddjsf</a>
+	</li>
+</ul>
+<script src="../js/tween.js"></script>
+<script>
+var oList=document.getElementById("list");
+var aLi=oList.getElementsByTagName("a");
+var iLiHeight=aLi[0].offsetHeight;
+for(var i=0;i<aLi.length;i++)
+{
+	aLi[i].innerHTML=i+1+'.    '+aLi[i].innerHTML;
+	var sHtml=aLi[i].innerHTML;
+	aLi[i].innerHTML="";
+	for(var j=0;j<sHtml.length;j++)
+	{
+		aLi[i].innerHTML+="<span>"+sHtml[j]+"</span>"
+	}
+	var aSpan=aLi[i].children;
+	for(var j=0;j<aSpan.length;j++)
+	{
+		aSpan[j].style.left=aSpan[j].offsetLeft+"px";
+		aSpan[j].style.top=aSpan[j].offsetTop+"px";
+		aSpan[j].startTop=aSpan[j].offsetTop;
+	}
+	for(var j=0;j<aSpan.length;j++)
+	{
+		aSpan[j].style.position="absolute";
+		(function(aSpan,nub2){
+			var iStart=0;
+			var iSpanHeight=aSpan[0].offsetHeight;
+			aSpan[nub2].onmouseover=function(ev)
+			{
+				iStart=ev.clientY;
+			};
+			aSpan[nub2].onmousemove=function(ev)
+			{
+				var iDis=ev.clientY-iStart;
+				var iNub=iDis>0?1:-1;
+				if(this.startTop+iDis>=0 && this.startTop+iDis< (iLiHeight-iSpanHeight))
+				{
+					for(var j=0;j<aSpan.length;j++)
+					{
+						if(Math.abs(iDis)>Math.abs(nub2-j))
+						{
+							aSpan[j].style.top=aSpan[j].startTop+(Math.abs(iDis)-Math.abs(nub2-j))*iNub+"px";
+						}
+						else
+						{
+							aSpan[j].style.top=aSpan[j].startTop+"px";
+						}
+					}
+				}
+			};
+			aSpan[nub2].onmouseout=function(ev)
+			{
+				for(var j=0;j<aSpan.length;j++)
+				{
+					starMove(aSpan[j],{top:aSpan[j].startTop},500,"elasticOut");
+				}
+			};	
+		})(aSpan,j);
+	}		
+}
+</script>
+    
+  </div>
 
 
           </div>
@@ -285,6 +344,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="resources/demo/index.html"
+           data-title="Demo List" data-url="http://wwww.yesokiloveyou.com/resources/demo/index.html">
+      </div>
+    
+  </div>
+
 
         </div>
         
