@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>水手</title>
+  <subtitle>为之则易，不为则难</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://wwww.yesokiloveyou.com/"/>
+  <updated>2016-11-22T13:33:30.000Z</updated>
+  <id>http://wwww.yesokiloveyou.com/</id>
+  
+  <author>
+    <name>yangk</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://wwww.yesokiloveyou.com/2016/11/22/hello-world/"/>
+    <id>http://wwww.yesokiloveyou.com/2016/11/22/hello-world/</id>
+    <published>2016-11-22T13:33:30.000Z</published>
+    <updated>2016-11-22T13:33:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Demo练习</title>
+    <link href="http://wwww.yesokiloveyou.com/2016/11/21/example/"/>
+    <id>http://wwww.yesokiloveyou.com/2016/11/21/example/</id>
+    <published>2016-11-20T16:12:48.000Z</published>
+    <updated>2016-11-22T13:33:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="轮播图插件"><a href="#轮播图插件" class="headerlink" title="轮播图插件"></a>轮播图插件</h3><h3 id="打飞机游戏"><a href="#打飞机游戏" class="headerlink" title="打飞机游戏"></a>打飞机游戏</h3><h3 id="订阅会议室"><a href="#订阅会议室" class="headerlink" title="订阅会议室"></a>订阅会议室</h3><h3 id="网盘"><a href="#网盘" class="headerlink" title="网盘"></a>网盘</h3><h3 id="…"><a href="#…" class="headerlink" title="…"></a>…</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;轮播图插件&quot;&gt;&lt;a href=&quot;#轮播图插件&quot; class=&quot;headerlink&quot; title=&quot;轮播图插件&quot;&gt;&lt;/a&gt;轮播图插件&lt;/h3&gt;&lt;h3 id=&quot;打飞机游戏&quot;&gt;&lt;a href=&quot;#打飞机游戏&quot; class=&quot;headerlink&quot; title=&quot;打飞机
+    
+    </summary>
+    
+      <category term="Demo" scheme="http://wwww.yesokiloveyou.com/categories/Demo/"/>
+    
+    
+      <category term="Demo" scheme="http://wwww.yesokiloveyou.com/tags/Demo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git使用</title>
+    <link href="http://wwww.yesokiloveyou.com/2016/11/15/git/"/>
+    <id>http://wwww.yesokiloveyou.com/2016/11/15/git/</id>
+    <published>2016-11-15T14:07:50.000Z</published>
+    <updated>2016-11-22T13:33:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git config --global user.name <span class="string">"blackawhite"</span></div><div class="line">git config --global user.email <span class="string">"dangpugui@126.com"</span></div><div class="line">git config --global user.name    <span class="comment">#查看</span></div><div class="line">git config --list</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init    <span class="comment">#使用Git就要先初始化</span></div></pre></td></tr></table></figure>
+<h3 id="三个区"><a href="#三个区" class="headerlink" title="三个区"></a>三个区</h3><p>工作区：就是你当前写东西的目录<br>暂存区：作为过度层、避免误操作、保护工作区和版本区、分支处理<br>版本区：<br>添加、修改、删除，红色代表工作区内容、绿色暂存区，+添加，~修改，-删除，！冲突<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git status查看状态</div></pre></td></tr></table></figure></p>
+<p>添加到暂存区：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add fileName</div><div class="line">git add .</div><div class="line">git add --all   <span class="comment">#git add -A</span></div></pre></td></tr></table></figure></p>
+<p>添加到版本库（版本区）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git commit demo1.html &gt;&gt; 回车 &gt;&gt; 写注释 &gt;&gt;关闭</div><div class="line">git commit -m <span class="string">"change demo1.html"</span></div><div class="line">从工作区直接到版本库</div><div class="line">git commit <span class="_">-a</span> -m <span class="string">"add drag.js"</span>第一次时不能这样使用</div></pre></td></tr></table></figure></p>
+<p>从暂存区撤回到工作区：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset HEAD demo1.html</div></pre></td></tr></table></figure></p>
+<h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span>     <span class="comment">#回车时显示后面的，退出按q键即可</span></div><div class="line">git <span class="built_in">log</span> --pretty=oneline    <span class="comment">#精简版显示</span></div></pre></td></tr></table></figure>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git diff    <span class="comment">#查看修改内容，工作区和暂存区的比较</span></div><div class="line">git diff --cached(--staged)    <span class="comment">#暂存区与版本区的对比</span></div><div class="line">git diff master(分支名字)   <span class="comment">#工作区与版本库</span></div><div class="line">git diff HEAD -- readme.txt</div></pre></td></tr></table></figure>
+<h3 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git reset HEAD &lt;file.name&gt;      <span class="comment">#撤销暂存区的提交/提交，在没有commit的情况下，从新回到未add状态</span></div><div class="line">git checkout -- &lt;file.name&gt;     <span class="comment">#工作区撤销到版本区的状态，例如误删或误改了文件</span></div><div class="line">git commit -m <span class="string">"aa"</span> --amend      <span class="comment">#误提交后和上一个提交的作为一次提交，让两次不同提交变成一次</span></div></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git rm &lt;file.name&gt;      <span class="comment">#在工作区已经删除的情况下删除暂存区</span></div><div class="line">git rm <span class="_">-f</span> &lt;file.name&gt;   <span class="comment">#在工作区一删除或未删除的情况下删除工作区和暂存区，暂存区必须存在</span></div><div class="line">fit rm --cached &lt;file.name&gt;     <span class="comment">#在工作区还在或不在时都能，删除缓存区，而工作区不受影响</span></div></pre></td></tr></table></figure>
+<h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git checkout Id &lt;file.name&gt;     <span class="comment">#恢复指定文件</span></div><div class="line">git reset --hard HEAD^    <span class="comment">#恢复到上一次commit的版本</span></div><div class="line">git reset --hard Id     <span class="comment">#恢复指定版本</span></div><div class="line">git reset --hard HEAD^      <span class="comment">#往下恢复后之前的log就没有了通过git reglog</span></div><div class="line">git reset --hard HEAD~num</div></pre></td></tr></table></figure>
+<h3 id="同步Github"><a href="#同步Github" class="headerlink" title="同步Github"></a>同步Github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git remote      <span class="comment">#查看远程仓库名字</span></div><div class="line">git remote -v   <span class="comment">#对应远程仓库地址</span></div><div class="line">ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span>    <span class="comment">#创建SSH</span></div><div class="line">git remote rm origin&lt;主机名&gt;     <span class="comment">#删除远程仓库</span></div><div class="line">git remote add origin git@...   <span class="comment">#添加远程仓库</span></div><div class="line">git push origin(远端名字) master(分支名字)      <span class="comment">#推送</span></div></pre></td></tr></table></figure>
+<h3 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> url</div></pre></td></tr></table></figure>
+<h3 id="拉取"><a href="#拉取" class="headerlink" title="拉取"></a>拉取</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git pull    <span class="comment">#直接合并</span></div><div class="line">git fetch     <span class="comment">#手动合并，手动解决</span></div><div class="line">git diff master origin/master   <span class="comment">#查看区别</span></div><div class="line">git merge origin/master</div></pre></td></tr></table></figure>
+<h3 id="参与开源项目"><a href="#参与开源项目" class="headerlink" title="参与开源项目"></a>参与开源项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Fork 开了一个新的分支，克隆了一个版本</div><div class="line">　　&gt;&gt;命令行克隆自己fork过来的，然后修改并提交</div><div class="line">　　&gt;&gt;Pull request</div><div class="line">　　&gt;&gt;New pull request</div><div class="line">　　&gt;&gt;Create pull request</div><div class="line">对方：</div><div class="line">　　&gt;&gt;Merge pull request</div><div class="line">　　&gt;&gt;confirm</div><div class="line">　　回复技巧：选中对方信息，按R键</div></pre></td></tr></table></figure>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>稳定版本库的分支 &gt;&gt; 开发  &gt;&gt;  合并到稳定的版本，master 一般默认为项目的主分支，不同的开发人员在不同的分支上进行开发互相不影响。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">git branch  <span class="comment">#查看当前分支</span></div><div class="line">git branch new1     <span class="comment">#创建分支，github上也可直接创建</span></div><div class="line">git checkout new1   <span class="comment">#切换分支</span></div><div class="line">git checkout -b new2    <span class="comment">#创建并切换</span></div><div class="line">git merge new1      <span class="comment">#合并分支，合并分支先切换到master</span></div><div class="line">git branch --merged     <span class="comment">#查看当前分支所合并的分支</span></div><div class="line">git branch --no-merged  <span class="comment">#查看与当前分支未合并的分支</span></div><div class="line">git branch <span class="_">-d</span> new1      <span class="comment">#删除合并后的没用的new1分支</span></div><div class="line">git branch -D new2      <span class="comment">#删除没有合并的分支</span></div><div class="line">git status      <span class="comment">#查看冲突的文件，人工解决合并文件的冲突后然后再提交</span></div></pre></td></tr></table></figure>
+<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git tag		<span class="comment">#查看</span></div><div class="line">git tag v1.0 	<span class="comment">#打标签，也可github上直接创建</span></div><div class="line">git push origin v1.0 	<span class="comment">#提交打的标签/版本</span></div></pre></td></tr></table></figure>
+<h3 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://git.oschina.net/progit/</div><div class="line">http://www.liaoxuefeng.com/</div><div class="line">https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5</div></pre></td></tr></table></figure>
+<h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ls  <span class="comment">#查看目录结构</span></div><div class="line">mkdir   <span class="comment">#创建</span></div><div class="line">tab     <span class="comment">#自动补全</span></div><div class="line">git config --global alias.co checkout   <span class="comment">#co等于checkout，设置别名</span></div><div class="line">git config --list   <span class="comment">#查看别名</span></div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;设置&quot;&gt;&lt;a href=&quot;#设置&quot; class=&quot;headerlink&quot; title=&quot;设置&quot;&gt;&lt;/a&gt;设置&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;git config --global user.name &lt;span class=&quot;string&quot;&gt;&quot;blackawhite&quot;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;git config --global user.email &lt;span class=&quot;string&quot;&gt;&quot;dangpugui@126.com&quot;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;git config --global user.name    &lt;span class=&quot;comment&quot;&gt;#查看&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;git config --list&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="http://wwww.yesokiloveyou.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="http://wwww.yesokiloveyou.com/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Node读书笔记</title>
+    <link href="http://wwww.yesokiloveyou.com/2016/11/13/note-nodejs/"/>
+    <id>http://wwww.yesokiloveyou.com/2016/11/13/note-nodejs/</id>
+    <published>2016-11-13T10:11:26.000Z</published>
+    <updated>2016-11-22T13:33:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="FS-API的应用"><a href="#FS-API的应用" class="headerlink" title="FS API的应用"></a>FS API的应用</h2><p>需求：展示当前目录下列表并给出选择，当选择文件时显示内容，选择目录时，显示该目录下文件信息。<a id="more"></a></p>
+<h3 id="fs-readdir"><a href="#fs-readdir" class="headerlink" title="fs.readdir()"></a>fs.readdir()</h3><p>读取目录<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(fs.readdirSync(__dirname));<span class="comment">//同步获取当前目录的文件列表</span></div></pre></td></tr></table></figure></p>
+<p>readdir()第一个参数的3种写法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fs.readdir(<span class="string">'.'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,files</span>)</span>&#123;&#125;);</div></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fs.readdir(__dirname,<span class="function"><span class="keyword">function</span>(<span class="params">err,files</span>)</span>&#123;&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fs.readdir(process.cwd(),<span class="function"><span class="keyword">function</span>(<span class="params">err,files</span>)</span>&#123;&#125;);</div></pre></td></tr></table></figure>
+<h3 id="fs-readFile"><a href="#fs-readFile" class="headerlink" title="fs.readFile()"></a>fs.readFile()</h3><p>读取文件<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fs.readFile(filename,utf<span class="number">-8</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="fs-stat"><a href="#fs-stat" class="headerlink" title="fs.stat()"></a>fs.stat()</h3><p>读取文件或目录的元数据<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fs.stat(filename,<span class="function"><span class="keyword">function</span>(<span class="params">err,stat</span>)</span>&#123;&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="代码展示"><a href="#代码展示" class="headerlink" title="代码展示"></a>代码展示</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>),</div><div class="line">    stdin = process.stdin,<span class="comment">//可读流</span></div><div class="line">    stdout = process.stdout;<span class="comment">//可写流</span></div><div class="line"></div><div class="line"><span class="comment">//process.cwd()返回运行当前脚本的工作路径</span></div><div class="line">fs.readdir(process.cwd(),<span class="function"><span class="keyword">function</span>(<span class="params">err,files</span>)</span>&#123;</div><div class="line">    <span class="comment">//输出一个空行，便于阅读</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">''</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(!files.length)&#123;</div><div class="line">        <span class="comment">//文件不存在直接提示并返回</span></div><div class="line">        <span class="keyword">return</span> <span class="built_in">console</span>.log(<span class="string">'No files to show!'</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//提示用户选择</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Select which file or direcrory you want to see\n'</span>);</div><div class="line">    <span class="comment">//后面会多次用到，保存一下</span></div><div class="line">    <span class="keyword">var</span> stats = [];</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">file</span>(<span class="params">i</span>)</span>&#123;</div><div class="line">        <span class="comment">//filename可能是目录或着文件所以下面要利用fs.stat()作出判断</span></div><div class="line">        <span class="keyword">var</span> filename = files[i];</div><div class="line">        <span class="comment">//fs.stat会给出文件或者目录的元数据</span></div><div class="line">        fs.stat(__dirname + <span class="string">'/'</span> + filename,<span class="function"><span class="keyword">function</span>(<span class="params">err,stat</span>)</span>&#123;</div><div class="line">            stats[i] = stat;</div><div class="line">            <span class="comment">//输出目录或文件的名字</span></div><div class="line">            <span class="keyword">if</span>(stats[i].isDirectory())&#123;<span class="comment">//如果是目录</span></div><div class="line">                <span class="built_in">console</span>.log(<span class="string">'目录：'</span> + i + <span class="string">'    '</span> + filename);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;<span class="comment">//如果说文件</span></div><div class="line">                <span class="built_in">console</span>.log(<span class="string">'文件：'</span> + i + <span class="string">'    '</span> + filename); </div><div class="line">            &#125;</div><div class="line">            <span class="comment">//说明文件或目录输出完毕</span></div><div class="line">            <span class="keyword">if</span>(++i == files.length)&#123;</div><div class="line">                <span class="comment">//接下来的操作就是让用户输入选择</span></div><div class="line">                read();</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//继续输出</span></div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                file(i);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">read</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">''</span>);</div><div class="line">        <span class="comment">//不换行输出选择提示信息</span></div><div class="line">        stdout.write(<span class="string">'Enter your choice:'</span>);</div><div class="line">        <span class="comment">//等待用户输入</span></div><div class="line">        stdin.resume();</div><div class="line">        <span class="comment">//使支持特殊字符</span></div><div class="line">        stdin.setEncoding(<span class="string">'utf8'</span>);</div><div class="line">        <span class="comment">//监听用户输入的信息</span></div><div class="line">        stdin.on(<span class="string">'data'</span>,option);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//用户的操作</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">option</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> filename = files[<span class="built_in">Number</span>(data)]</div><div class="line">        <span class="keyword">if</span>(!filename)&#123;</div><div class="line">            <span class="comment">//若输入的内容不在列出内容之中</span></div><div class="line">            stdout.write(<span class="string">'Enter you choice again:'</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            stdin.pause();</div><div class="line">            <span class="comment">//读取目录或文件，stats数组已经保存了所有文件或目录的元数据</span></div><div class="line">            <span class="keyword">if</span>(stats[<span class="built_in">Number</span>(data)].isDirectory())&#123;<span class="comment">//若是目录</span></div><div class="line">                <span class="comment">//读取目录</span></div><div class="line">                fs.readdir(__dirname + <span class="string">'/'</span> + filename,<span class="function"><span class="keyword">function</span>(<span class="params">err,files</span>)</span>&#123;</div><div class="line">                    <span class="built_in">console</span>.log(<span class="string">''</span>);</div><div class="line">                    <span class="built_in">console</span>.log(files.length + <span class="string">'files'</span>);</div><div class="line">                    <span class="comment">//files是一个数组，里面存的说filename</span></div><div class="line">                    files.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">file</span>)</span>&#123;</div><div class="line">                        <span class="built_in">console</span>.log(<span class="string">'    _   '</span> + file);</div><div class="line">                    &#125;);</div><div class="line">                    <span class="built_in">console</span>.log(<span class="string">''</span>);</div><div class="line">                &#125;);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;<span class="comment">//若是文件</span></div><div class="line">                fs.readFile(__dirname + <span class="string">'/'</span> + filename,<span class="string">'utf8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</div><div class="line">                    <span class="built_in">console</span>.log(<span class="string">''</span>);</div><div class="line">                    <span class="comment">//输出内容</span></div><div class="line">                    <span class="built_in">console</span>.log(data);</div><div class="line">                &#125;);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    file(<span class="number">0</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="一个简单的web服务器"><a href="#一个简单的web服务器" class="headerlink" title="一个简单的web服务器"></a>一个简单的web服务器</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> qs = <span class="built_in">require</span>(<span class="string">'querystring'</span>);</div><div class="line"></div><div class="line"><span class="built_in">require</span>(<span class="string">'http'</span>).createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(req.url);</div><div class="line">    <span class="keyword">if</span>(<span class="string">'/'</span> == req.url)&#123;</div><div class="line">        res.writeHead(<span class="number">200</span>,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html'</span>&#125;);</div><div class="line"></div><div class="line">        res.end([</div><div class="line">            <span class="string">'&lt;form method="POST" action="/url"&gt;'</span>,</div><div class="line">            <span class="string">'&lt;h1&gt;My form&lt;/h1&gt;'</span>,</div><div class="line">            <span class="string">'&lt;fieldset&gt;'</span>,</div><div class="line">            <span class="string">'&lt;label&gt;Personal information&lt;/label&gt;'</span>,</div><div class="line">            <span class="string">'&lt;p&gt;What is your name?&lt;/p&gt;'</span>,</div><div class="line">            <span class="string">'&lt;input type="text" name="name"&gt;'</span>,</div><div class="line">            <span class="string">'&lt;p&gt;&lt;button&gt;Submit&lt;/button&gt;&lt;/p&gt;'</span>,</div><div class="line">            <span class="string">'&lt;/fieldset&gt;'</span>,</div><div class="line">            <span class="string">'&lt;/form&gt;'</span></div><div class="line">        ].join(<span class="string">''</span>));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">'/url'</span> == req.url &amp;&amp; <span class="string">'POST'</span> == req.method)&#123;</div><div class="line">        <span class="keyword">var</span> body =<span class="string">''</span>;</div><div class="line">        req.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>)</span>&#123;</div><div class="line">            body += chunk;</div><div class="line">        &#125;);</div><div class="line">        req.on(<span class="string">'end'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            res.writeHead(<span class="number">200</span>,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html'</span>&#125;);</div><div class="line">            <span class="comment">//res.end('&lt;p&gt;Content-Type:'+ req.headers['content-type'] +'&lt;/p&gt;' + '&lt;p&gt;Data:&lt;/p&gt;&lt;pre&gt;' + body + '&lt;/pre&gt;');</span></div><div class="line">            res.end(<span class="string">'&lt;p&gt;Your name is &lt;b&gt;'</span>+ qs.parse(body).name +<span class="string">'&lt;/b&gt;&lt;/p&gt;'</span>);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">        res.writeHead(<span class="number">404</span>);</div><div class="line">        res.end(<span class="string">'Not Found'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;).listen(<span class="number">3000</span>)</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;FS-API的应用&quot;&gt;&lt;a href=&quot;#FS-API的应用&quot; class=&quot;headerlink&quot; title=&quot;FS API的应用&quot;&gt;&lt;/a&gt;FS API的应用&lt;/h2&gt;&lt;p&gt;需求：展示当前目录下列表并给出选择，当选择文件时显示内容，选择目录时，显示该目录下文件信息。
+    
+    </summary>
+    
+      <category term="Node" scheme="http://wwww.yesokiloveyou.com/categories/Node/"/>
+    
+    
+      <category term="Node笔记" scheme="http://wwww.yesokiloveyou.com/tags/Node%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo备份</title>
+    <link href="http://wwww.yesokiloveyou.com/2016/11/12/backups/"/>
+    <id>http://wwww.yesokiloveyou.com/2016/11/12/backups/</id>
+    <published>2016-11-12T13:53:15.000Z</published>
+    <updated>2016-11-22T13:33:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>#新建分支，删除分支命令：git branch -d source<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>#切换到source分支<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
+<p>#add<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add .</div></pre></td></tr></table></figure></p>
+<p>#注意提交操作是在source分支下进行的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m <span class="string">'.'</span></div></pre></td></tr></table></figure></p>
+<p>#正常push即可，要指定分支的名字，需要拉取操作时一样要指定名字，就像git pull origin source<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push -u origin <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
+<p>#若要切换回主分支时，发现新建的文章或source分支开发的内容会不见了，<strong>需要merge一下就出来了</strong>，一直merge保持分支同步是好的，但有时也有点麻烦，例如当你删除一篇文章并提交后，回到主分支发现却还在，此时还需要再次merge删除主分支的，所以建议一直在source目录下进行一切工作就可以了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git merge <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
+<p><strong>先备份的话，部署工作都是在source分支下进行的，也可merge后在主分支下进行，先部署就无所谓了</strong><br>以上是备份source目录同时不影响本地部署的方法，另外一台电脑如何下载使用待续…</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#新建分支，删除分支命令：git branch -d source&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;git branch &lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="备份" scheme="http://wwww.yesokiloveyou.com/tags/%E5%A4%87%E4%BB%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>适配移动端</title>
+    <link href="http://wwww.yesokiloveyou.com/2016/11/12/rem/"/>
+    <id>http://wwww.yesokiloveyou.com/2016/11/12/rem/</id>
+    <published>2016-11-11T18:36:44.000Z</published>
+    <updated>2016-11-22T13:33:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="常见方式"><a href="#常见方式" class="headerlink" title="常见方式"></a>常见方式</h3><p>固定宽度(320)做法，移动端刚兴起时这么做过一段时间，重构倒是爽了，可是大页面两边有留白，小页面图标文字又会缩的很小，用户体验极其不好。<a id="more"></a></p>
+<p>流式布局，其实就是用%，这样宽度倒还好写，高度就麻烦了，所以这种布局一般都是宽度自适应高度写死或者高度也用%，注意高度%是相对于父级宽度来算的，高度写死会显的不协调，高度%比会相对复杂，基本上桌面一直开个计算器是必须的，另外对设计也有很大的限制，复杂点的设计也不易实现。</p>
+<p>响应式布局，说白了就是利用CSS3中的Media Query（媒介查询），不同设备尺寸对应不同的样式，也就是说你要准备多套样式，开始喊的很火，谁用谁知道，简直累死人不要命，个人认为其适用场景更适合局部页面的调整和适配。</p>
+<p>设置viewport进行缩放：以320宽度为基准，进行缩放，最大缩放为320*1.3 = 416，基本缩放到416都就可以兼容iphone6 plus的屏幕了，例如想下面这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=320,maximum-scale=1.3,user-scalable=no"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>利用vh、vw适配：兼容性太差。</p>
+<h3 id="rem是什么"><a href="#rem是什么" class="headerlink" title="rem是什么"></a>rem是什么</h3><p>rem是一个相对根元素html字体大小的单位，所以rem表示的大小是由html的fontSize大小决定的。</p>
+<p>假如我把html的fontSize设置为10px，此时的1rem就等于10px，假如我把html的fontSize设置为100px，此时的1rem就等于100px，这也正是我们能用rem做移动端适配的根本原因，就是通过不同屏幕下改变根元素fontSize的大小，从而让以rem为单位的各种元素自动随着改变。</p>
+<h3 id="适配标准"><a href="#适配标准" class="headerlink" title="适配标准"></a>适配标准</h3><p>通过下面这句话获得<a href="http://www.cnblogs.com/2050/p/3877280.html" target="_blank" rel="external">理想视口</a>（ideal viewport）：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>既然要适配，就要选一个理想视口做基准，然后才能在此基础上等比缩放（这里等比缩放最好不包括文字，后面讲原因），我们一般选择iphone6的375，为什么选它呢？</p>
+<p>因为市场上的Android机五花八门（理想视口宽一般在320-480之间），且没有任何一款的占有率能和iphone相比，选取iphone中的iphone6能更好的向下适配iphone5和向上适配iphone6 plus等，关于各机型的理想视口（ideal viewport）详见<a href="http://viewportsizes.com/" target="_blank" rel="external">VIEWPORT SIZES</a></p>
+<h3 id="设计图"><a href="#设计图" class="headerlink" title="设计图"></a>设计图</h3><p>上面说了我们要以iphone6为基准，那么设计图我们做成多大呢？</p>
+<p>设计图做成750px宽，因为iphone6的物理像素是750（上面我们说的375是它的设备独立像素，又是理想视口），我们要想做到高清就要1个设计像素对应一个物理像素才成，他们之间的关系见下表：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>iPhone6 plus</th>
+<th>iPhone6</th>
+<th>iPhone5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物理像素(physical pixel)</td>
+<td>看公式</td>
+<td>看公式</td>
+<td>看公式</td>
+</tr>
+<tr>
+<td>设备独立像素(density-independent pixel)</td>
+<td>414x736</td>
+<td>375×667</td>
+<td>320x568</td>
+</tr>
+<tr>
+<td>设备像素比(device pixel ratio)</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>设备像素比（dpr），我们可以通过JavaScript获取的办法是：window.devicePixelRatio，用CSS获取的办法是-webkit-device-pixel-ratio，我们可以用-webkit-min-device-pixel-ratio和-webkit-max-device-pixel-ratio进行媒体查询，以达到适配不同dpr的需求。</p>
+<h3 id="用CSS适配"><a href="#用CSS适配" class="headerlink" title="用CSS适配"></a>用CSS适配</h3><p>原理：用媒体查询理想视口（上面我们把width=device-width了，所以查询width即可），不同理想视口设置不同的根元素fontSize。</p>
+<p>一张750的设计稿，假如其根元素为100px（为什么是100px而不是其他的呢？），此时我想表示一个750px*100px的div，我只需要写成：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span>&#123;<span class="attribute">width</span>:<span class="number">7.5rem</span>; <span class="attribute">height</span>:<span class="number">1rem</span>;&#125;</div></pre></td></tr></table></figure>
+<p>那么问题来了，我在iphone6下把根元素字体设为多大才能让这个div等比显示呢？要想等比显示那么他们之间有这样一个关系：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">100px / 750 = iphone6 根元素fontSize / iphone6理想视宽（375）</div></pre></td></tr></table></figure>
+<p>根据上面公式算出iphone6 根元素fontSize = 50px，也就是在iphone6下我们只需要改变根元素fontSize为50px就可以做到等比缩放啦~~</p>
+<p>那么问题又来了，手机那么多，各种机型的理想宽度也数不胜数（其实大多都在320到480之间，上面有说），那么其对应根元素fontSize我该怎么写呢？</p>
+<p>作为一个CSSer，我们最先想到的可能是媒体<strong>断点</strong>查询，例如像下面这样：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">321px</span>) and (max-width:<span class="number">375px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">42px</span>&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">376px</span>) and (max-width:<span class="number">414px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">50px</span>&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">415px</span>) and (max-width:<span class="number">639px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">55px</span>&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">640px</span>) and (max-width:<span class="number">719px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">85px</span>&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">720px</span>) and (max-width:<span class="number">749px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">95</span>x&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">750px</span>) and (max-width:<span class="number">800px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">100px</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的缺点一目了然，就是不够精细嘛，例如415-639理想视宽的手机显示的东西却是一样大，对于像素级要求的我们这怎么能成呢？</p>
+<p>于是乎我用sass把从320到750全部算一遍不就可以啦，就像下面这样：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (max-width: 320px)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123; <span class="attribute">font-size</span>: <span class="number">266.66667%</span>; &#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">for</span> <span class="variable">$i</span> from 320 through 750 &#123;@<span class="keyword">media</span> (width:#&#123;<span class="variable">$i</span>&#125;px)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>: <span class="variable">$i</span>/<span class="number">1.2</span> * <span class="number">1%</span>&#125;&#125;</div><div class="line">&#125;</div><div class="line">@media (min-width: <span class="number">750px</span>)&#123;</div><div class="line">　　html&#123; font-size: <span class="number">625%</span>; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/resources/files/sass-result.css">Sass生成结果（景象过于壮观慎入）</a>，大功告成，这样我们不用JavaScript也能实现和其一样的精细效果了。使用时只需在头部引用这样一个CSS文件即可，假如750上你量出的div大小为width:85px;height:100px;，写的时候只需除以100即可，即width:.85rem;height:1rem;你要嫌除的麻烦sublime中可以装这么一个转换<a href="https://github.com/flashlizi/CSSrem" target="_blank" rel="external">插件</a>。</p>
+<p>这时肯定会有人吐槽性能问题洛，当然这也必定不是好的方式，压缩后的media100px.css大概10几kb的样子，我看了下咱们移动网站的一个普通商品图大概是它的2倍，拿两个东西进行比较是有点不太妥当，具体增加这么些样式会影响多大性能暂未验证。</p>
+<p>之所以在750下把根元素设为100而不是其他，是因为方便计算嘛，1rem等于100px，.2rem就等与20px这样多好算啊，有人会问你丫设为10不一样好算啊，话说一般浏览器显示的最小字号是12px，所以就100啦，当然数学好的你用其他值也是可以的。</p>
+<p>上面用Sass生成的css根元素字体大小我是用%号表示的，就是100px，我写的是625%，有人可能会问你这干嘛多此一举呢，625%不就是100px嘛，有人给出了下面几个理由，我抄下来共大家参考：</p>
+<ul>
+<li>一般设备的默认字体大一定是16px，特别是高分辨率的设备，设置成百分比可以按照设备的基准字体大小给编写的网页设置好最适合用户浏览的字体大小</li>
+<li>这样写是兼容未来趋势的综合考虑，px这个单位的含义已经越来越混乱，几乎无法评估以后的设备是否会像现在这样对网页上的px做兼容处理，但用百分比代表默认字体尺寸基本不会混乱</li>
+</ul>
+<h3 id="用JavaScript适配"><a href="#用JavaScript适配" class="headerlink" title="用JavaScript适配"></a>用JavaScript适配</h3><p>上面直接引用media100px.css的确不是最好的方案，你知道我要说什么啦，那就是用JavaScript适配，其实我们把上面的Sass循环改成用JS写就好了，就像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">!(<span class="function"><span class="keyword">function</span>(<span class="params">doc, win</span>) </span>&#123;</div><div class="line">　　<span class="keyword">var</span> docEle = doc.documentElement,</div><div class="line">　　evt = <span class="string">"onorientationchange"</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">"orientationchange"</span> : <span class="string">"resize"</span>,<span class="comment">//区分Mobile和PC以加载不同的事件</span></div><div class="line">　　fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> width = docEle.clientWidth;</div><div class="line">　　　　<span class="keyword">if</span>( width &lt; <span class="number">320</span> ) &#123;</div><div class="line">　　　　　　docEle.style.fontSize = <span class="number">42.6667</span> + <span class="string">"px"</span>;</div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">else</span> <span class="keyword">if</span>( width &gt; <span class="number">750</span> ) &#123;</div><div class="line">　　　　　　docEle.style.fontSize = <span class="number">100</span> + <span class="string">"px"</span>;</div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">else</span> &#123;</div><div class="line">　　　　　　<span class="comment">//以750设计稿宽度为基准设置fontSize:100px;这样保证iPhone6以下是高清</span></div><div class="line">　　　　　　docEle.style.fontSize = <span class="number">100</span> * (width / <span class="number">750</span>) + <span class="string">"px"</span>;</div><div class="line">　　　　&#125;</div><div class="line">　　&#125;;</div><div class="line">　　win.addEventListener(evt, fn, <span class="literal">false</span>);</div><div class="line">　　<span class="comment">//load事件是在页面所有元素都加载完后触发；</span></div><div class="line">　　<span class="comment">//DOMContentLoaded，它是指dom tree加载完就触发,页面引用的样式表和图像文件可能还没有加载完成</span></div><div class="line">　　doc.addEventListener(<span class="string">"DOMContentLoaded"</span>, fn, <span class="literal">false</span>);</div><div class="line">&#125;(<span class="built_in">document</span>, <span class="built_in">window</span>));</div></pre></td></tr></table></figure>
+<p>在使用的时候你可以单独引用这样一段JS （看上面我又不用%而用px啦，测试（chrome模拟手机测试的）后发现%和px最终形成网页效果并无差别），不使用不引用即可；或者把这段JS放在公共JS文件里，而对于不想使用rem的同学只需覆盖JS设置的样式即可，例如像下面这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">html&#123;font-size:20px!important;&#125;//这里移动端默认字体大小根据情况自己设置</div></pre></td></tr></table></figure>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>文字<strong>最好</strong>不要用rem表示，因为：</p>
+<ul>
+<li>设计师一般希望是文字在移动设备上的显示大小是一样的，也就是我们所说的等比适配（注意是等比适配不包括，不是适配）是不应包括文字的</li>
+<li>我们用rem后文字会很小（虽然这正是等比缩放的结果），当然这也和设计有关（理论上字体需要等比适配的话750px设计图上是不应该有小于24px字体出现的，既然有也说明字体不应该等比适配），例如我在设计图上量取的文字大小是24px，那么其iphone6下的显示大小就是.24rem*50=12px，而设计图上哪些24以下的字体此时也会显示12px（假如最小字体是12的话），这也会有另外一个问题，就是设计图上明明是不同字体大小表示的文案，在手机上显示的大小却是一样的，起不到设计师想要表达的区分或者强调的作用</li>
+<li>网上有说会变模糊之类的，我暂时未发现（暴漏了我依然表示字体用rem表示的…）</li>
+</ul>
+<p>1px和2px不要写成.01rem和.02rem，因为：</p>
+<ul>
+<li>以750适配的方案为例，当理想视口为320时，其对应font-size: 266.66667%; 然后乘以默认字体大小16px，最后为42.6666672px，也就是43px，若写为.01rem或.02rem表示分别对应.42px或.96px，在直接取整的浏览器下是显示不出来的。所以对于1像素边框的就不要写.01rem啦</li>
+</ul>
+<ul>
+<li>当我们写1px时，实际在dpr为2的手机下显示的是2个物理像素，看起来会粗一点，解决方案可以参照淘宝的<a href="https://github.com/amfe/lib-flexible" target="_blank" rel="external">flexible</a>，其原理是根据dpr的不同动态设置initial-scale的值，也可以用CSS中transform的属性值scale缩放来实现。</li>
+</ul>
+<p><strong>注：以上JavaScript适配方案是一种思路或者中心思想，在实际使用中会有其他一些问题需要注意，具体可以参考淘宝的</strong><a href="https://github.com/amfe/lib-flexible" target="_blank" rel="external">flexible解决方法</a><strong>，也是目前我们在使用的。</strong></p>
+<h3 id="相关文章参考"><a href="#相关文章参考" class="headerlink" title="相关文章参考"></a>相关文章参考</h3><p><a href="http://www.cnblogs.com/2050/p/3877280.html" target="_blank" rel="external">移动前端开发之viewport的深入理解</a></p>
+<p><a href="http://div.io/topic/1092" target="_blank" rel="external">移动端高清、多屏适配方案</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;常见方式&quot;&gt;&lt;a href=&quot;#常见方式&quot; class=&quot;headerlink&quot; title=&quot;常见方式&quot;&gt;&lt;/a&gt;常见方式&lt;/h3&gt;&lt;p&gt;固定宽度(320)做法，移动端刚兴起时这么做过一段时间，重构倒是爽了，可是大页面两边有留白，小页面图标文字又会缩的很小，用户体验极其不好。
+    
+    </summary>
+    
+      <category term="HTML/CSS" scheme="http://wwww.yesokiloveyou.com/categories/HTML-CSS/"/>
+    
+    
+      <category term="rem" scheme="http://wwww.yesokiloveyou.com/tags/rem/"/>
+    
+  </entry>
+  
+</feed>

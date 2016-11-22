@@ -1,0 +1,688 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="水手" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/resources/images/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="设置1234git config --global user.name &quot;blackawhite&quot;git config --global user.email &quot;dangpugui@126.com&quot;git config --global user.name    #查看git config --list">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git使用">
+<meta property="og:url" content="http://wwww.yesokiloveyou.com/2016/11/15/git/index.html">
+<meta property="og:site_name" content="水手">
+<meta property="og:description" content="设置1234git config --global user.name &quot;blackawhite&quot;git config --global user.email &quot;dangpugui@126.com&quot;git config --global user.name    #查看git config --list">
+<meta property="og:updated_time" content="2016-11-22T13:33:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git使用">
+<meta name="twitter:description" content="设置1234git config --global user.name &quot;blackawhite&quot;git config --global user.email &quot;dangpugui@126.com&quot;git config --global user.name    #查看git config --list">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6221398885181425000',
+      author: 'k神'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://wwww.yesokiloveyou.com/2016/11/15/git/"/>
+
+
+  <title> Git使用 | 水手 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">水手</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">为之则易，不为则难</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Git使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-15T22:07:50+08:00" content="2016-11-15">
+              2016-11-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/15/git/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/15/git/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git config --global user.name <span class="string">"blackawhite"</span></div><div class="line">git config --global user.email <span class="string">"dangpugui@126.com"</span></div><div class="line">git config --global user.name    <span class="comment">#查看</span></div><div class="line">git config --list</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init    <span class="comment">#使用Git就要先初始化</span></div></pre></td></tr></table></figure>
+<h3 id="三个区"><a href="#三个区" class="headerlink" title="三个区"></a>三个区</h3><p>工作区：就是你当前写东西的目录<br>暂存区：作为过度层、避免误操作、保护工作区和版本区、分支处理<br>版本区：<br>添加、修改、删除，红色代表工作区内容、绿色暂存区，+添加，~修改，-删除，！冲突<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git status查看状态</div></pre></td></tr></table></figure></p>
+<p>添加到暂存区：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add fileName</div><div class="line">git add .</div><div class="line">git add --all   <span class="comment">#git add -A</span></div></pre></td></tr></table></figure></p>
+<p>添加到版本库（版本区）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git commit demo1.html &gt;&gt; 回车 &gt;&gt; 写注释 &gt;&gt;关闭</div><div class="line">git commit -m <span class="string">"change demo1.html"</span></div><div class="line">从工作区直接到版本库</div><div class="line">git commit <span class="_">-a</span> -m <span class="string">"add drag.js"</span>第一次时不能这样使用</div></pre></td></tr></table></figure></p>
+<p>从暂存区撤回到工作区：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset HEAD demo1.html</div></pre></td></tr></table></figure></p>
+<h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span>     <span class="comment">#回车时显示后面的，退出按q键即可</span></div><div class="line">git <span class="built_in">log</span> --pretty=oneline    <span class="comment">#精简版显示</span></div></pre></td></tr></table></figure>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git diff    <span class="comment">#查看修改内容，工作区和暂存区的比较</span></div><div class="line">git diff --cached(--staged)    <span class="comment">#暂存区与版本区的对比</span></div><div class="line">git diff master(分支名字)   <span class="comment">#工作区与版本库</span></div><div class="line">git diff HEAD -- readme.txt</div></pre></td></tr></table></figure>
+<h3 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git reset HEAD &lt;file.name&gt;      <span class="comment">#撤销暂存区的提交/提交，在没有commit的情况下，从新回到未add状态</span></div><div class="line">git checkout -- &lt;file.name&gt;     <span class="comment">#工作区撤销到版本区的状态，例如误删或误改了文件</span></div><div class="line">git commit -m <span class="string">"aa"</span> --amend      <span class="comment">#误提交后和上一个提交的作为一次提交，让两次不同提交变成一次</span></div></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git rm &lt;file.name&gt;      <span class="comment">#在工作区已经删除的情况下删除暂存区</span></div><div class="line">git rm <span class="_">-f</span> &lt;file.name&gt;   <span class="comment">#在工作区一删除或未删除的情况下删除工作区和暂存区，暂存区必须存在</span></div><div class="line">fit rm --cached &lt;file.name&gt;     <span class="comment">#在工作区还在或不在时都能，删除缓存区，而工作区不受影响</span></div></pre></td></tr></table></figure>
+<h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git checkout Id &lt;file.name&gt;     <span class="comment">#恢复指定文件</span></div><div class="line">git reset --hard HEAD^    <span class="comment">#恢复到上一次commit的版本</span></div><div class="line">git reset --hard Id     <span class="comment">#恢复指定版本</span></div><div class="line">git reset --hard HEAD^      <span class="comment">#往下恢复后之前的log就没有了通过git reglog</span></div><div class="line">git reset --hard HEAD~num</div></pre></td></tr></table></figure>
+<h3 id="同步Github"><a href="#同步Github" class="headerlink" title="同步Github"></a>同步Github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git remote      <span class="comment">#查看远程仓库名字</span></div><div class="line">git remote -v   <span class="comment">#对应远程仓库地址</span></div><div class="line">ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span>    <span class="comment">#创建SSH</span></div><div class="line">git remote rm origin&lt;主机名&gt;     <span class="comment">#删除远程仓库</span></div><div class="line">git remote add origin git@...   <span class="comment">#添加远程仓库</span></div><div class="line">git push origin(远端名字) master(分支名字)      <span class="comment">#推送</span></div></pre></td></tr></table></figure>
+<h3 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> url</div></pre></td></tr></table></figure>
+<h3 id="拉取"><a href="#拉取" class="headerlink" title="拉取"></a>拉取</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git pull    <span class="comment">#直接合并</span></div><div class="line">git fetch     <span class="comment">#手动合并，手动解决</span></div><div class="line">git diff master origin/master   <span class="comment">#查看区别</span></div><div class="line">git merge origin/master</div></pre></td></tr></table></figure>
+<h3 id="参与开源项目"><a href="#参与开源项目" class="headerlink" title="参与开源项目"></a>参与开源项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Fork 开了一个新的分支，克隆了一个版本</div><div class="line">　　&gt;&gt;命令行克隆自己fork过来的，然后修改并提交</div><div class="line">　　&gt;&gt;Pull request</div><div class="line">　　&gt;&gt;New pull request</div><div class="line">　　&gt;&gt;Create pull request</div><div class="line">对方：</div><div class="line">　　&gt;&gt;Merge pull request</div><div class="line">　　&gt;&gt;confirm</div><div class="line">　　回复技巧：选中对方信息，按R键</div></pre></td></tr></table></figure>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>稳定版本库的分支 &gt;&gt; 开发  &gt;&gt;  合并到稳定的版本，master 一般默认为项目的主分支，不同的开发人员在不同的分支上进行开发互相不影响。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">git branch  <span class="comment">#查看当前分支</span></div><div class="line">git branch new1     <span class="comment">#创建分支，github上也可直接创建</span></div><div class="line">git checkout new1   <span class="comment">#切换分支</span></div><div class="line">git checkout -b new2    <span class="comment">#创建并切换</span></div><div class="line">git merge new1      <span class="comment">#合并分支，合并分支先切换到master</span></div><div class="line">git branch --merged     <span class="comment">#查看当前分支所合并的分支</span></div><div class="line">git branch --no-merged  <span class="comment">#查看与当前分支未合并的分支</span></div><div class="line">git branch <span class="_">-d</span> new1      <span class="comment">#删除合并后的没用的new1分支</span></div><div class="line">git branch -D new2      <span class="comment">#删除没有合并的分支</span></div><div class="line">git status      <span class="comment">#查看冲突的文件，人工解决合并文件的冲突后然后再提交</span></div></pre></td></tr></table></figure>
+<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git tag		<span class="comment">#查看</span></div><div class="line">git tag v1.0 	<span class="comment">#打标签，也可github上直接创建</span></div><div class="line">git push origin v1.0 	<span class="comment">#提交打的标签/版本</span></div></pre></td></tr></table></figure>
+<h3 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://git.oschina.net/progit/</div><div class="line">http://www.liaoxuefeng.com/</div><div class="line">https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5</div></pre></td></tr></table></figure>
+<h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ls  <span class="comment">#查看目录结构</span></div><div class="line">mkdir   <span class="comment">#创建</span></div><div class="line">tab     <span class="comment">#自动补全</span></div><div class="line">git config --global alias.co checkout   <span class="comment">#co等于checkout，设置别名</span></div><div class="line">git config --list   <span class="comment">#查看别名</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag">#Git</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/13/note-nodejs/" rel="next" title="Node读书笔记">
+                <i class="fa fa-chevron-left"></i> Node读书笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/21/example/" rel="prev" title="Demo练习">
+                Demo练习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/15/git/"
+           data-title="Git使用" data-url="http://wwww.yesokiloveyou.com/2016/11/15/git/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/yangk.png"
+               alt="yangk" />
+          <p class="site-author-name" itemprop="name">yangk</p>
+          <p class="site-description motion-element" itemprop="description">为之则易，不为则难</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://f2er.club/" target="_blank" title="前端资源">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  前端资源
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置"><span class="nav-text">设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三个区"><span class="nav-text">三个区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看提交历史"><span class="nav-text">查看提交历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对比"><span class="nav-text">对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撤销"><span class="nav-text">撤销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-text">删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复"><span class="nav-text">恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步Github"><span class="nav-text">同步Github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆"><span class="nav-text">克隆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉取"><span class="nav-text">拉取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参与开源项目"><span class="nav-text">参与开源项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支"><span class="nav-text">分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签"><span class="nav-text">标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进阶"><span class="nav-text">进阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技巧"><span class="nav-text">技巧</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.11.11 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangk</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yangk"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

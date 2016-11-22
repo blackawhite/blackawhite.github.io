@@ -1,0 +1,747 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="rem," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="水手" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/resources/images/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="常见方式固定宽度(320)做法，移动端刚兴起时这么做过一段时间，重构倒是爽了，可是大页面两边有留白，小页面图标文字又会缩的很小，用户体验极其不好。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="适配移动端">
+<meta property="og:url" content="http://wwww.yesokiloveyou.com/2016/11/12/rem/index.html">
+<meta property="og:site_name" content="水手">
+<meta property="og:description" content="常见方式固定宽度(320)做法，移动端刚兴起时这么做过一段时间，重构倒是爽了，可是大页面两边有留白，小页面图标文字又会缩的很小，用户体验极其不好。">
+<meta property="og:updated_time" content="2016-11-22T13:33:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="适配移动端">
+<meta name="twitter:description" content="常见方式固定宽度(320)做法，移动端刚兴起时这么做过一段时间，重构倒是爽了，可是大页面两边有留白，小页面图标文字又会缩的很小，用户体验极其不好。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6221398885181425000',
+      author: 'k神'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://wwww.yesokiloveyou.com/2016/11/12/rem/"/>
+
+
+  <title> 适配移动端 | 水手 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">水手</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">为之则易，不为则难</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                适配移动端
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-12T02:36:44+08:00" content="2016-11-12">
+              2016-11-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/HTML-CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML/CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/12/rem/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/12/rem/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="常见方式"><a href="#常见方式" class="headerlink" title="常见方式"></a>常见方式</h3><p>固定宽度(320)做法，移动端刚兴起时这么做过一段时间，重构倒是爽了，可是大页面两边有留白，小页面图标文字又会缩的很小，用户体验极其不好。<a id="more"></a></p>
+<p>流式布局，其实就是用%，这样宽度倒还好写，高度就麻烦了，所以这种布局一般都是宽度自适应高度写死或者高度也用%，注意高度%是相对于父级宽度来算的，高度写死会显的不协调，高度%比会相对复杂，基本上桌面一直开个计算器是必须的，另外对设计也有很大的限制，复杂点的设计也不易实现。</p>
+<p>响应式布局，说白了就是利用CSS3中的Media Query（媒介查询），不同设备尺寸对应不同的样式，也就是说你要准备多套样式，开始喊的很火，谁用谁知道，简直累死人不要命，个人认为其适用场景更适合局部页面的调整和适配。</p>
+<p>设置viewport进行缩放：以320宽度为基准，进行缩放，最大缩放为320*1.3 = 416，基本缩放到416都就可以兼容iphone6 plus的屏幕了，例如想下面这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=320,maximum-scale=1.3,user-scalable=no"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>利用vh、vw适配：兼容性太差。</p>
+<h3 id="rem是什么"><a href="#rem是什么" class="headerlink" title="rem是什么"></a>rem是什么</h3><p>rem是一个相对根元素html字体大小的单位，所以rem表示的大小是由html的fontSize大小决定的。</p>
+<p>假如我把html的fontSize设置为10px，此时的1rem就等于10px，假如我把html的fontSize设置为100px，此时的1rem就等于100px，这也正是我们能用rem做移动端适配的根本原因，就是通过不同屏幕下改变根元素fontSize的大小，从而让以rem为单位的各种元素自动随着改变。</p>
+<h3 id="适配标准"><a href="#适配标准" class="headerlink" title="适配标准"></a>适配标准</h3><p>通过下面这句话获得<a href="http://www.cnblogs.com/2050/p/3877280.html" target="_blank" rel="external">理想视口</a>（ideal viewport）：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>既然要适配，就要选一个理想视口做基准，然后才能在此基础上等比缩放（这里等比缩放最好不包括文字，后面讲原因），我们一般选择iphone6的375，为什么选它呢？</p>
+<p>因为市场上的Android机五花八门（理想视口宽一般在320-480之间），且没有任何一款的占有率能和iphone相比，选取iphone中的iphone6能更好的向下适配iphone5和向上适配iphone6 plus等，关于各机型的理想视口（ideal viewport）详见<a href="http://viewportsizes.com/" target="_blank" rel="external">VIEWPORT SIZES</a></p>
+<h3 id="设计图"><a href="#设计图" class="headerlink" title="设计图"></a>设计图</h3><p>上面说了我们要以iphone6为基准，那么设计图我们做成多大呢？</p>
+<p>设计图做成750px宽，因为iphone6的物理像素是750（上面我们说的375是它的设备独立像素，又是理想视口），我们要想做到高清就要1个设计像素对应一个物理像素才成，他们之间的关系见下表：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>iPhone6 plus</th>
+<th>iPhone6</th>
+<th>iPhone5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物理像素(physical pixel)</td>
+<td>看公式</td>
+<td>看公式</td>
+<td>看公式</td>
+</tr>
+<tr>
+<td>设备独立像素(density-independent pixel)</td>
+<td>414x736</td>
+<td>375×667</td>
+<td>320x568</td>
+</tr>
+<tr>
+<td>设备像素比(device pixel ratio)</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>设备像素比（dpr），我们可以通过JavaScript获取的办法是：window.devicePixelRatio，用CSS获取的办法是-webkit-device-pixel-ratio，我们可以用-webkit-min-device-pixel-ratio和-webkit-max-device-pixel-ratio进行媒体查询，以达到适配不同dpr的需求。</p>
+<h3 id="用CSS适配"><a href="#用CSS适配" class="headerlink" title="用CSS适配"></a>用CSS适配</h3><p>原理：用媒体查询理想视口（上面我们把width=device-width了，所以查询width即可），不同理想视口设置不同的根元素fontSize。</p>
+<p>一张750的设计稿，假如其根元素为100px（为什么是100px而不是其他的呢？），此时我想表示一个750px*100px的div，我只需要写成：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span>&#123;<span class="attribute">width</span>:<span class="number">7.5rem</span>; <span class="attribute">height</span>:<span class="number">1rem</span>;&#125;</div></pre></td></tr></table></figure>
+<p>那么问题来了，我在iphone6下把根元素字体设为多大才能让这个div等比显示呢？要想等比显示那么他们之间有这样一个关系：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">100px / 750 = iphone6 根元素fontSize / iphone6理想视宽（375）</div></pre></td></tr></table></figure>
+<p>根据上面公式算出iphone6 根元素fontSize = 50px，也就是在iphone6下我们只需要改变根元素fontSize为50px就可以做到等比缩放啦~~</p>
+<p>那么问题又来了，手机那么多，各种机型的理想宽度也数不胜数（其实大多都在320到480之间，上面有说），那么其对应根元素fontSize我该怎么写呢？</p>
+<p>作为一个CSSer，我们最先想到的可能是媒体<strong>断点</strong>查询，例如像下面这样：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">321px</span>) and (max-width:<span class="number">375px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">42px</span>&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">376px</span>) and (max-width:<span class="number">414px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">50px</span>&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">415px</span>) and (max-width:<span class="number">639px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">55px</span>&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">640px</span>) and (max-width:<span class="number">719px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">85px</span>&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">720px</span>) and (max-width:<span class="number">749px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">95</span>x&#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">750px</span>) and (max-width:<span class="number">800px</span>)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">100px</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的缺点一目了然，就是不够精细嘛，例如415-639理想视宽的手机显示的东西却是一样大，对于像素级要求的我们这怎么能成呢？</p>
+<p>于是乎我用sass把从320到750全部算一遍不就可以啦，就像下面这样：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (max-width: 320px)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123; <span class="attribute">font-size</span>: <span class="number">266.66667%</span>; &#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">for</span> <span class="variable">$i</span> from 320 through 750 &#123;@<span class="keyword">media</span> (width:#&#123;<span class="variable">$i</span>&#125;px)&#123;</div><div class="line">　　<span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>: <span class="variable">$i</span>/<span class="number">1.2</span> * <span class="number">1%</span>&#125;&#125;</div><div class="line">&#125;</div><div class="line">@media (min-width: <span class="number">750px</span>)&#123;</div><div class="line">　　html&#123; font-size: <span class="number">625%</span>; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/resources/files/sass-result.css">Sass生成结果（景象过于壮观慎入）</a>，大功告成，这样我们不用JavaScript也能实现和其一样的精细效果了。使用时只需在头部引用这样一个CSS文件即可，假如750上你量出的div大小为width:85px;height:100px;，写的时候只需除以100即可，即width:.85rem;height:1rem;你要嫌除的麻烦sublime中可以装这么一个转换<a href="https://github.com/flashlizi/CSSrem" target="_blank" rel="external">插件</a>。</p>
+<p>这时肯定会有人吐槽性能问题洛，当然这也必定不是好的方式，压缩后的media100px.css大概10几kb的样子，我看了下咱们移动网站的一个普通商品图大概是它的2倍，拿两个东西进行比较是有点不太妥当，具体增加这么些样式会影响多大性能暂未验证。</p>
+<p>之所以在750下把根元素设为100而不是其他，是因为方便计算嘛，1rem等于100px，.2rem就等与20px这样多好算啊，有人会问你丫设为10不一样好算啊，话说一般浏览器显示的最小字号是12px，所以就100啦，当然数学好的你用其他值也是可以的。</p>
+<p>上面用Sass生成的css根元素字体大小我是用%号表示的，就是100px，我写的是625%，有人可能会问你这干嘛多此一举呢，625%不就是100px嘛，有人给出了下面几个理由，我抄下来共大家参考：</p>
+<ul>
+<li>一般设备的默认字体大一定是16px，特别是高分辨率的设备，设置成百分比可以按照设备的基准字体大小给编写的网页设置好最适合用户浏览的字体大小</li>
+<li>这样写是兼容未来趋势的综合考虑，px这个单位的含义已经越来越混乱，几乎无法评估以后的设备是否会像现在这样对网页上的px做兼容处理，但用百分比代表默认字体尺寸基本不会混乱</li>
+</ul>
+<h3 id="用JavaScript适配"><a href="#用JavaScript适配" class="headerlink" title="用JavaScript适配"></a>用JavaScript适配</h3><p>上面直接引用media100px.css的确不是最好的方案，你知道我要说什么啦，那就是用JavaScript适配，其实我们把上面的Sass循环改成用JS写就好了，就像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">!(<span class="function"><span class="keyword">function</span>(<span class="params">doc, win</span>) </span>&#123;</div><div class="line">　　<span class="keyword">var</span> docEle = doc.documentElement,</div><div class="line">　　evt = <span class="string">"onorientationchange"</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">"orientationchange"</span> : <span class="string">"resize"</span>,<span class="comment">//区分Mobile和PC以加载不同的事件</span></div><div class="line">　　fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> width = docEle.clientWidth;</div><div class="line">　　　　<span class="keyword">if</span>( width &lt; <span class="number">320</span> ) &#123;</div><div class="line">　　　　　　docEle.style.fontSize = <span class="number">42.6667</span> + <span class="string">"px"</span>;</div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">else</span> <span class="keyword">if</span>( width &gt; <span class="number">750</span> ) &#123;</div><div class="line">　　　　　　docEle.style.fontSize = <span class="number">100</span> + <span class="string">"px"</span>;</div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">else</span> &#123;</div><div class="line">　　　　　　<span class="comment">//以750设计稿宽度为基准设置fontSize:100px;这样保证iPhone6以下是高清</span></div><div class="line">　　　　　　docEle.style.fontSize = <span class="number">100</span> * (width / <span class="number">750</span>) + <span class="string">"px"</span>;</div><div class="line">　　　　&#125;</div><div class="line">　　&#125;;</div><div class="line">　　win.addEventListener(evt, fn, <span class="literal">false</span>);</div><div class="line">　　<span class="comment">//load事件是在页面所有元素都加载完后触发；</span></div><div class="line">　　<span class="comment">//DOMContentLoaded，它是指dom tree加载完就触发,页面引用的样式表和图像文件可能还没有加载完成</span></div><div class="line">　　doc.addEventListener(<span class="string">"DOMContentLoaded"</span>, fn, <span class="literal">false</span>);</div><div class="line">&#125;(<span class="built_in">document</span>, <span class="built_in">window</span>));</div></pre></td></tr></table></figure>
+<p>在使用的时候你可以单独引用这样一段JS （看上面我又不用%而用px啦，测试（chrome模拟手机测试的）后发现%和px最终形成网页效果并无差别），不使用不引用即可；或者把这段JS放在公共JS文件里，而对于不想使用rem的同学只需覆盖JS设置的样式即可，例如像下面这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">html&#123;font-size:20px!important;&#125;//这里移动端默认字体大小根据情况自己设置</div></pre></td></tr></table></figure>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>文字<strong>最好</strong>不要用rem表示，因为：</p>
+<ul>
+<li>设计师一般希望是文字在移动设备上的显示大小是一样的，也就是我们所说的等比适配（注意是等比适配不包括，不是适配）是不应包括文字的</li>
+<li>我们用rem后文字会很小（虽然这正是等比缩放的结果），当然这也和设计有关（理论上字体需要等比适配的话750px设计图上是不应该有小于24px字体出现的，既然有也说明字体不应该等比适配），例如我在设计图上量取的文字大小是24px，那么其iphone6下的显示大小就是.24rem*50=12px，而设计图上哪些24以下的字体此时也会显示12px（假如最小字体是12的话），这也会有另外一个问题，就是设计图上明明是不同字体大小表示的文案，在手机上显示的大小却是一样的，起不到设计师想要表达的区分或者强调的作用</li>
+<li>网上有说会变模糊之类的，我暂时未发现（暴漏了我依然表示字体用rem表示的…）</li>
+</ul>
+<p>1px和2px不要写成.01rem和.02rem，因为：</p>
+<ul>
+<li>以750适配的方案为例，当理想视口为320时，其对应font-size: 266.66667%; 然后乘以默认字体大小16px，最后为42.6666672px，也就是43px，若写为.01rem或.02rem表示分别对应.42px或.96px，在直接取整的浏览器下是显示不出来的。所以对于1像素边框的就不要写.01rem啦</li>
+</ul>
+<ul>
+<li>当我们写1px时，实际在dpr为2的手机下显示的是2个物理像素，看起来会粗一点，解决方案可以参照淘宝的<a href="https://github.com/amfe/lib-flexible" target="_blank" rel="external">flexible</a>，其原理是根据dpr的不同动态设置initial-scale的值，也可以用CSS中transform的属性值scale缩放来实现。</li>
+</ul>
+<p><strong>注：以上JavaScript适配方案是一种思路或者中心思想，在实际使用中会有其他一些问题需要注意，具体可以参考淘宝的</strong><a href="https://github.com/amfe/lib-flexible" target="_blank" rel="external">flexible解决方法</a><strong>，也是目前我们在使用的。</strong></p>
+<h3 id="相关文章参考"><a href="#相关文章参考" class="headerlink" title="相关文章参考"></a>相关文章参考</h3><p><a href="http://www.cnblogs.com/2050/p/3877280.html" target="_blank" rel="external">移动前端开发之viewport的深入理解</a></p>
+<p><a href="http://div.io/topic/1092" target="_blank" rel="external">移动端高清、多屏适配方案</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rem/" rel="tag">#rem</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/12/backups/" rel="prev" title="Hexo备份">
+                Hexo备份 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/12/rem/"
+           data-title="适配移动端" data-url="http://wwww.yesokiloveyou.com/2016/11/12/rem/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/yangk.png"
+               alt="yangk" />
+          <p class="site-author-name" itemprop="name">yangk</p>
+          <p class="site-description motion-element" itemprop="description">为之则易，不为则难</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://f2er.club/" target="_blank" title="前端资源">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  前端资源
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见方式"><span class="nav-text">常见方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rem是什么"><span class="nav-text">rem是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#适配标准"><span class="nav-text">适配标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计图"><span class="nav-text">设计图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用CSS适配"><span class="nav-text">用CSS适配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用JavaScript适配"><span class="nav-text">用JavaScript适配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关文章参考"><span class="nav-text">相关文章参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.11.11 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangk</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yangk"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
