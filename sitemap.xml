@@ -2,28 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://wwww.yesokiloveyou.com/2016/11/23/note-react/</loc>
+    
+    <lastmod>2016-11-23T14:54:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wwww.yesokiloveyou.com/resources/js/tween.js</loc>
+    
+    <lastmod>2016-11-23T12:31:41.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wwww.yesokiloveyou.com/2016/11/22/demo/</loc>
     
-    <lastmod>2016-11-22T14:57:25.000Z</lastmod>
+    <lastmod>2016-11-23T12:31:41.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://wwww.yesokiloveyou.com/resources/demo/index.html</loc>
     
-    <lastmod>2016-11-22T14:51:18.000Z</lastmod>
+    <lastmod>2016-11-23T12:31:41.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/categories/index.html</loc>
-    
-    <lastmod>2016-11-22T13:33:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wwww.yesokiloveyou.com/2016/11/13/note-nodejs/</loc>
+    <loc>http://wwww.yesokiloveyou.com/2016/11/12/backups/</loc>
     
     <lastmod>2016-11-22T13:33:30.000Z</lastmod>
     
@@ -44,7 +51,7 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/about/index.html</loc>
+    <loc>http://wwww.yesokiloveyou.com/categories/index.html</loc>
     
     <lastmod>2016-11-22T13:33:30.000Z</lastmod>
     
@@ -58,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/2016/11/12/backups/</loc>
+    <loc>http://wwww.yesokiloveyou.com/2016/11/13/note-nodejs/</loc>
     
     <lastmod>2016-11-22T13:33:30.000Z</lastmod>
     
@@ -72,9 +79,9 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/js/tween.js</loc>
+    <loc>http://wwww.yesokiloveyou.com/about/index.html</loc>
     
-    <lastmod>2015-06-14T11:30:11.000Z</lastmod>
+    <lastmod>2016-11-22T13:33:30.000Z</lastmod>
     
   </url>
   
