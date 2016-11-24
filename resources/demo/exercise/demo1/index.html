@@ -86,15 +86,61 @@
 
 
 
-<meta name="description" content="为之则易，不为则难">
+<meta name="description" content=".content-wrap{
+	padding-top: 0;
+}
+#ul1 *{
+	margin: 0;
+	padding: 0;
+}
+#ul1{
+	width: 200px;
+	margin: 50px auto;
+}
+#ul1 li{
+	position: relative;
+	height: 30px;
+	overflow: hidden;
+	border-bottom: 1px das">
 <meta property="og:type" content="website">
 <meta property="og:title" content="水手">
-<meta property="og:url" content="http://wwww.yesokiloveyou.com/tags/Node笔记/index.html">
+<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo1/index.html">
 <meta property="og:site_name" content="水手">
-<meta property="og:description" content="为之则易，不为则难">
+<meta property="og:description" content=".content-wrap{
+	padding-top: 0;
+}
+#ul1 *{
+	margin: 0;
+	padding: 0;
+}
+#ul1{
+	width: 200px;
+	margin: 50px auto;
+}
+#ul1 li{
+	position: relative;
+	height: 30px;
+	overflow: hidden;
+	border-bottom: 1px das">
+<meta property="og:updated_time" content="2016-11-24T14:38:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="水手">
-<meta name="twitter:description" content="为之则易，不为则难">
+<meta name="twitter:description" content=".content-wrap{
+	padding-top: 0;
+}
+#ul1 *{
+	margin: 0;
+	padding: 0;
+}
+#ul1{
+	width: 200px;
+	margin: 50px auto;
+}
+#ul1 li{
+	position: relative;
+	height: 30px;
+	overflow: hidden;
+	border-bottom: 1px das">
 
 
 
@@ -115,10 +161,16 @@
 
 
 
-  <link rel="canonical" href="http://wwww.yesokiloveyou.com/tags/Node笔记/"/>
+  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo1/"/>
 
 
-  <title> 标签: Node笔记 | 水手 </title>
+  <title>
+  
+
+  
+     | 水手
+  
+</title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -237,46 +289,105 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Node笔记
-        <small>标签</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
+    
+      <style>
+.content-wrap{
+	padding-top: 0;
+}
+#ul1 *{
+	margin: 0;
+	padding: 0;
+}
+#ul1{
+	width: 200px;
+	margin: 50px auto;
+}
+#ul1 li{
+	position: relative;
+	height: 30px;
+	overflow: hidden;
+	border-bottom: 1px dashed #333;
+	box-sizing: border-box;
+}
+#ul1 div{
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-left: 20px;
+	line-height: 30px;
+}
+</style>
+<script src="./js/move.js"></script>
+<script>
+window.onload = function(){
+	var oUl = document.querySelector("#ul1");
+	var aDiv = oUl.getElementsByTagName("div");
+	var timer = null;
+	var num = 0;
+	var oBar = true;
+	setInterval(function(){
+		start();
+	},4000);
 
-  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
-    <header class="post-header">
+	function start(){
+		clearInterval(timer);
+		timer = setInterval(function(){
+			if(num == aDiv.length){
+				clearInterval(timer);
+				num = 0;
+				oBar = !oBar
+			}
+			else if(oBar){
+				num ++;
+				startMove(aDiv[num-1],{top: -30});
+			}
+			else if(!oBar){
+				num ++;
+				startMove(aDiv[num-1],{top: 0});
+			}
+		},100);
+	}
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/11/13/note-nodejs/" itemprop="url">
-              
-                <span itemprop="name">Node读书笔记</span>
-              
-            </a>
-        
-      </h1>
+};
+</script>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-11-13T18:11:26+08:00"
-              content="2016-11-13" >
-          11-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<ul id="ul1">
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+</ul>
 
     
   </div>
-
-  
 
 
           </div>
