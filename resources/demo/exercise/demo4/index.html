@@ -86,58 +86,61 @@
 
 
 
-<meta name="description" content="#ul1 *{
-	margin: 0;
-	padding: 0;
-}
-#ul1{
-	width: 200px;
+<meta name="description" content=".wrap{
+	width: 520px;
+	height: 520px;
 	margin: 0 auto;
-}
-#ul1 li{
 	position: relative;
-	height: 30px;
-	overflow: hidden;
-	border-bottom: 1px dashed #333;
-	box-sizing: border-box;
-}">
+}
+.wrap div{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	transition: .5s;
+	opacity: 0.1;
+}
+
+
+window.onload = functio">
 <meta property="og:type" content="website">
 <meta property="og:title" content="水手">
-<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo1/index.html">
+<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo4/index.html">
 <meta property="og:site_name" content="水手">
-<meta property="og:description" content="#ul1 *{
-	margin: 0;
-	padding: 0;
-}
-#ul1{
-	width: 200px;
+<meta property="og:description" content=".wrap{
+	width: 520px;
+	height: 520px;
 	margin: 0 auto;
-}
-#ul1 li{
 	position: relative;
-	height: 30px;
-	overflow: hidden;
-	border-bottom: 1px dashed #333;
-	box-sizing: border-box;
-}">
+}
+.wrap div{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	transition: .5s;
+	opacity: 0.1;
+}
+
+
+window.onload = functio">
 <meta property="og:updated_time" content="2016-11-24T18:36:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="水手">
-<meta name="twitter:description" content="#ul1 *{
-	margin: 0;
-	padding: 0;
-}
-#ul1{
-	width: 200px;
+<meta name="twitter:description" content=".wrap{
+	width: 520px;
+	height: 520px;
 	margin: 0 auto;
-}
-#ul1 li{
 	position: relative;
-	height: 30px;
-	overflow: hidden;
-	border-bottom: 1px dashed #333;
-	box-sizing: border-box;
-}">
+}
+.wrap div{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	transition: .5s;
+	opacity: 0.1;
+}
+
+
+window.onload = functio">
 
 
 
@@ -158,7 +161,7 @@
 
 
 
-  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo1/"/>
+  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo4/"/>
 
 
   <title>
@@ -290,95 +293,50 @@
     
     
       <style>
-#ul1 *{
-	margin: 0;
-	padding: 0;
-}
-#ul1{
-	width: 200px;
+.wrap{
+	width: 520px;
+	height: 520px;
 	margin: 0 auto;
-}
-#ul1 li{
 	position: relative;
-	height: 30px;
-	overflow: hidden;
-	border-bottom: 1px dashed #333;
-	box-sizing: border-box;
 }
-#ul1 div{
+.wrap div{
+	width: 50px;
+	height: 50px;
 	position: absolute;
-	top: 0;
-	left: 0;
-	padding-left: 20px;
-	line-height: 30px;
+	transition: .5s;
+	opacity: 0.1;
 }
 </style>
-<script src="./js/move.js"></script>
 <script>
 window.onload = function(){
-	var oUl = document.querySelector("#ul1");
-	var aDiv = oUl.getElementsByTagName("div");
-	var timer = null;
-	var num = 0;
-	var oBar = true;
-	setInterval(function(){
-		start();
-	},4000);
+	var oDiv = document.createElement("div");
+	oDiv.className = "wrap";
+	document.querySelector("#wrap").appendChild(oDiv);
 
-	function start(){
-		clearInterval(timer);//要是点击事件出发start()必须要先清楚，防止连续多次点击
-		timer = setInterval(function(){
-			if(num == aDiv.length){
-				clearInterval(timer);
-				num = 0;
-				oBar = !oBar
-			}
-			else if(oBar){
-				num ++;
-				startMove(aDiv[num-1],{top: -30});
-			}
-			else if(!oBar){
-				num ++;
-				startMove(aDiv[num-1],{top: 0});
-			}
-		},100);
+	var str = "";
+	var strDiv = "";
+	var top = 0;
+	var left = 0;
+	for(var i = 0;i < 100;i ++){
+		top = parseInt(i / 10) * 52;
+		left = (i % 10) * 52;
+
+		strDiv = '<div style="top:'+ top +'px; left:'+ left +'px; background: url(./images/a.png) no-repeat '+ - left +'px '+ - top +'px;"></div>';
+
+		str += strDiv;
 	}
+	oDiv.innerHTML = str;
 
+	var aDiv = document.querySelectorAll(".wrap div");
+
+	for(var i = 0;i < aDiv.length;i ++){
+		aDiv[i].onmouseover = function(){
+			this.style.opacity = 1;
+		};
+	}
 };
 </script>
-
-<ul id="ul1">
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-</ul>
+<div id="wrap"></div>
 
     
   </div>

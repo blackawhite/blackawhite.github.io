@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wwww.yesokiloveyou.com/"/>
-  <updated>2016-11-24T13:34:13.000Z</updated>
+  <updated>2016-11-24T15:18:04.000Z</updated>
   <id>http://wwww.yesokiloveyou.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://wwww.yesokiloveyou.com/2016/11/23/note-react/"/>
     <id>http://wwww.yesokiloveyou.com/2016/11/23/note-react/</id>
     <published>2016-11-23T13:29:01.000Z</published>
-    <updated>2016-11-24T13:34:13.000Z</updated>
+    <updated>2016-11-24T15:18:04.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="第一个React程序"><a href="#第一个React程序" class="headerlink" title="第一个React程序"></a>第一个React程序</h3><a id="more"></a>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- React 核心库 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"react.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- React DOM 库 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Babel 编译器，将 JSX 变成 JavaScript --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"browser.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> destination = <span class="built_in">document</span>.querySelector(<span class="string">"#container"</span>);</div><div class="line">    ReactDOM.render(</div><div class="line">        <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>,</div><div class="line">        destination</div><div class="line">    );</div><div class="line">    <span class="comment">/*ReactDOM.render(React.createElement(</span></div><div class="line">        "h1",</div><div class="line">        null,</div><div class="line">        "Hello World"</div><div class="line">    ), destination);*/</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -149,21 +149,23 @@
     <link href="http://wwww.yesokiloveyou.com/2016/11/12/backups/"/>
     <id>http://wwww.yesokiloveyou.com/2016/11/12/backups/</id>
     <published>2016-11-12T13:53:15.000Z</published>
-    <updated>2016-11-22T13:33:30.000Z</updated>
+    <updated>2016-11-24T18:36:20.000Z</updated>
     
-    <content type="html"><![CDATA[<p>#新建分支，删除分支命令：git branch -d source<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
+    <content type="html"><![CDATA[<p>Hexo源文件一定一定要备份，同时实现多台电脑同步写作的目的，下面是我的方法：</p>
+<p>#新建分支，删除分支命令：git branch -d source<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>#切换到source分支<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
 <p>#add<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add .</div></pre></td></tr></table></figure></p>
 <p>#注意提交操作是在source分支下进行的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m <span class="string">'.'</span></div></pre></td></tr></table></figure></p>
 <p>#正常push即可，要指定分支的名字，需要拉取操作时一样要指定名字，就像git pull origin source<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push -u origin <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
 <p>#若要切换回主分支时，发现新建的文章或source分支开发的内容会不见了，<strong>需要merge一下就出来了</strong>，一直merge保持分支同步是好的，但有时也有点麻烦，例如当你删除一篇文章并提交后，回到主分支发现却还在，此时还需要再次merge删除主分支的，所以建议一直在source目录下进行一切工作就可以了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git merge <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
-<p><strong>先备份的话，部署工作都是在source分支下进行的，也可merge后在主分支下进行，先部署就无所谓了</strong><br>以上是备份source目录同时不影响本地部署的方法，另外一台电脑如何下载使用待续…</p>
+<p>以上是备份source目录同时不影响本地部署的方法，然后切换另外一台电脑时只需：<br>1、 全局安装hexo-cli<br>2、 连接Git远程仓库<br>3、 拉取source资源：git pull origin source<br>4、 安装依赖包：cnpm install<br><strong>此时两台电脑上的内容就完全一样了，备份的方法同上。</strong></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;#新建分支，删除分支命令：git branch -d source&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;git branch &lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+      &lt;p&gt;Hexo源文件一定一定要备份，同时实现多台电脑同步写作的目的，下面是我的方法：&lt;/p&gt;
+&lt;p&gt;#新建分支，删除分支命令：git branch -d source&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;git branch &lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
     
     </summary>
     

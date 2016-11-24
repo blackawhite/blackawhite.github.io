@@ -86,58 +86,52 @@
 
 
 
-<meta name="description" content="#ul1 *{
-	margin: 0;
-	padding: 0;
+<meta name="description" content="#weibo div,#weibo p,#weibo textarea,#weibo a{
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	font-family:&quot;微软雅黑&quot;;
+	font-size:12px;
+	color:black;
 }
-#ul1{
-	width: 200px;
-	margin: 0 auto;
-}
-#ul1 li{
-	position: relative;
-	height: 30px;
-	overflow: hidden;
-	border-bottom: 1px dashed #333;
-	box-sizing: border-box;
-}">
+
+#wrap{
+	width:398px;
+	height:298px;
+	border:1px soli">
 <meta property="og:type" content="website">
 <meta property="og:title" content="水手">
-<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo1/index.html">
+<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo5/index.html">
 <meta property="og:site_name" content="水手">
-<meta property="og:description" content="#ul1 *{
-	margin: 0;
-	padding: 0;
+<meta property="og:description" content="#weibo div,#weibo p,#weibo textarea,#weibo a{
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	font-family:&quot;微软雅黑&quot;;
+	font-size:12px;
+	color:black;
 }
-#ul1{
-	width: 200px;
-	margin: 0 auto;
-}
-#ul1 li{
-	position: relative;
-	height: 30px;
-	overflow: hidden;
-	border-bottom: 1px dashed #333;
-	box-sizing: border-box;
-}">
+
+#wrap{
+	width:398px;
+	height:298px;
+	border:1px soli">
 <meta property="og:updated_time" content="2016-11-24T18:36:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="水手">
-<meta name="twitter:description" content="#ul1 *{
-	margin: 0;
-	padding: 0;
+<meta name="twitter:description" content="#weibo div,#weibo p,#weibo textarea,#weibo a{
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	font-family:&quot;微软雅黑&quot;;
+	font-size:12px;
+	color:black;
 }
-#ul1{
-	width: 200px;
-	margin: 0 auto;
-}
-#ul1 li{
-	position: relative;
-	height: 30px;
-	overflow: hidden;
-	border-bottom: 1px dashed #333;
-	box-sizing: border-box;
-}">
+
+#wrap{
+	width:398px;
+	height:298px;
+	border:1px soli">
 
 
 
@@ -158,7 +152,7 @@
 
 
 
-  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo1/"/>
+  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo5/"/>
 
 
   <title>
@@ -290,95 +284,172 @@
     
     
       <style>
-#ul1 *{
-	margin: 0;
-	padding: 0;
+#weibo div,#weibo p,#weibo textarea,#weibo a{
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	font-family:"微软雅黑";
+	font-size:12px;
+	color:black;
 }
-#ul1{
-	width: 200px;
-	margin: 0 auto;
+
+#wrap{
+	width:398px;
+	height:298px;
+	border:1px solid red;
+	margin:0 auto;
+	font-size: 12px;
 }
-#ul1 li{
-	position: relative;
-	height: 30px;
-	overflow: hidden;
-	border-bottom: 1px dashed #333;
-	box-sizing: border-box;
+#wrap li{
+	padding:1px;
+	list-style:none;
+	border:1px dashed #CCC;
+	overflow:hidden;
+	line-height:22px;
+	filter:alpha(opacity:0);
+	opacity:0;
 }
-#ul1 div{
-	position: absolute;
-	top: 0;
-	left: 0;
-	padding-left: 20px;
-	line-height: 30px;
+#weibo{
+	width:400px;
+	margin:0 auto;
+}
+#weibo p{
+	float:right;
+}
+#weibo textarea{
+	width:400px;
+	height:100px;
+}
+#weibo a{
+	float:right;
+	width:60px;
+	height:30px;
+	text-align:center;
+	line-height:30px;
+	background:#0C9;
+}
+#weibo a.dis{
+	background:#CCC;
+}
+#weibo .mark{
+	color: red;
 }
 </style>
-<script src="./js/move.js"></script>
+<script src="js/move.js"></script>
 <script>
 window.onload = function(){
-	var oUl = document.querySelector("#ul1");
-	var aDiv = oUl.getElementsByTagName("div");
+	var oP = document.querySelector("#box p");
+	var oTxt = document.querySelector("#box textarea");
+	var oBtn = document.querySelector("#box a");
+	var oWrap = document.querySelector("#wrap");
 	var timer = null;
-	var num = 0;
-	var oBar = true;
-	setInterval(function(){
-		start();
-	},4000);
 
-	function start(){
-		clearInterval(timer);//要是点击事件出发start()必须要先清楚，防止连续多次点击
+	var str1 = "《新浪微博社区公约(征求意见稿)》意见征求";
+	var str2 = "打击虚假消息，建设文明微博，还可以输入<span>140</span>字";
+	oP.innerHTML = str1;
+
+	// textarea焦点事件
+	var oSpan = null;
+	oTxt.onfocus = function(){
+		if(oTxt.value == ""){
+			oP.innerHTML = str2;
+			oSpan = document.querySelector("#box span");//塞进去后才能获取
+		}
+	};
+	oTxt.onblur = function(){
+		if(oTxt.value == ""){
+			oP.innerHTML = str1;	
+		}
+	};
+	// textarea输入事件
+	oTxt.oninput = function(){
+		// 两个英文字符算为一个字
+		var num=Math.ceil(getLength(oTxt.value)/2);
+		var iLast = 140 - num;
+		if(iLast < 0){
+			oSpan.className = "mark";
+			oSpan.innerHTML = -iLast;
+		}
+		else{
+			oSpan.className = "";
+			oSpan.innerHTML = iLast;
+		}
+		// 注意这里判断的位置，input时判断为佳
+		if(oTxt.value == "" || oSpan.className == "mark"){
+			oBtn.className = "dis";
+		}
+		else{
+			oBtn.className = "";
+		}
+	};
+	// 按钮事件
+	oBtn.onclick = function(){
+		if(oTxt.value == "" || oSpan.className == "mark"){
+			shink();
+			return false;
+		}
+		else{
+			var oLi = document.createElement("li");
+			oLi.innerHTML = oTxt.value;
+			var aLi = document.querySelectorAll("#box li");
+			// 兼容性的处理，低版本IE当没有子元素时用insertBefore会报错
+			if(!oWrap.children.length){
+				oWrap.appendChild(oLi);	
+			}
+			else{
+				oWrap.insertBefore(oLi,aLi[0])
+			}
+			// offsetHeight包括边框和填充
+			var oH = oLi.offsetHeight - 4;
+			console.log(oH);
+			oLi.style.height = 0;// 这个不要忘了
+			// startMove(oLi,{
+			// 	"height": oH
+			// },function(){
+			// 	startMove(this,{
+			// 		"opacity": 100
+			// 	});
+			// });
+			startMove(oLi,{
+				"height": oH,
+				"opacity": 100
+			});
+			oTxt.value = "";
+			oSpan.innerHTML = "140";
+			oBtn.className = "dis";
+		}
+	};
+
+	function getLength(str)
+	{ 
+		return String(str).replace(/[^\x00-\xff]/g,'aa').length;
+	}
+	// 闪烁
+	function shink(){
+		var arr = ["red","white"];
+		// 0,1,2,3,4,5...
+		// 2
+		// 0,1,0,1,0...
+		var num = 0;
+		clearInterval(timer);// 防止连续多次点击闪个不停
 		timer = setInterval(function(){
-			if(num == aDiv.length){
+			num ++;
+			if(num == 5){
 				clearInterval(timer);
-				num = 0;
-				oBar = !oBar
 			}
-			else if(oBar){
-				num ++;
-				startMove(aDiv[num-1],{top: -30});
-			}
-			else if(!oBar){
-				num ++;
-				startMove(aDiv[num-1],{top: 0});
-			}
+			oTxt.style.background = arr[num % arr.length];
 		},100);
 	}
-
 };
 </script>
-
-<ul id="ul1">
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-</ul>
+<div id="box">
+	<div id="wrap"></div>
+	<div id="weibo">
+		<p></p>
+	    <textarea></textarea>
+	    <a class="dis" href="javascript:;" target="_blank" rel="external">发布</a>
+	</div>
+</div>
 
     
   </div>

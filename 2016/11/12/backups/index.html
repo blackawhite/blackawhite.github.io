@@ -86,16 +86,19 @@
 
 
 
-<meta name="description" content="#新建分支，删除分支命令：git branch -d source1git branch source">
+<meta name="description" content="Hexo源文件一定一定要备份，同时实现多台电脑同步写作的目的，下面是我的方法：
+#新建分支，删除分支命令：git branch -d source1git branch source">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo备份">
 <meta property="og:url" content="http://wwww.yesokiloveyou.com/2016/11/12/backups/index.html">
 <meta property="og:site_name" content="水手">
-<meta property="og:description" content="#新建分支，删除分支命令：git branch -d source1git branch source">
-<meta property="og:updated_time" content="2016-11-22T13:33:30.000Z">
+<meta property="og:description" content="Hexo源文件一定一定要备份，同时实现多台电脑同步写作的目的，下面是我的方法：
+#新建分支，删除分支命令：git branch -d source1git branch source">
+<meta property="og:updated_time" content="2016-11-24T18:36:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo备份">
-<meta name="twitter:description" content="#新建分支，删除分支命令：git branch -d source1git branch source">
+<meta name="twitter:description" content="Hexo源文件一定一定要备份，同时实现多台电脑同步写作的目的，下面是我的方法：
+#新建分支，删除分支命令：git branch -d source1git branch source">
 
 
 
@@ -306,14 +309,15 @@
       
 
       
-        <p>#新建分支，删除分支命令：git branch -d source<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
+        <p>Hexo源文件一定一定要备份，同时实现多台电脑同步写作的目的，下面是我的方法：</p>
+<p>#新建分支，删除分支命令：git branch -d source<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>#切换到source分支<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
 <p>#add<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add .</div></pre></td></tr></table></figure></p>
 <p>#注意提交操作是在source分支下进行的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m <span class="string">'.'</span></div></pre></td></tr></table></figure></p>
 <p>#正常push即可，要指定分支的名字，需要拉取操作时一样要指定名字，就像git pull origin source<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push -u origin <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
 <p>#若要切换回主分支时，发现新建的文章或source分支开发的内容会不见了，<strong>需要merge一下就出来了</strong>，一直merge保持分支同步是好的，但有时也有点麻烦，例如当你删除一篇文章并提交后，回到主分支发现却还在，此时还需要再次merge删除主分支的，所以建议一直在source目录下进行一切工作就可以了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git merge <span class="built_in">source</span></div></pre></td></tr></table></figure></p>
-<p><strong>先备份的话，部署工作都是在source分支下进行的，也可merge后在主分支下进行，先部署就无所谓了</strong><br>以上是备份source目录同时不影响本地部署的方法，另外一台电脑如何下载使用待续…</p>
+<p>以上是备份source目录同时不影响本地部署的方法，然后切换另外一台电脑时只需：<br>1、 全局安装hexo-cli<br>2、 连接Git远程仓库<br>3、 拉取source资源：git pull origin source<br>4、 安装依赖包：cnpm install<br><strong>此时两台电脑上的内容就完全一样了，备份的方法同上。</strong></p>
 
       
     </div>
