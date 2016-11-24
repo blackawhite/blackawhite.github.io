@@ -1,0 +1,92 @@
+---
+comments: false
+---
+<style>
+#ul1 *{
+	margin: 0;
+	padding: 0;
+}
+#ul1{
+	width: 186px;
+	height: 186px;
+	position: relative;
+	margin: 100px auto;
+}
+#ul1 li{
+	list-style-type: none;
+	width: 50px;
+	height: 50px;
+	margin: 5px;
+	border: 1px solid #000;
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #000;
+	background-color: #fff;
+}
+</style>
+<script src="js/move.js"></script>
+<script>
+window.onload = function(){
+	function Start(){
+		this.oUl = document.querySelector("#ul1");
+		this.aLi = this.oUl.querySelectorAll("li");
+		this.init = init;
+	}
+	var oS = new Start();
+	oS.init(100,100);
+
+	function init(w,h){
+		var arr = [];
+		var zIndex = 1;
+		var oLiW = this.aLi[0].offsetWidth - 2;
+		var oLiH = this.aLi[0].offsetHeight - 2;
+		console.log(oLiW);
+		for(var i = 0;i < this.aLi.length;i ++){
+			arr.push({
+				"top": this.aLi[i].offsetTop,
+				"left": this.aLi[i].offsetLeft
+			});
+			this.aLi[i].innerHTML = i;
+		}
+		for(var i = 0;i < this.aLi.length;i ++){
+			this.aLi[i].style.position = "absolute";
+			this.aLi[i].style.top = arr[i].top + "px";
+			this.aLi[i].style.left = arr[i].left + "px";
+			this.aLi[i].style.margin = 0;
+
+			this.aLi[i].index = i;
+
+			this.aLi[i].onmouseover = function(){
+				startMove(this,{
+					"top": arr[this.index].top - (w - oLiW) / 2,
+					"left": arr[this.index].left - (h - oLiH) / 2,
+					"width": w,
+					"height": h
+				});
+				this.style.zIndex = zIndex ++;
+			};
+			this.aLi[i].onmouseout = function(){
+				startMove(this,{
+					"top": arr[this.index].top,
+					"left": arr[this.index].left,
+					"width": oLiW,
+					"height": oLiH
+				});
+			};
+		}
+	}
+};
+</script>
+<ul id="ul1">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>

@@ -1,0 +1,39 @@
+---
+comments: false
+---
+<style>
+.content-wrap{
+	padding-top: 0;
+	padding-bottom: 0;
+}
+#wrap{
+	height: 1000px;
+	position: relative;
+}
+#div1{
+	width: 100px;
+	height: 100px;
+	background-color: green;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+</style>
+<script src="js/move.js"></script>
+<script>
+window.onresize = window.onscroll = window.onload = start;
+function start(){
+	var oDiv = document.querySelector("#div1");
+	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	//关于一切的运动有除法的地方就要有取整
+	var iHalf = parseInt( (document.documentElement.clientHeight - oDiv.offsetHeight) / 2 );
+	var iAll = scrollTop + iHalf;
+
+	startMove(oDiv,{
+		"top": iAll
+	});
+}
+</script>
+<div id="wrap">
+	<div id="div1"></div>
+</div>

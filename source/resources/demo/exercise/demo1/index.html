@@ -1,0 +1,96 @@
+---
+comments: false
+---
+<style>
+.content-wrap{
+	padding-top: 0;
+}
+#ul1 *{
+	margin: 0;
+	padding: 0;
+}
+#ul1{
+	width: 200px;
+	margin: 50px auto;
+}
+#ul1 li{
+	position: relative;
+	height: 30px;
+	overflow: hidden;
+	border-bottom: 1px dashed #333;
+	box-sizing: border-box;
+}
+#ul1 div{
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-left: 20px;
+	line-height: 30px;
+}
+</style>
+<script src="./js/move.js"></script>
+<script>
+window.onload = function(){
+	var oUl = document.querySelector("#ul1");
+	var aDiv = oUl.getElementsByTagName("div");
+	var timer = null;
+	var num = 0;
+	var oBar = true;
+	setInterval(function(){
+		start();
+	},4000);
+
+	function start(){
+		clearInterval(timer);
+		timer = setInterval(function(){
+			if(num == aDiv.length){
+				clearInterval(timer);
+				num = 0;
+				oBar = !oBar
+			}
+			else if(oBar){
+				num ++;
+				startMove(aDiv[num-1],{top: -30});
+			}
+			else if(!oBar){
+				num ++;
+				startMove(aDiv[num-1],{top: 0});
+			}
+		},100);
+	}
+
+};
+</script>
+
+<ul id="ul1">
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+	<li>
+		<div>
+			<p>000000000000000001</p>
+			<p>000000000000000002</p>
+		</div>
+	</li>
+</ul>
