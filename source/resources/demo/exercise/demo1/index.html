@@ -2,16 +2,13 @@
 comments: false
 ---
 <style>
-.content-wrap{
-	padding-top: 0;
-}
 #ul1 *{
 	margin: 0;
 	padding: 0;
 }
 #ul1{
 	width: 200px;
-	margin: 50px auto;
+	margin: 0 auto;
 }
 #ul1 li{
 	position: relative;
@@ -41,7 +38,7 @@ window.onload = function(){
 	},4000);
 
 	function start(){
-		clearInterval(timer);
+		clearInterval(timer);//要是点击事件出发start()必须要先清楚，防止连续多次点击
 		timer = setInterval(function(){
 			if(num == aDiv.length){
 				clearInterval(timer);

@@ -1,0 +1,48 @@
+---
+comments: false
+---
+<style>
+.wrap{
+	width: 520px;
+	height: 520px;
+	margin: 0 auto;
+	position: relative;
+}
+.wrap div{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	transition: .5s;
+	opacity: 0.1;
+}
+</style>
+<script>
+window.onload = function(){
+	var oDiv = document.createElement("div");
+	oDiv.className = "wrap";
+	document.querySelector("#wrap").appendChild(oDiv);
+
+	var str = "";
+	var strDiv = "";
+	var top = 0;
+	var left = 0;
+	for(var i = 0;i < 100;i ++){
+		top = parseInt(i / 10) * 52;
+		left = (i % 10) * 52;
+
+		strDiv = '<div style="top:'+ top +'px; left:'+ left +'px; background: url(./images/a.png) no-repeat '+ - left +'px '+ - top +'px;"></div>';
+
+		str += strDiv;
+	}
+	oDiv.innerHTML = str;
+
+	var aDiv = document.querySelectorAll(".wrap div");
+
+	for(var i = 0;i < aDiv.length;i ++){
+		aDiv[i].onmouseover = function(){
+			this.style.opacity = 1;
+		};
+	}
+};
+</script>
+<div id="wrap"></div>
