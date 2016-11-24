@@ -243,3 +243,61 @@ categories: React
 </body>
 </html>
 ```
+### 传递属性
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+
+    var Display = React.createClass({
+        render: function() {
+            {/* 返回真正结果 */}
+            return (
+                <div>
+                    <p>{this.props.color}</p>
+                    <p>{this.props.num}</p>
+                    <p>{this.props.size}</p>
+                </div>
+            );
+        }
+    });
+
+    var Label = React.createClass({
+        render: function() {
+            {/* 调用Display */}
+            return (
+                <Display {...this.props}/>
+            );
+        }
+    });
+
+    var Shirt = React.createClass({
+        render: function() {
+            {/* 调用Label */}
+            return (
+                <Label {...this.props}/>
+            );
+        }
+    });
+
+    ReactDOM.render(
+        <div>
+            {/* 调用Shirt */}
+            <Shirt color="steelblue" num="3.14" size="medium" />
+        </div>,
+        document.querySelector("#container")
+    );
+    </script>
+</body>
+</html>
+```
