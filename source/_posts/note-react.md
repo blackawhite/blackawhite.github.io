@@ -11,11 +11,11 @@ categories: React
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <!-- React核心库 -->
+    <!-- React 核心库 -->
     <script src="react.js"></script>
-    <!-- React DOM库 -->
+    <!-- React DOM 库 -->
     <script src="react-dom.js"></script>
-    <!-- Babel编译器，将 JSX 变成 JavaScript -->
+    <!-- Babel 编译器，将 JSX 变成 JavaScript -->
     <script src="browser.min.js"></script>
 </head>
 <body>
@@ -42,11 +42,11 @@ categories: React
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <!-- React核心库 -->
+    <!-- React 核心库 -->
     <script src="react.js"></script>
-    <!-- React DOM库 -->
+    <!-- React DOM 库 -->
     <script src="react-dom.js"></script>
-    <!-- Babel编译器，将 JSX 变成 JavaScript -->
+    <!-- Babel 编译器，将 JSX 变成 JavaScript -->
     <script src="browser.min.js"></script>
 </head>
 <body>
@@ -83,11 +83,11 @@ categories: React
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <!-- React核心库 -->
+    <!-- React 核心库 -->
     <script src="react.js"></script>
-    <!-- React DOM库 -->
+    <!-- React DOM 库 -->
     <script src="react-dom.js"></script>
-    <!-- Babel编译器，将 JSX 变成 JavaScript -->
+    <!-- Babel 编译器，将 JSX 变成 JavaScript -->
     <script src="browser.min.js"></script>
 </head>
 <body>
@@ -117,11 +117,11 @@ categories: React
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <!-- React核心库 -->
+    <!-- React 核心库 -->
     <script src="react.js"></script>
-    <!-- React DOM库 -->
+    <!-- React DOM 库 -->
     <script src="react-dom.js"></script>
-    <!-- Babel编译器，将 JSX 变成 JavaScript -->
+    <!-- Babel 编译器，将 JSX 变成 JavaScript -->
     <script src="browser.min.js"></script>
 </head>
 <body>
@@ -170,11 +170,11 @@ categories: React
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <!-- React核心库 -->
+    <!-- React 核心库 -->
     <script src="react.js"></script>
-    <!-- React DOM库 -->
+    <!-- React DOM 库 -->
     <script src="react-dom.js"></script>
-    <!-- Babel编译器，将 JSX 变成 JavaScript -->
+    <!-- Babel 编译器，将 JSX 变成 JavaScript -->
     <script src="browser.min.js"></script>
 </head>
 <body>
@@ -274,7 +274,7 @@ categories: React
 
     var Label = React.createClass({
         render: function() {
-            {/* 调用Display */}
+            {/* 调用 Display */}
             return (
                 <Display {...this.props}/>
             );
@@ -283,7 +283,7 @@ categories: React
 
     var Shirt = React.createClass({
         render: function() {
-            {/* 调用Label */}
+            {/* 调用 Label */}
             return (
                 <Label {...this.props}/>
             );
@@ -292,7 +292,7 @@ categories: React
 
     ReactDOM.render(
         <div>
-            {/* 调用Shirt */}
+            {/* 调用 Shirt */}
             <Shirt color="steelblue" num="3.14" size="medium" />
         </div>,
         document.querySelector("#container")
@@ -301,3 +301,178 @@ categories: React
 </body>
 </html>
 ```
+### 处理状态
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+
+    var LightningCounter = React.createClass({
+        getInitialState: function() {
+            return {
+                strikes: 0
+            };
+        },
+        timerTick: function() {
+            {/* 调用 setState 并更新 state 对象中一些东西，render 方法也会被自动调用 */}
+            this.setState({
+                strikes: this.state.strikes + 100
+            });
+        },
+        {/* componentDidMount 方法在 React 组件渲染以后将被自动调用 */}
+        componentDidMount: function() {
+            setInterval(this.timerTick, 1000);
+        },
+        render: function() {
+            return (
+                <h1>{this.state.strikes}</h1>
+            );
+        }
+    });
+
+    var LightningCounterDisplay = React.createClass({
+        render: function() {
+            var divStyle = {
+                width: 250,
+                textAlign: "center",
+                backgroundColor: "black",
+                padding: 40,
+                fontFamily: "sans-serif",
+                color: "#999",
+                borderRadius: 10
+            };
+
+            return(
+                <div style={divStyle}>
+                    <LightningCounter/>
+                </div>
+            );
+        }
+    });
+
+    ReactDOM.render(
+        <LightningCounterDisplay/>,
+        document.querySelector("#container")
+    );
+    </script>
+</body>
+</html>
+```
+### 从数据到UI
+显示一个圆
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+
+    var Circle = React.createClass({
+        render: function() {
+            var circleStyle = {
+                padding: 10,
+                margin: 20,
+                display: "inline-block",
+                backgroundColor: this.props.bgcolor,
+                borderRadius: "50%",
+                width: 100,
+                height: 100,
+            };
+
+            return (
+                <div style={circleStyle}>
+                </div>
+            );
+        }
+    });
+
+    var destination = document.querySelector("#container");
+    function showCircle() {
+        var colors = ["#393E41", "#E94F37", "#1C89BF", "#A1D363"];
+        var ran = Math.floor(Math.random() * colors.length);
+        return <Circle bgcolor={colors[ran]}/>;
+    };
+    ReactDOM.render(
+        <div>
+            {showCircle()}
+        </div>,
+        destination
+    );
+    </script>
+</body>
+</html>
+```
+显示多个圆
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+
+    var Circle = React.createClass({
+        render: function() {
+            var circleStyle = {
+                padding: 10,
+                margin: 20,
+                display: "inline-block",
+                backgroundColor: this.props.bgcolor,
+                borderRadius: "50%",
+                width: 100,
+                height: 100,
+            };
+
+            return (
+                <div style={circleStyle}>
+                </div>
+            );
+        }
+    });
+
+    var destination = document.querySelector("#container");
+    var colors = ["#393E41", "#E94F37", "#1C89BF", "#A1D363",
+              "#85FFC7", "#297373", "#FF8552", "#A40E4C"];
+
+    var renderData = [];
+    for (var i = 0; i < colors.length; i++) {
+        var color = colors[i];
+        // React 可以用这个唯一的标识符来优化任何将来的 UI 更新
+        renderData.push(<Circle key={i + color} bgcolor={color}/>);
+    }
+    ReactDOM.render(
+        <div>
+            {renderData}
+        </div>,
+        destination
+    );
+    </script>
+</body>
+</html>
+```
+### React中的事件
