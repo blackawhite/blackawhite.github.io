@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wwww.yesokiloveyou.com/"/>
-  <updated>2016-11-25T15:28:33.000Z</updated>
+  <updated>2016-11-25T16:17:37.000Z</updated>
   <id>http://wwww.yesokiloveyou.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://wwww.yesokiloveyou.com/2016/11/25/test/"/>
     <id>http://wwww.yesokiloveyou.com/2016/11/25/test/</id>
     <published>2016-11-25T15:27:14.000Z</published>
-    <updated>2016-11-25T15:28:33.000Z</updated>
+    <updated>2016-11-25T16:17:37.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="想你了婧婧"><a href="#想你了婧婧" class="headerlink" title="想你了婧婧"></a>想你了婧婧</h2><p>你干嘛呢…</p>
 ]]></content>
@@ -40,7 +40,7 @@
     <link href="http://wwww.yesokiloveyou.com/2016/11/23/note-react/"/>
     <id>http://wwww.yesokiloveyou.com/2016/11/23/note-react/</id>
     <published>2016-11-23T13:29:01.000Z</published>
-    <updated>2016-11-25T14:45:17.000Z</updated>
+    <updated>2016-11-25T16:17:37.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="第一个React程序"><a href="#第一个React程序" class="headerlink" title="第一个React程序"></a>第一个React程序</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- React 核心库 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"react.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- React DOM 库 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Babel 编译器，将 JSX 变成 JavaScript --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"browser.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> destination = <span class="built_in">document</span>.querySelector(<span class="string">"#container"</span>);</div><div class="line">    ReactDOM.render(</div><div class="line">        <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>,</div><div class="line">        destination</div><div class="line">    );</div><div class="line">    <span class="comment">/*ReactDOM.render(React.createElement(</span></div><div class="line">        "h1",</div><div class="line">        null,</div><div class="line">        "Hello World"</div><div class="line">    ), destination);*/</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
 <a id="more"></a>
