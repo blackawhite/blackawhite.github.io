@@ -5,7 +5,6 @@ tags: React
 categories: React
 ---
 ### 第一个React程序
-<!-- more -->
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +35,7 @@ categories: React
 </body>
 </html>
 ```
+<!-- more -->
 ### 使用组件
 ``` html
 <!DOCTYPE html>
