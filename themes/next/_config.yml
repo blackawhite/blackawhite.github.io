@@ -126,7 +126,8 @@ font:
 # Key is the link label showing to end users.
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social:
-  前端资源: http://f2er.club/
+  前端资源一: http://f2er.club/
+  前端资源二: http://www.w3cmark.com/mark/
 # Social Links Icons
 # Icon Mapping:
 #   Map a menu item to a specific FontAwesome icon name.
