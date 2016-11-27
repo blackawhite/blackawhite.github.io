@@ -86,61 +86,49 @@
 
 
 
-<meta name="description" content="#wrap{
-	height: 1000px;
-	position: relative;
-}
-#div1{
-	width: 100px;
-	height: 100px;
-	background-color: green;
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-
-
-window.onresize = window.onscroll = window">
+<meta name="description" content="#btn{
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #ccc;
+	transition: 1s;
+	cursor: pointer;
+	position: fixed;
+	right: 20px;
+	bottom: 100px;
+	display: none;">
 <meta property="og:type" content="website">
-<meta property="og:title" content="侧边栏">
-<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo3/index.html">
+<meta property="og:title" content="水手">
+<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo7/index.html">
 <meta property="og:site_name" content="水手">
-<meta property="og:description" content="#wrap{
-	height: 1000px;
-	position: relative;
-}
-#div1{
-	width: 100px;
-	height: 100px;
-	background-color: green;
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-
-
-window.onresize = window.onscroll = window">
+<meta property="og:description" content="#btn{
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #ccc;
+	transition: 1s;
+	cursor: pointer;
+	position: fixed;
+	right: 20px;
+	bottom: 100px;
+	display: none;">
 <meta property="og:updated_time" content="2016-11-27T16:38:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="侧边栏">
-<meta name="twitter:description" content="#wrap{
-	height: 1000px;
-	position: relative;
-}
-#div1{
-	width: 100px;
-	height: 100px;
-	background-color: green;
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-
-
-window.onresize = window.onscroll = window">
+<meta name="twitter:title" content="水手">
+<meta name="twitter:description" content="#btn{
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #ccc;
+	transition: 1s;
+	cursor: pointer;
+	position: fixed;
+	right: 20px;
+	bottom: 100px;
+	display: none;">
 
 
 
@@ -161,14 +149,14 @@ window.onresize = window.onscroll = window">
 
 
 
-  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo3/"/>
+  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo7/"/>
 
 
   <title>
   
 
   
-    侧边栏 | 水手
+     | 水手
   
 </title>
 </head>
@@ -293,36 +281,71 @@ window.onresize = window.onscroll = window">
     
     
       <style>
-#wrap{
-	height: 1000px;
-	position: relative;
+#btn{
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #ccc;
+	transition: 1s;
+	cursor: pointer;
+	position: fixed;
+	right: 20px;
+	bottom: 100px;
+	display: none;
+	color: #fff;
+	text-shadow: 0 1px #000;
 }
-#div1{
-	width: 100px;
-	height: 100px;
-	background-color: green;
-	position: absolute;
-	top: 0;
-	right: 0;
+#btn:hover{
+	background-color: pink;
 }
 </style>
-<script src="../../../js/move.js"></script>
 <script>
-window.onresize = window.onscroll = window.onload = start;
-function start(){
-	var oDiv = document.querySelector("#div1");
-	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-	//关于一切的运动有除法的地方就要有取整
-	var iHalf = parseInt( (document.documentElement.clientHeight - oDiv.offsetHeight) / 2 );
-	var iAll = scrollTop + iHalf;
-
-	startMove(oDiv,{
-		"top": iAll
-	});
+window.onload = moveup;
+function moveup(){
+	var oBtn = document.querySelector("#btn");
+	var oWinHeight = document.documentElement.clientHeight || document.body.clientHeight;
+	var timer = null;
+	var oBar = true;
+	// 关键：点击的时候也会出发滚动事件，要区分点击按钮时的滚动和人为拖动滚动条的滚动
+	oBtn.onclick = function(){
+		clearInterval(timer);
+		timer = setInterval(function(){
+			// 确保点击时不触发scroll事件中的clearInterval()函数，不然一边滚动一边清楚定时器就没法进行了，注意这个oBar要放在定时器里连续不断的变true以改变scroll时最后的false
+			oBar = true;
+			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			// 例如Math.floor(-5.3)是-6，关于运动有除的地方就要取整
+			var speed = Math.floor(- scrollTop / 5);
+			document.documentElement.scrollTop = document.body.scrollTop = scrollTop + speed;
+			if(scrollTop == 0){
+				clearInterval(timer);
+			}
+			document.title = scrollTop;
+		},30);
+	};
+	function judge(){
+		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		if(scrollTop > oWinHeight){// 说明超过一屏了
+			oBtn.style.display = "block";
+		}
+		else{
+			oBtn.style.display = "none";
+		}
+	}
+	// 滚动的时候，第一刻不会走，后面就走了
+	window.onscroll = function(){
+		judge();
+		if(!oBar){
+			// 只有清除上面定时器后才能拖动，不然就会和上面的冲突
+			clearInterval(timer);
+		}
+		oBar = false;
+	}
 }
 </script>
-<div id="wrap">
-	<div id="div1"></div>
+<div style="height: 2000px;">
+	<p>关键：点击按钮的时候会触发滚动事件，要区分点击按钮时的滚动和人为拖动滚动条的滚动，以判断是否要清楚定时器。</p>
+	<div id="btn">Top</div>
 </div>
 
     
