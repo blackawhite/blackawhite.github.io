@@ -1,4 +1,5 @@
 ---
+title: 百叶窗
 comments: false
 ---
 <style>
@@ -25,7 +26,7 @@ comments: false
 	line-height: 30px;
 }
 </style>
-<script src="./js/move.js"></script>
+<script src="../../../js/move.js"></script>
 <script>
 window.onload = function(){
 	var oUl = document.querySelector("#ul1");
@@ -33,6 +34,7 @@ window.onload = function(){
 	var timer = null;
 	var num = 0;
 	var oBar = true;
+	start();
 	setInterval(function(){
 		start();
 	},4000);
