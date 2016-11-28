@@ -477,3 +477,219 @@ categories: React
 </html>
 ```
 ### React中的事件
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+    var destination = document.querySelector("#container");
+
+    var Counter = React.createClass({
+        render: function(){
+            var textStyle = {
+                fontSize: 72,
+                fontFamily: "sans-serif",
+                color: "#333",
+                fontWeight: "bold"
+            };
+            return (
+                <div style={textStyle}>
+                    {this.props.display}
+                </div>
+            );
+        }
+    });
+
+    var CounterParent = React.createClass({
+        getInitialState: function(){
+            return {
+                count: 0
+            };
+        },
+        increase: function(e){
+            var currentCount = this.state.count;
+            if(e.shiftKey){
+                currentCount += 10;
+            }
+            else{
+                currentCount += 1;
+            }
+            this.setState({
+                count:  currentCount
+            });
+        },
+        render: function(){
+            var backgroundStyle = {
+                padding: 50,
+                backgroundColor: "#FFC53A",
+                width: 250,
+                height: 100,
+                borderRadius: 10,
+                textAlign: "center"
+            };
+            var buttonStyle = {
+                fontSize: "1em",
+                width: 30,
+                height: 30,
+                fontFamily: "sans-serif",
+                color: "#333",
+                fontWeight: "bold",
+                lineHeight: "3px"
+            };
+            return (
+                <div style={backgroundStyle}>
+                    <Counter display={this.state.count}/>
+                    <button onClick={this.increase} style={buttonStyle}>+</button>
+                </div>
+            );
+        }
+    });
+    ReactDOM.render(
+        <div>
+            <CounterParent/>
+        </div>,
+        destination
+    );
+    </script>
+</body>
+</html>
+```
+不能在组件上监听事件
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+    // 不能直接在组件上监听事件
+    var destination = document.querySelector("#container");
+
+    var Counter = React.createClass({
+        render: function(){
+            var textStyle = {
+                fontSize: 72,
+                fontFamily: "sans-serif",
+                color: "#333",
+                fontWeight: "bold"
+            };
+            return (
+                <div style={textStyle}>
+                    {this.props.display}
+                </div>
+            );
+        }
+    });
+
+    var CounterParent = React.createClass({
+        getInitialState: function(){
+            return {
+                count: 0
+            };
+        },
+        increase: function(e){
+            var currentCount = this.state.count;
+            if(e.shiftKey){
+                currentCount += 10;
+            }
+            else{
+                currentCount += 1;
+            }
+            this.setState({
+                count:  currentCount
+            });
+        },
+        render: function(){
+            var backgroundStyle = {
+                padding: 50,
+                backgroundColor: "#FFC53A",
+                width: 250,
+                height: 100,
+                borderRadius: 10,
+                textAlign: "center"
+            };
+            var buttonStyle = {
+                fontSize: "1em",
+                width: 30,
+                height: 30,
+                fontFamily: "sans-serif",
+                color: "#333",
+                fontWeight: "bold",
+                lineHeight: "3px"
+            };
+            return (
+                <div style={backgroundStyle}>
+                    <Counter display={this.state.count}/>
+                    {/* <button onClick={this.increase} style={buttonStyle}>+</button> */}
+                    <PlusButton clickHandler={this.increase}/>
+                </div>
+            );
+        }
+    });
+    var PlusButton = React.createClass({
+        render: function(){
+            return (
+                <button onClick={this.props.clickHandler}>+
+                </button>
+            );
+        }
+    });
+    ReactDOM.render(
+        <div>
+            <CounterParent/>
+        </div>,
+        destination
+    );
+    </script>
+</body>
+</html>
+```
+对于那些 React 官方不能识别的事件，你必须用传统的 addEventListener，加上一些额外的手段，就像下面这样：
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+    var Something = React.createClass({
+        handleMyEvent: function(e) {
+            // do something
+        },
+        // 在组件被渲染时自动调用
+        componentDidMount: function() {
+            window.addEventListener("someEvent", this.handleMyEvent);
+        },
+        componentWillUnmount: function() {
+            window.removeEventListener("someEvent", this.handleMyEvent);
+        },
+        render: function() {
+            return (
+                <div>Hello!</div>
+            );
+        }
+    }); 
+    </script>
+</body>
+</html>
+```
