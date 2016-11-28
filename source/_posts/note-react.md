@@ -330,8 +330,8 @@ categories: React
                 strikes: this.state.strikes + 100
             });
         },
-        {/* componentDidMount 方法在 React 组件渲染以后将被自动调用 */}
         componentDidMount: function() {
+            {/* componentDidMount 方法在 React 组件渲染以后将被自动调用 */}
             setInterval(this.timerTick, 1000);
         },
         render: function() {
