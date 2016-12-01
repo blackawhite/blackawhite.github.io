@@ -1,3 +1,333 @@
 ---
 comments: false
 ---
+<style>
+#box1 *{
+    margin: 0;
+    padding: 0;
+}
+#box1 li{
+    list-style-type: none;
+}
+
+#box1 img{
+    border:none;
+    vertical-align:top;
+}
+#box1{
+    width:350px;
+    height:100px;
+    position:relative;
+    margin:30px auto;
+    overflow:hidden;
+}
+#box1 ul{
+    width:350px;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:1;
+}
+#box1 ul li{
+    width:350px;
+    display:none;
+}
+#box1 ol{
+    z-index:2;
+    width:100px;
+    position:absolute;
+    right:10px;
+    bottom:10px;
+}
+#box1 ol li{
+    width:20px;
+    height:20px;
+    float:left;
+    margin:0 2px;
+    background:#fff;
+    color:#f60;
+    line-height:20px;
+    text-align:center;
+}
+#box1 ol .active{
+    background:#f60;
+    color:#fff;
+}
+</style>
+<p>选项卡式</p>
+<div id="box1">
+	<ul>
+    	<li style="display:block">
+            <img src="images/1.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/2.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/3.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/4.png" alt=""/>
+        </li>
+    </ul>
+    <ol>
+    	<li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+
+<style>
+#box2 *{
+    margin: 0;
+    padding: 0;
+}
+#box2 li{
+    list-style-type: none;
+}
+
+#box2 img{
+    border:none;
+    vertical-align:top;
+}
+#box2{
+    width:350px;
+    height:100px;
+    position:relative;
+    margin:30px auto;
+    overflow:hidden;
+}
+#box2 ul{
+    width:350px;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:1;
+}
+#box2 ul li{
+    width:350px;
+    display:none;
+}
+#box2 ol{
+    z-index:2;
+    width:100px;
+    position:absolute;
+    right:10px;
+    bottom:10px;
+}
+#box2 ol li{
+    width:20px;
+    height:20px;
+    float:left;
+    margin:0 2px;
+    background:#fff;
+    color:#f60;
+    line-height:20px;
+    text-align:center;
+}
+#box2 ol .active{
+    background:#f60;
+    color:#fff;
+}
+</style>
+<p>淡入</p>
+<div id="box2">
+    <ul>
+        <li style="display:block">
+            <img src="images/1.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/2.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/3.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/4.png" alt=""/>
+        </li>
+    </ul>
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+
+<style>
+#box3 *{
+    margin: 0;
+    padding: 0;
+}
+#box3 li{
+    list-style-type: none;
+}
+
+#box3 img{
+    border:none;
+    vertical-align:top;
+}
+#box3{
+    width:350px;
+    height:100px;
+    position:relative;
+    margin:30px auto;
+    overflow:hidden;
+}
+#box3 ul{
+    width:350px;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:1;
+}
+#box3 ul li{
+    width:350px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display:none;
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+#box3 ol{
+    z-index:2;
+    width:100px;
+    position:absolute;
+    right:10px;
+    bottom:10px;
+}
+#box3 ol li{
+    width:20px;
+    height:20px;
+    float:left;
+    margin:0 2px;
+    background:#fff;
+    color:#f60;
+    line-height:20px;
+    text-align:center;
+}
+#box3 ol .active{
+    background:#f60;
+    color:#fff;
+}
+</style>
+<p>淡出淡出（叠加布局）</p>
+<div id="box3">
+    <ul>
+        <li style="display:block;filter:alpha(opacity=100);opacity: 1;">
+            <img src="images/1.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/2.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/3.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/4.png" alt=""/>
+        </li>
+    </ul>
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+
+<script src="../../../js/move.js"></script>
+<script>
+window.onload = function(){
+    test1();
+    test2();
+    test3();
+    
+    function test1(){
+        var oBox1 = document.querySelector("#box1");
+        var oUl1 = oBox1.getElementsByTagName("ul")[0];
+        var aUlLi1 = oUl1.getElementsByTagName("li");
+        var oOl1 = oBox1.getElementsByTagName("ol")[0];
+        var aOlLi1 = oOl1.getElementsByTagName("li");
+
+        // var iMark = 0;
+
+        // for(var i = 0;i < aOlLi1.length;i ++){
+        //  aOlLi1[i].index = i;
+        //  aOlLi1[i].onmouseover = function(){
+        //      aOlLi1[iMark].className = "";//先清空默认的第0个
+        //      this.className = "active";
+        //      iMark = this.index;
+        //  };
+        // }
+
+        for(var i = 0;i < aOlLi1.length;i ++){
+            aOlLi1[i].index = i;
+            aOlLi1[i].onmouseover = function(){
+                for(var i = 0;i < aOlLi1.length;i ++){
+                    aOlLi1[i].className = "";
+                    aUlLi1[i].style.display = "none";
+                }
+                this.className = "active";
+                aUlLi1[this.index].style.display = "block";
+            };
+        }   
+    }
+    function test2(){
+        var oBox2 = document.querySelector("#box2");
+        var oUl2 = oBox2.getElementsByTagName("ul")[0];
+        var aUlLi2 = oUl2.getElementsByTagName("li");
+        var oOl2 = oBox2.getElementsByTagName("ol")[0];
+        var aOlLi2 = oOl2.getElementsByTagName("li");
+
+        for(var i = 0;i < aOlLi2.length;i ++){
+            aOlLi2[i].index = i;
+            aOlLi2[i].onmouseover = function(){
+                for(var i = 0;i < aOlLi2.length;i ++){
+                    aOlLi2[i].className = "";
+                    aUlLi2[i].style.display = "none";
+                    // 所有隐藏后所有透明度0
+                    aUlLi2[i].style.filter = 'alpha(opacity = 0)';
+                    aUlLi2[i].style.opacity = 0;
+                }
+                this.className = "active";
+                aUlLi2[this.index].style.display = "block";
+                //当前出现后当前透明度100
+                startMove(aUlLi2[this.index],{
+                    "opacity": 100
+                });
+            };
+        }   
+    }
+    function test3(){
+        var oBox3 = document.querySelector("#box3");
+        var oUl3 = oBox3.getElementsByTagName("ul")[0];
+        var aUlLi3 = oUl3.getElementsByTagName("li");
+        var oOl3 = oBox3.getElementsByTagName("ol")[0];
+        var aOlLi3 = oOl3.getElementsByTagName("li");
+
+        for(var i = 0;i < aOlLi3.length;i ++){
+            aOlLi3[i].index = i;
+            aOlLi3[i].onmouseover = function(){
+                for(var i = 0;i < aOlLi3.length;i ++){
+                    aOlLi3[i].className = "";
+                    
+                    // 注意此时是叠加式布局
+                    startMove(aUlLi3[i],{
+                        "opacity": 0
+                    },function(){
+                        this.style.display = "none";
+                    });
+                }
+                this.className = "active";
+                aUlLi3[this.index].style.display = "block";
+                startMove(aUlLi3[this.index],{
+                    "opacity": 100
+                });
+            };
+        }   
+    }
+};
+</script>
+
