@@ -237,13 +237,285 @@ comments: false
     </ol>
 </div>
 
+<style>
+#box4 *,#box5 *,#wrap *{
+    margin: 0;
+    padding: 0;
+}
+#box4 li,#box5 li,#wrap li{
+    list-style-type: none;
+}
+
+#box4 img,#box5 img,#wrap img{
+    border:none;
+    vertical-align:top;
+}
+#box4,#box5,#wrap{
+    width:350px;
+    height:100px;
+    position:relative;
+    margin:30px auto;
+    overflow:hidden;
+}
+#box4 ul,#box5 ul,#wrap ul{
+    width:350px;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:1;
+}
+#box4 ul li,#box5 ul li,#wrap ul li{
+    width:350px;
+    height:100px;
+}
+#box4 ol,#box5 ol,#wrap ol{
+    z-index:2;
+    width:100px;
+    position:absolute;
+    right:10px;
+    bottom:10px;
+}
+#box4 ol li,#box5 ol li,#wrap ol li{
+    width:20px;
+    height:20px;
+    float:left;
+    margin:0 2px;
+    background:#fff;
+    color:#f60;
+    line-height:20px;
+    text-align:center;
+}
+#box4 ol .active,#box5 ol .active,#wrap ol .active{
+    background:#f60;
+    color:#fff;
+}
+</style>
+<p>上下滚动</p>
+<div id="box4">
+    <ul>
+        <li>
+            <img src="images/1.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/2.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/3.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/4.png" alt=""/>
+        </li>
+    </ul>
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+<p>上下滚动加自动播放</p>
+<div id="box5">
+    <ul>
+        <li>
+            <img src="images/1.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/2.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/3.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/4.png" alt=""/>
+        </li>
+    </ul>
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+<p>无缝上下滚动加自动播放</p>
+<div id="wrap">
+    <ul id="ul1">
+        <li>
+            <img src="./images/1.png" height="100" width="350" alt="">
+        </li>
+        <li>
+            <img src="./images/2.png" height="100" width="350" alt="">
+        </li>
+        <li>
+            <img src="./images/3.png" height="100" width="350" alt="">
+        </li>
+        <li>
+            <img src="./images/4.png" height="100" width="350" alt="">
+        </li>
+    </ul>
+    <ol id="ol1">
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+<style>
+#box7 *{
+    margin: 0;
+    padding: 0;
+}
+#box7 li{
+    list-style-type: none;
+}
+
+#box7 img{
+    border:none;
+    vertical-align:top;
+}
+#box7{
+    width:350px;
+    height:100px;
+    position:relative;
+    margin:30px auto;
+    overflow:hidden;
+}
+#box7 ul{
+    width:350px;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:1;
+}
+#box7 ul li{
+    width:350px;
+    height:100px;
+    position: absolute;
+    top: 0;
+}
+#box7 ol{
+    z-index:2;
+    width:100px;
+    position:absolute;
+    right:10px;
+    bottom:10px;
+}
+#box7 ol li{
+    width:20px;
+    height:20px;
+    float:left;
+    margin:0 2px;
+    background:#fff;
+    color:#f60;
+    line-height:20px;
+    text-align:center;
+}
+#box7 ol .active{
+    background:#f60;
+    color:#fff;
+}
+</style>
+<p>左右滑动每次只切换一张</p>
+<div id="box7">
+    <ul>
+        <li>
+            <img src="images/1.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/2.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/3.png" alt=""/>
+        </li>
+        <li>
+            <img src="images/4.png" alt=""/>
+        </li>
+    </ul>
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+<style>
+#box8 *,#box9 *{
+    margin: 0;
+    padding: 0;
+}
+#box8 li,#box9 li{
+    list-style-type: none;
+}
+
+#box8 img,#box9 img{
+    border:none;
+    vertical-align:top;
+}
+#box8,#box9{
+    width:350px;
+    height:100px;
+    position:relative;
+    margin:30px auto;
+    overflow:hidden;
+}
+#box8 ul,#box9 ul{
+    width:350px;
+    height: 100px;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:1;
+}
+#box8 ul li,#box9 ul li{
+    width:350px;
+    height:100px;
+    position: absolute;
+    top: 0;
+}
+#box8 ul li:nth-of-type(1),#box9 ul li:nth-of-type(1){
+    background-color: red;
+}
+#box8 ul li:nth-of-type(2),#box9 ul li:nth-of-type(2){
+    background-color: green;
+}
+#box8 ul li:nth-of-type(3),#box9 ul li:nth-of-type(3){
+    background-color: blue;
+}
+#box8 ul li:nth-of-type(4),#box9 ul li:nth-of-type(4){
+    background-color: black;
+}
+
+</style>
+<p>手风琴</p>
+<div id="box8">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<p>等分到手风琴</p>
+<div id="box9">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
 <script src="../../../js/move.js"></script>
 <script>
 window.onload = function(){
     test1();
     test2();
     test3();
-    
+    test4();
+    test5();
+    test6();
+    test7();
+    test8();
+    test9();
     function test1(){
         var oBox1 = document.querySelector("#box1");
         var oUl1 = oBox1.getElementsByTagName("ul")[0];
@@ -328,6 +600,295 @@ window.onload = function(){
             };
         }   
     }
+    function test4(){
+        var oBox4 = document.querySelector("#box4");
+        var oUl4 = oBox4.getElementsByTagName("ul")[0];
+        var aUlLi4 = oUl4.getElementsByTagName("li");
+        var oOl4 = oBox4.getElementsByTagName("ol")[0];
+        var aOlLi4 = oOl4.getElementsByTagName("li");
+
+        for(var i = 0;i < aOlLi4.length;i ++){
+            aOlLi4[i].index = i;
+            aOlLi4[i].onmouseover = function(){
+                for(var i = 0;i < aOlLi4.length;i ++){
+                    aOlLi4[i].className = "";
+                }
+                this.className = "active";
+                var topNum = this.index * 100;
+                startMove(oUl4,{
+                    "top": -topNum
+                });
+            };
+        }   
+    }
+    function test5(){
+        var oBox5 = document.querySelector("#box5");
+        var oUl5 = oBox5.getElementsByTagName("ul")[0];
+        var aUlLi5 = oUl5.getElementsByTagName("li");
+        var oOl5 = oBox5.getElementsByTagName("ol")[0];
+        var aOlLi5 = oOl5.getElementsByTagName("li");
+        var iNow1 = 0;
+
+        for(var i = 0;i < aOlLi5.length;i ++){
+            aOlLi5[i].index = i;
+            aOlLi5[i].onmouseover = function(){
+                iNow1 = this.index;
+                change();
+            };
+        }
+        function change(){
+            for(var i = 0;i < aOlLi5.length;i ++){
+                aOlLi5[i].className = "";
+            }
+            aOlLi5[iNow1].className = "active";
+            var topNum = iNow1 * 100;
+            startMove(oUl5,{
+                "top": -topNum
+            });
+        }
+        function go(){
+            iNow1 ++;
+            if(iNow1 == aOlLi5.length){
+                iNow1 = 0;
+            }
+            change();
+        }
+        var timer = null;
+        timer = setInterval(go,2000);
+        oBox5.onmouseover = function(){
+            clearInterval(timer);
+        };
+        oBox5.onmouseout = function(){
+            timer = setInterval(go,2000);
+        };
+    }
+    function test6(){
+        var oWrap = document.getElementById("wrap");
+        var oUl = document.getElementById("ul1");
+        var oOl = document.getElementById("ol1");
+        var aUlLi = oUl.getElementsByTagName("li");
+        var aOlLi = oOl.getElementsByTagName("li");
+
+        var oUlLiHig = aUlLi[0].offsetHeight;
+        var timer = null;
+        var iNow1 = 0;//控制按钮
+        var iNow2 = 0;//控制图片，因为到最后一张时图片要继续往下走，按钮要归零所以不能公用
+
+        for(var i = 0;i < aOlLi.length; i++){
+            aOlLi[i].index = i;
+            aOlLi[i].onmouseover = function(){
+                if(this.index == 0 && iNow1 == 0){//判断不可少，iNow1 == 0确保其他地方移入的不至于没有动画效果
+                    aUlLi[0].style.position = "static";//这里要加上，不然当aUlLi[0]为relative，top：400时，此时移入会有问题
+                    oUl.style.top = 0;
+                }
+                iNow1 = iNow2 = this.index;
+                move();
+            };
+        }
+        function move(){
+            for(var i = 0;i < aOlLi.length; i++){
+                aOlLi[i].className = "";
+            }
+            aOlLi[iNow1].className = "active";
+            startMove(oUl,{"top":- iNow2 * oUlLiHig});
+        }
+
+        timer = setInterval(change,1000);
+
+        function change(){
+            if(iNow1 == 0){// aaa
+                aUlLi[0].style.position = "static";
+                oUl.style.top = 0;
+                iNow2 = 0;
+            }
+            if(iNow1 == aOlLi.length-1){
+                iNow1 = 0;// aaa
+                aUlLi[0].style.position = "relative";
+                aUlLi[0].style.top = aUlLi.length * oUlLiHig + "px";
+            }
+            else{
+                iNow1 ++;
+            }
+            iNow2 ++;
+            move();
+        }
+
+        oWrap.onmouseover = function(){
+            clearInterval(timer);
+        };
+        oWrap.onmouseout = function(){
+            timer = setInterval(change,1000);
+        };
+    }
+    function test6bak(){
+        var oBox5 = document.querySelector("#box5");
+        var oUl5 = oBox5.getElementsByTagName("ul")[0];
+        var aUlLi5 = oUl5.getElementsByTagName("li");
+        var oOl5 = oBox5.getElementsByTagName("ol")[0];
+        var aOlLi5 = oOl5.getElementsByTagName("li");
+        var iNow1 = 0;
+        var iNow2 = 0;
+
+        for(var i = 0;i < aOlLi5.length;i ++){
+            aOlLi5[i].index = i;
+            aOlLi5[i].onmouseover = function(){
+                if(this.index == 0 && iNow1 == 0){
+                    aUlLi5[0].style.position = 'static';
+                    oUl5.style.top = 0;
+                }
+                iNow2 = iNow1 = this.index;
+                change();
+            };
+        }
+        function change(){
+            for(var i = 0;i < aOlLi5.length;i ++){
+                aOlLi5[i].className = "";
+            }
+            aOlLi5[iNow1].className = "active";
+            var topNum = iNow2 * 100;
+            startMove(oUl5,{
+                "top": -topNum
+            });
+        }
+        function go(){
+            if(iNow1 == 0){
+                aUlLi5[0].style.position = 'static';
+                oUl5.style.top = 0;
+                iNow2 = 0;
+            }
+            iNow1 ++;
+            iNow2 ++;
+            if(iNow1 == aOlLi5.length){
+                iNow1 = 0;
+                aUlLi5[0].style.position = 'relative';
+                aUlLi5[0].style.top = aUlLi5.length * 100 + "px";
+            }
+            change();
+        }
+        var timer = null;
+        timer = setInterval(go,1000);
+        oBox5.onmouseover = function(){
+            clearInterval(timer);
+        };
+        oBox5.onmouseout = function(){
+            timer = setInterval(go,1000);
+        };
+    }
+    function test7(){
+        var oBox7 = document.querySelector("#box7");
+        var oUl7 = oBox7.getElementsByTagName("ul")[0];
+        var aUlLi7 = oUl7.getElementsByTagName("li");
+        var oOl7 = oBox7.getElementsByTagName("ol")[0];
+        var aOlLi7 = oOl7.getElementsByTagName("li");
+
+        var oUl7Width = aUlLi7[0].offsetWidth;
+
+        // 除了第一张全放右边
+        for(var i = 1;i < aUlLi7.length;i++){
+            aUlLi7[i].style.left = oUl7Width + "px";
+        }
+
+        var iNow1 = 0;
+        var bBar = true;
+        for(var i = 0;i < aOlLi7.length;i ++){
+            aOlLi7[i].index = i;
+            aOlLi7[i].onmouseover = function(){
+                if(bBar){
+                    bBar = false;
+                    // 按钮
+                    for(var i = 0;i < aOlLi7.length;i ++){
+                        aOlLi7[i].className = "";
+                    }
+                    this.className = "active";
+                    // 图片
+                    if(iNow1 < this.index){
+                        aUlLi7[this.index].style.left = oUl7Width + "px";// 先把要移动的瞬间定位到右边
+                        startMove(aUlLi7[iNow1],{
+                            left: -oUl7Width
+                        });
+                    }
+                    else if(iNow1 > this.index){
+                        aUlLi7[this.index].style.left = -oUl7Width + "px";
+                        startMove(aUlLi7[iNow1],{
+                            left: oUl7Width
+                        });
+                    }
+
+                    startMove(aUlLi7[this.index],{// 移动对应的
+                        left: 0
+                    },function(){
+                        bBar = true;
+                    });
+                    iNow1 = this.index;
+                }
+            };
+        }
+    }
+    function test8(){
+        var oBox8 = document.querySelector("#box8");
+        var oUl8 = oBox8.getElementsByTagName("ul")[0];
+        var aUlLi8 = oUl8.getElementsByTagName("li");
+
+        var oUl8Width = aUlLi8[0].offsetWidth;
+
+        for(var i = 1;i < aUlLi8.length;i++){
+            aUlLi8[i].style.left = (350 - 90) + (i - 1) * 30 + "px";
+        }
+
+        for(var i = 0;i < aUlLi8.length;i++){
+            aUlLi8[i].index = i;
+            aUlLi8[i].onmouseover = function(){//每次移动的时候都是一个循环，讲对所有li位置进行计算
+                for(var i = 0; i< aUlLi8.length;i++){//是运动多张用循环
+                    //当移入第二个的时候，索引为1，0，1走if；2,3走else
+                    console.log(i + ":" + this.index);
+                    //假如移入的是第二张
+                    //0:2
+                    //1:2
+                    //2:2
+                    //3:2
+                    if(i <= this.index){//运动this.index左边的
+                        startMove(aUlLi8[i],{"left":i * 30});
+                    }
+                    else{//i > this.index，只有this.index右边的符合
+                        startMove(aUlLi8[i],{"left":(350 - 90) + (i - 1) * 30});
+                        console.log(i);
+                    }
+                }
+            };
+        }
+    }
+    function test9(){
+        var aBox9 = document.querySelector("#box9");
+        var oUl9 = aBox9.getElementsByTagName("ul")[0];
+        var aUlLi9 = oUl9.getElementsByTagName("li");
+
+        var num = Math.ceil(350 / aUlLi9.length);
+
+        for(var i = 1;i < aUlLi9.length;i++){
+            aUlLi9[i].style.left = num * i + "px";
+        }
+
+        for(var i = 0;i < aUlLi9.length;i++){
+            aUlLi9[i].index = i;
+            aUlLi9[i].onmouseover = function(){//每次移动的时候都是一个循环，讲对所有li位置进行计算
+                for(var i = 0; i< aUlLi9.length;i++){
+                    //当移入第二个的时候，索引为1，0，1走if；2,3,4走else
+                    if(i <= this.index){
+                        startMove(aUlLi9[i],{"left":i * 30});
+                    }
+                    else{//i > this.index
+                        startMove(aUlLi9[i],{"left":(350 - 90) + (i - 1) * 30});
+                    }
+                }
+            };
+            aUlLi9[i].onmouseout = function(){
+                for(var i = 0; i< aUlLi9.length;i++){
+                    startMove(aUlLi9[i],{"left":num * i});
+                }
+            };
+        }
+    }
+
 };
 </script>
 
