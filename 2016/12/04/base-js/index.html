@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="yesokiloveyou.com,html,css,js,惜时" />
+  <meta name="keywords" content="JS基础知识," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="为之则易，不为则难">
+<meta name="description" content="乘法表加换行符实现12345678for(var i = 1;i &amp;lt;= 9;i ++)&amp;#123;    for(j = 1;j &amp;lt;= i;j ++)&amp;#123;        var oSpan = document.createElement(&quot;span&quot;);        oSpan.innerHTML = j + &quot;x&quot; + i + &quot;=&quot; + i * j + &quot;&amp;amp;nb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript基础知识大总结">
+<meta property="og:title" content="JavaScript mark">
 <meta property="og:url" content="http://wwww.yesokiloveyou.com/2016/12/04/base-js/index.html">
 <meta property="og:site_name" content="水手">
-<meta property="og:description" content="为之则易，不为则难">
-<meta property="og:updated_time" content="2016-12-04T10:30:57.000Z">
+<meta property="og:description" content="乘法表加换行符实现12345678for(var i = 1;i &amp;lt;= 9;i ++)&amp;#123;    for(j = 1;j &amp;lt;= i;j ++)&amp;#123;        var oSpan = document.createElement(&quot;span&quot;);        oSpan.innerHTML = j + &quot;x&quot; + i + &quot;=&quot; + i * j + &quot;&amp;amp;nb">
+<meta property="og:updated_time" content="2016-12-04T16:29:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript基础知识大总结">
-<meta name="twitter:description" content="为之则易，不为则难">
+<meta name="twitter:title" content="JavaScript mark">
+<meta name="twitter:description" content="乘法表加换行符实现12345678for(var i = 1;i &amp;lt;= 9;i ++)&amp;#123;    for(j = 1;j &amp;lt;= i;j ++)&amp;#123;        var oSpan = document.createElement(&quot;span&quot;);        oSpan.innerHTML = j + &quot;x&quot; + i + &quot;=&quot; + i * j + &quot;&amp;amp;nb">
 
 
 
@@ -119,7 +119,7 @@
   <link rel="canonical" href="http://wwww.yesokiloveyou.com/2016/12/04/base-js/"/>
 
 
-  <title> JavaScript基础知识大总结 | 水手 </title>
+  <title> JavaScript mark | 水手 </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -259,7 +259,7 @@
             
             
               
-                JavaScript基础知识大总结
+                JavaScript mark
               
             
           </h1>
@@ -306,7 +306,13 @@
       
 
       
-        
+        <h3 id="乘法表"><a href="#乘法表" class="headerlink" title="乘法表"></a>乘法表</h3><h4 id="加换行符实现"><a href="#加换行符实现" class="headerlink" title="加换行符实现"></a>加换行符实现</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>;i &lt;= <span class="number">9</span>;i ++)&#123;</div><div class="line">    <span class="keyword">for</span>(j = <span class="number">1</span>;j &lt;= i;j ++)&#123;</div><div class="line">        <span class="keyword">var</span> oSpan = <span class="built_in">document</span>.createElement(<span class="string">"span"</span>);</div><div class="line">        oSpan.innerHTML = j + <span class="string">"x"</span> + i + <span class="string">"="</span> + i * j + <span class="string">"&amp;nbsp;&amp;nbsp"</span>;</div><div class="line">        <span class="built_in">document</span>.body.appendChild(oSpan);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">document</span>.body.innerHTML += <span class="string">"&lt;br&gt;"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="利用块元素的机制实现"><a href="#利用块元素的机制实现" class="headerlink" title="利用块元素的机制实现"></a>利用块元素的机制实现</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>;i &lt;= <span class="number">9</span>;i ++)&#123;</div><div class="line">    <span class="keyword">var</span> oP = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</div><div class="line">    <span class="keyword">for</span>(j = <span class="number">1</span>;j &lt;= i;j ++)&#123;</div><div class="line">        oP.innerHTML += j + <span class="string">"x"</span> + i + <span class="string">"="</span> + i * j + <span class="string">"&amp;nbsp;&amp;nbsp"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">document</span>.body.appendChild(oP);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="用字符串拼接的方法实现"><a href="#用字符串拼接的方法实现" class="headerlink" title="用字符串拼接的方法实现"></a>用字符串拼接的方法实现</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">""</span>;</div><div class="line">str += <span class="string">"&lt;ul&gt;"</span>;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>;i &lt;= <span class="number">9</span>;i ++)&#123;</div><div class="line">    str += <span class="string">"&lt;li&gt;"</span>;</div><div class="line">    <span class="keyword">for</span>(j = <span class="number">1</span>;j &lt;= i;j ++)&#123;</div><div class="line">        str += j + <span class="string">"x"</span> + i + <span class="string">"="</span> + j * i + <span class="string">"&amp;nbsp;&amp;nbsp;"</span>;</div><div class="line">    &#125;</div><div class="line">    str += <span class="string">"&lt;/li&gt;"</span>;</div><div class="line">&#125;</div><div class="line">str += <span class="string">"&lt;/ul&gt;"</span>;</div><div class="line"><span class="built_in">document</span>.body.innerHTML = str;</div></pre></td></tr></table></figure>
+<h3 id="打印个正方形"><a href="#打印个正方形" class="headerlink" title="打印个正方形"></a>打印个正方形</h3><h4 id="浮动实现"><a href="#浮动实现" class="headerlink" title="浮动实现"></a>浮动实现</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> oWrap = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</div><div class="line">oWrap.style.cssText = <span class="string">"width:400px;height:400px;margin:0 auto;background-color:#eee;"</span>;</div><div class="line"><span class="built_in">document</span>.body.appendChild(oWrap);</div><div class="line"></div><div class="line"><span class="keyword">var</span> arrColor = [<span class="string">"red"</span>,<span class="string">"green"</span>,<span class="string">"blue"</span>,<span class="string">"pink"</span>,<span class="string">"yellow"</span>,<span class="string">"#ccc"</span>];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>;i ++)&#123;</div><div class="line">    <span class="keyword">var</span> oSpan = <span class="built_in">document</span>.createElement(<span class="string">"span"</span>);</div><div class="line">    oSpan.style.cssText = <span class="string">"width:40px;height:40px;float:left;background-color:"</span>+ arrColor[i%arrColor.length] +<span class="string">""</span>;</div><div class="line">    oWrap.appendChild(oSpan);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="两个循环定位实现"><a href="#两个循环定位实现" class="headerlink" title="两个循环定位实现"></a>两个循环定位实现</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> oWrap = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</div><div class="line">oWrap.style.cssText = <span class="string">"width:400px;height:400px;margin:0 auto;background-color:#eee;position:relative;"</span>;</div><div class="line"><span class="built_in">document</span>.body.appendChild(oWrap);</div><div class="line"></div><div class="line"><span class="keyword">var</span> arrColor = [<span class="string">"red"</span>,<span class="string">"green"</span>,<span class="string">"blue"</span>,<span class="string">"pink"</span>,<span class="string">"yellow"</span>,<span class="string">"#ccc"</span>];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; <span class="number">10</span>;i ++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j &lt; <span class="number">10</span>;j ++)&#123;</div><div class="line">        <span class="keyword">var</span> oSpan = <span class="built_in">document</span>.createElement(<span class="string">"span"</span>);</div><div class="line">        oSpan.style.cssText = <span class="string">"width:40px;height:40px;float:left;background-color:"</span>+ arrColor[(i * <span class="number">10</span> + j)%arrColor.length] +<span class="string">";position:absolute;left:"</span>+ j * <span class="number">40</span> +<span class="string">"px;top:"</span>+ i % <span class="number">10</span> * <span class="number">40</span> +<span class="string">"px;"</span>;</div><div class="line">        oWrap.appendChild(oSpan);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="一个循环定位实现"><a href="#一个循环定位实现" class="headerlink" title="一个循环定位实现"></a>一个循环定位实现</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> oWrap = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</div><div class="line">oWrap.style.cssText = <span class="string">"width:400px;height:400px;margin:0 auto;background-color:#eee;position:relative;"</span>;</div><div class="line"><span class="built_in">document</span>.body.appendChild(oWrap);</div><div class="line"></div><div class="line"><span class="keyword">var</span> arrColor = [<span class="string">"red"</span>,<span class="string">"green"</span>,<span class="string">"blue"</span>,<span class="string">"pink"</span>,<span class="string">"yellow"</span>,<span class="string">"#ccc"</span>];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>;i ++)&#123;</div><div class="line">    <span class="keyword">var</span> oSpan = <span class="built_in">document</span>.createElement(<span class="string">"span"</span>);</div><div class="line">    oSpan.style.cssText = <span class="string">"width:40px;height:40px;float:left;background-color:"</span>+ arrColor[i % arrColor.length] +<span class="string">";position:absolute;left:"</span>+ i % <span class="number">10</span> * <span class="number">40</span> +<span class="string">"px;top:"</span>+ <span class="built_in">Math</span>.floor(i / <span class="number">10</span>) * <span class="number">40</span> +<span class="string">"px;"</span>;</div><div class="line">    oWrap.appendChild(oSpan);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="倒计时"><a href="#倒计时" class="headerlink" title="倒计时"></a>倒计时</h3><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h3 id="隔N行变色的多种实现思路"><a href="#隔N行变色的多种实现思路" class="headerlink" title="隔N行变色的多种实现思路"></a>隔N行变色的多种实现思路</h3><h3 id="…"><a href="#…" class="headerlink" title="…"></a>…</h3>
       
     </div>
 
@@ -325,6 +331,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS基础知识/" rel="tag">#JS基础知识</a>
+          
+        </div>
       
 
       
@@ -364,7 +376,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/12/04/base-js/"
-           data-title="JavaScript基础知识大总结" data-url="http://wwww.yesokiloveyou.com/2016/12/04/base-js/">
+           data-title="JavaScript mark" data-url="http://wwww.yesokiloveyou.com/2016/12/04/base-js/">
       </div>
     
   </div>
@@ -426,7 +438,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -491,7 +503,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#乘法表"><span class="nav-text">乘法表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加换行符实现"><span class="nav-text">加换行符实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用块元素的机制实现"><span class="nav-text">利用块元素的机制实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用字符串拼接的方法实现"><span class="nav-text">用字符串拼接的方法实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打印个正方形"><span class="nav-text">打印个正方形</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#浮动实现"><span class="nav-text">浮动实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两个循环定位实现"><span class="nav-text">两个循环定位实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个循环定位实现"><span class="nav-text">一个循环定位实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#倒计时"><span class="nav-text">倒计时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数"><span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隔N行变色的多种实现思路"><span class="nav-text">隔N行变色的多种实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#…"><span class="nav-text">…</span></a></li></ol></div>
             
           </div>
         </section>

@@ -86,15 +86,76 @@
 
 
 
-<meta name="description" content="为之则易，不为则难">
+<meta name="description" content="#wrap *{
+	margin: 0;
+	padding: 0;
+}
+#wrap{
+	text-align: center;
+}
+#wrap input{
+	width: 100px;
+}
+.content-wrap{
+	position: relative;
+}
+#div1 {
+	position:absolute;
+	right: 0;
+	bottom:0;
+	left: 0;
+	text">
 <meta property="og:type" content="website">
-<meta property="og:title" content="水手">
-<meta property="og:url" content="http://wwww.yesokiloveyou.com/tags/Node笔记/index.html">
+<meta property="og:title" content="苹果菜单">
+<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo9/index.html">
 <meta property="og:site_name" content="水手">
-<meta property="og:description" content="为之则易，不为则难">
+<meta property="og:description" content="#wrap *{
+	margin: 0;
+	padding: 0;
+}
+#wrap{
+	text-align: center;
+}
+#wrap input{
+	width: 100px;
+}
+.content-wrap{
+	position: relative;
+}
+#div1 {
+	position:absolute;
+	right: 0;
+	bottom:0;
+	left: 0;
+	text">
+<meta property="og:image" content="http://wwww.yesokiloveyou.com/./images/1.png">
+<meta property="og:image" content="http://wwww.yesokiloveyou.com/./images/2.png">
+<meta property="og:image" content="http://wwww.yesokiloveyou.com/./images/3.png">
+<meta property="og:image" content="http://wwww.yesokiloveyou.com/./images/4.png">
+<meta property="og:image" content="http://wwww.yesokiloveyou.com/./images/5.png">
+<meta property="og:updated_time" content="2016-12-04T15:10:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="水手">
-<meta name="twitter:description" content="为之则易，不为则难">
+<meta name="twitter:title" content="苹果菜单">
+<meta name="twitter:description" content="#wrap *{
+	margin: 0;
+	padding: 0;
+}
+#wrap{
+	text-align: center;
+}
+#wrap input{
+	width: 100px;
+}
+.content-wrap{
+	position: relative;
+}
+#div1 {
+	position:absolute;
+	right: 0;
+	bottom:0;
+	left: 0;
+	text">
+<meta name="twitter:image" content="http://wwww.yesokiloveyou.com/./images/1.png">
 
 
 
@@ -115,10 +176,16 @@
 
 
 
-  <link rel="canonical" href="http://wwww.yesokiloveyou.com/tags/Node笔记/"/>
+  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo9/"/>
 
 
-  <title> 标签: Node笔记 | 水手 </title>
+  <title>
+  
+
+  
+    苹果菜单 | 水手
+  
+</title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -237,46 +304,88 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Node笔记
-        <small>标签</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
+    
+      <style>
+#wrap *{
+	margin: 0;
+	padding: 0;
+}
+#wrap{
+	text-align: center;
+}
+#wrap input{
+	width: 100px;
+}
+.content-wrap{
+	position: relative;
+}
+#div1 {
+	position:absolute;
+	right: 0;
+	bottom:0;
+	left: 0;
+	text-align:center;
+}
+#div1 a{
+	border-bottom: none;
+}
+#div1 img{
+	display: inline;
+}
+</style>
+<div id="wrap">
+	<input type="text">
+	<input type="text">
+	<input type="text">
+	<input type="text">
+	<input type="text">
+	<div id="div1">
+	    <img src="./images/1.png" width="64" height="64">
+	    <img src="./images/2.png" width="64" height="64">
+	    <img src="./images/3.png" width="64" height="64">
+	    <img src="./images/4.png" width="64" height="64">
+	    <img src="./images/5.png" width="64" height="64">
+	</div>
+</div>
+<script>
+var oAaa = document.querySelector(".content-wrap");
 
-  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/11/13/note-nodejs/" itemprop="url">
-              
-                <span itemprop="name">Node读书笔记</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-11-13T18:11:26+08:00"
-              content="2016-11-13" >
-          11-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+var oWrap = document.querySelector("#wrap");
+var oDiv = document.querySelector("#div1");
+var aImg = oWrap.getElementsByTagName('img');
+var aTxt = oWrap.getElementsByTagName('input');
+document.onmousemove=function (ev)
+{
+	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	var oEvent = ev||event;
+	
+	for(var i = 0;i < aImg.length;i ++)
+	{
+		var x = aImg[i].offsetLeft + aImg[i].offsetWidth / 2;
+		var y = aImg[i].offsetTop + oDiv.offsetTop + aImg[i].offsetHeight / 2;// 注意这里
+		
+		var a = x - oEvent.clientX + oAaa.offsetLeft;// offset...到文档距离
+		var b = y - oEvent.clientY - scrollTop;
+		
+		var dis = Math.sqrt(a * a + b * b);// 求出两点之间的距离
+		
+		var scale = 1 - dis / 100;// 取反，目的是中间大两边小
+		
+		if(scale < 0.5)// 限制范围
+		{
+			scale = 0.5;
+		}
+		
+		aImg[i].width = scale * 128;
+		
+		aTxt[i].value = scale.toFixed(2);// 四舍五入为指定小数为的数字
+	}
+};
+</script>
     
   </div>
-
-  
 
 
           </div>
