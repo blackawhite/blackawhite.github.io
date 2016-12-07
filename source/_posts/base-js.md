@@ -496,3 +496,50 @@ function jiayou(arr)
 }
 console.log(jiayou(arr));
 ```
+### 节点查找
+#### 找一个节点下的子节点
+``` javascript
+function getChild(oParent,tagName){
+    var arr = [];
+    var aTag = oParent.childNodes;
+    for(var i = 0;i < aTag.length;i ++){
+        if(aTag[i].nodeType == 1){// 元素节点
+            if(tagName){// 有限定子节点的话
+                if(aTag[i].nodeName.toLowerCase() === tagName){
+                    arr.push(aTag[i]);
+                }
+            }
+            else{// 那就找出所有的子元素节点
+                arr.push(aTag[i]);
+            }
+        }
+    }
+    return arr;
+}
+var oUl = document.querySelector("#ul1");
+console.log(getChild(oUl));
+```
+#### 找上一个元素节点
+``` javascript
+var oDiv = document.getElementById("div1");
+var pre = oDiv.previousSibling;
+while(pre && pre.nodeType !== 1){
+    pre = pre.previousSibling;
+}
+console.log(pre);
+```
+#### 找上N个元素节点
+``` javascript
+var oDiv = document.getElementById("div1");
+var pre = oDiv.previousSibling;
+var arr = [];
+while(pre){
+    if(pre.nodeType === 1){
+        arr.push(pre);
+    }
+    pre = pre.previousSibling;
+}
+```
+### String常用方法
+
+### Array常用方法
