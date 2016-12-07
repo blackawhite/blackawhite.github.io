@@ -1,130 +1,139 @@
 ---
-title: Demo
-comments: false
+layout: false
 ---
-<style>
-#list{
-	width:302px;
-	margin:50px auto;
-	padding:0;
-	list-style:none;
-}
-#list li{
-	font:12px/30px "宋体";
-	box-shadow:0 0 1px #333;
-	text-indent:12px;
-}
-#list li a{
-	position:relative;
-	display:block;
-	height:30px;
-}
-#list span{
-	width:12px;
-	height:12px;
-	line-height:12px;
-}
-.content-wrap{ padding-top: 0; }
-</style>
-<ul id="list">
-	<li>
-		<a href="./exercise/demo1/index.html">百叶窗</a>
-	</li>
-	<li>
-		<a href="./exercise/demo2/index.html">布局转换</a>
-	</li>
-	<li>
-		<a href="./exercise/demo3/index.html">简单的侧边居中滑动框</a>
-	</li>
-	<li>
-		<a href="./exercise/demo4/index.html">点亮一个美女</a>
-	</li>
-	<li>
-		<a href="./exercise/demo5/index.html">防个新浪微博输入框</a>
-	</li>
-	<li>
-		<a href="./exercise/demo6/index.html">分享到</a>
-	</li>
-	<li>
-		<a href="./exercise/demo7/index.html">回到顶部</a>
-	</li>
-	<li>
-		<a href="./exercise/demo8/index.html">N种形式的图片切换</a>
-	</li>
-	<li>
-		<a href="./exercise/demo9/index.html">苹果菜单</a>
-	</li>
-	<li>
-		<a href="./exercise/demo10/index.html">瀑布流</a>
-	</li>
-	<li>
-		<a href="./exercise/demo11/index.html">公告栏效果</a>
-	</li>
-	<li>
-		<a href="./exercise/demo12/index.html">拖动改变框大小</a>
-	</li>
-	<li>
-		<a href="./exercise/demo13/index.html">防一个拖拽插件</a>
-	</li>
-</ul>
-<script src="../js/tween.js"></script>
-<script>
-var oList=document.getElementById("list");
-var aLi=oList.getElementsByTagName("a");
-var iLiHeight=aLi[0].offsetHeight;
-for(var i=0;i<aLi.length;i++)
-{
-	aLi[i].innerHTML=i+1+'.    '+aLi[i].innerHTML;
-	var sHtml=aLi[i].innerHTML;
-	aLi[i].innerHTML="";
-	for(var j=0;j<sHtml.length;j++)
-	{
-		aLi[i].innerHTML+="<span>"+sHtml[j]+"</span>"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo List</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
 	}
-	var aSpan=aLi[i].children;
-	for(var j=0;j<aSpan.length;j++)
-	{
-		aSpan[j].style.left=aSpan[j].offsetLeft+"px";
-		aSpan[j].style.top=aSpan[j].offsetTop+"px";
-		aSpan[j].startTop=aSpan[j].offsetTop;
+	#list{
+		width:302px;
+		margin:50px auto;
+		list-style:none;
 	}
-	for(var j=0;j<aSpan.length;j++)
+	#list li{
+		font:12px/30px "宋体";
+		box-shadow:0 0 1px #333;
+		text-indent:12px;
+	}
+	#list li a{
+		position:relative;
+		display:block;
+		color: #333;
+		height:30px;
+	}
+	#list span{
+		line-height:12px;
+	}
+	</style>
+</head>
+<body>
+	<ul id="list">
+		<li>
+			<a href="./exercise/demo1/index.html">百叶窗</a>
+		</li>
+		<li>
+			<a href="./exercise/demo2/index.html">布局转换</a>
+		</li>
+		<li>
+			<a href="./exercise/demo3/index.html">简单的侧边居中滑动框</a>
+		</li>
+		<li>
+			<a href="./exercise/demo4/index.html">点亮一个美女</a>
+		</li>
+		<li>
+			<a href="./exercise/demo5/index.html">防个新浪微博输入框</a>
+		</li>
+		<li>
+			<a href="./exercise/demo6/index.html">分享到</a>
+		</li>
+		<li>
+			<a href="./exercise/demo7/index.html">回到顶部</a>
+		</li>
+		<li>
+			<a href="./exercise/demo8/index.html">N种形式的图片切换</a>
+		</li>
+		<li>
+			<a href="./exercise/demo9/index.html">苹果菜单</a>
+		</li>
+		<li>
+			<a href="./exercise/demo10/index.html">瀑布流</a>
+		</li>
+		<li>
+			<a href="./exercise/demo11/index.html">公告栏效果</a>
+		</li>
+		<li>
+			<a href="./exercise/demo12/index.html">拖动改变框大小</a>
+		</li>
+		<li>
+			<a href="./exercise/demo13/index.html">防一个拖拽插件</a>
+		</li>
+	</ul>
+	<script src="../js/tween.js"></script>
+	<script>
+	var oList=document.getElementById("list");
+	var aLi=oList.getElementsByTagName("a");
+	var iLiHeight=aLi[0].offsetHeight;
+	for(var i=0;i<aLi.length;i++)
 	{
-		aSpan[j].style.position="absolute";
-		(function(aSpan,nub2){
-			var iStart=0;
-			var iSpanHeight=aSpan[0].offsetHeight;
-			aSpan[nub2].onmouseover=function(ev)
-			{
-				iStart=ev.clientY;
-			};
-			aSpan[nub2].onmousemove=function(ev)
-			{
-				var iDis=ev.clientY-iStart;
-				var iNub=iDis>0?1:-1;
-				if(this.startTop+iDis>=0 && this.startTop+iDis< (iLiHeight-iSpanHeight))
+		aLi[i].innerHTML=i+1+'.    '+aLi[i].innerHTML;
+		var sHtml=aLi[i].innerHTML;
+		aLi[i].innerHTML="";
+		for(var j=0;j<sHtml.length;j++)
+		{
+			aLi[i].innerHTML+="<span>"+sHtml[j]+"</span>"
+		}
+		var aSpan=aLi[i].children;
+		for(var j=0;j<aSpan.length;j++)
+		{
+			aSpan[j].style.left=aSpan[j].offsetLeft+"px";
+			aSpan[j].style.top=aSpan[j].offsetTop+"px";
+			aSpan[j].startTop=aSpan[j].offsetTop;
+		}
+		for(var j=0;j<aSpan.length;j++)
+		{
+			aSpan[j].style.position="absolute";
+			(function(aSpan,nub2){
+				var iStart=0;
+				var iSpanHeight=aSpan[0].offsetHeight;
+				aSpan[nub2].onmouseover=function(ev)
+				{
+					iStart=ev.clientY;
+				};
+				aSpan[nub2].onmousemove=function(ev)
+				{
+					var iDis=ev.clientY-iStart;
+					var iNub=iDis>0?1:-1;
+					if(this.startTop+iDis>=0 && this.startTop+iDis< (iLiHeight-iSpanHeight))
+					{
+						for(var j=0;j<aSpan.length;j++)
+						{
+							if(Math.abs(iDis)>Math.abs(nub2-j))
+							{
+								aSpan[j].style.top=aSpan[j].startTop+(Math.abs(iDis)-Math.abs(nub2-j))*iNub+"px";
+							}
+							else
+							{
+								aSpan[j].style.top=aSpan[j].startTop+"px";
+							}
+						}
+					}
+				};
+				aSpan[nub2].onmouseout=function(ev)
 				{
 					for(var j=0;j<aSpan.length;j++)
 					{
-						if(Math.abs(iDis)>Math.abs(nub2-j))
-						{
-							aSpan[j].style.top=aSpan[j].startTop+(Math.abs(iDis)-Math.abs(nub2-j))*iNub+"px";
-						}
-						else
-						{
-							aSpan[j].style.top=aSpan[j].startTop+"px";
-						}
+						starMove(aSpan[j],{top:aSpan[j].startTop},500,"elasticOut");
 					}
-				}
-			};
-			aSpan[nub2].onmouseout=function(ev)
-			{
-				for(var j=0;j<aSpan.length;j++)
-				{
-					starMove(aSpan[j],{top:aSpan[j].startTop},500,"elasticOut");
-				}
-			};	
-		})(aSpan,j);
-	}		
-}
-</script>
+				};	
+			})(aSpan,j);
+		}		
+	}
+	</script>
+</body>
+</html>

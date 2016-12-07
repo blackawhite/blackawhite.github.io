@@ -31,13 +31,13 @@ layout: false
 
 	var str = "";
 	var strDiv = "";
-	var top = 0;
+	var topNum = 0;
 	var left = 0;
 	for(var i = 0;i < 100;i ++){
-		top = parseInt(i / 10) * 52;
+		topNum = parseInt(i / 10) * 52;
 		left = (i % 10) * 52;
 
-		strDiv = '<div style="top:'+ top +'px; left:'+ left +'px; background: url(./images/a.png) no-repeat '+ - left +'px '+ - top +'px;"></div>';
+		strDiv = '<div style="top:'+ topNum +'px; left:'+ left +'px; background: url(./images/a.png) no-repeat '+ - left +'px '+ - topNum +'px;"></div>';
 
 		str += strDiv;
 	}
