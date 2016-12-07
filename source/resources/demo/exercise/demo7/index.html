@@ -1,70 +1,79 @@
 ---
-comments: false
+layout: false
 ---
-<style>
-#btn{
-	width: 50px;
-	height: 50px;
-	line-height: 50px;
-	text-align: center;
-	background-color: #ccc;
-	transition: 1s;
-	cursor: pointer;
-	position: fixed;
-	right: 20px;
-	bottom: 100px;
-	display: none;
-	color: #fff;
-	text-shadow: 0 1px #000;
-}
-#btn:hover{
-	background-color: pink;
-}
-</style>
-<script>
-window.onload = moveup;
-function moveup(){
-	var oBtn = document.querySelector("#btn");
-	var oWinHeight = document.documentElement.clientHeight || document.body.clientHeight;
-	var timer = null;
-	var oBar = true;
-	// 关键：点击的时候也会出发滚动事件，要区分点击按钮时的滚动和人为拖动滚动条的滚动
-	oBtn.onclick = function(){
-		clearInterval(timer);
-		timer = setInterval(function(){
-			// 确保点击时不触发scroll事件中的clearInterval()函数，不然一边滚动一边清楚定时器就没法进行了，注意这个oBar要放在定时器里连续不断的变true以改变scroll时最后的false
-			oBar = true;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>返回顶部</title>
+	<style>
+	#btn{
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		background-color: #ccc;
+		transition: 1s;
+		cursor: pointer;
+		position: fixed;
+		right: 20px;
+		bottom: 100px;
+		display: none;
+		color: #fff;
+		text-shadow: 0 1px #000;
+	}
+	#btn:hover{
+		background-color: pink;
+	}
+	</style>
+</head>
+<body>
+	<div style="height: 2000px;">
+		<p>关键：点击按钮的时候会触发滚动事件，要区分点击按钮时的滚动和人为拖动滚动条的滚动，以判断是否要清楚定时器。</p>
+		<div id="btn">Top</div>
+	</div>
+	<script>
+	function moveup(){
+		var oBtn = document.querySelector("#btn");
+		var oWinHeight = document.documentElement.clientHeight || document.body.clientHeight;
+		var timer = null;
+		var oBar = true;
+		// 关键：点击的时候也会出发滚动事件，要区分点击按钮时的滚动和人为拖动滚动条的滚动
+		oBtn.onclick = function(){
+			clearInterval(timer);
+			timer = setInterval(function(){
+				// 确保点击时不触发scroll事件中的clearInterval()函数，不然一边滚动一边清楚定时器就没法进行了，注意这个oBar要放在定时器里连续不断的变true以改变scroll时最后的false
+				oBar = true;
+				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				// 例如Math.floor(-5.3)是-6，关于运动有除的地方就要取整
+				var speed = Math.floor(- scrollTop / 5);
+				document.documentElement.scrollTop = document.body.scrollTop = scrollTop + speed;
+				if(scrollTop == 0){
+					clearInterval(timer);
+				}
+				document.title = scrollTop;
+			},30);
+		};
+		function judge(){
 			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-			// 例如Math.floor(-5.3)是-6，关于运动有除的地方就要取整
-			var speed = Math.floor(- scrollTop / 5);
-			document.documentElement.scrollTop = document.body.scrollTop = scrollTop + speed;
-			if(scrollTop == 0){
+			if(scrollTop > oWinHeight){// 说明超过一屏了
+				oBtn.style.display = "block";
+			}
+			else{
+				oBtn.style.display = "none";
+			}
+		}
+		// 滚动的时候，第一刻不会走，后面就走了
+		window.onscroll = function(){
+			judge();
+			if(!oBar){
+				// 只有清除上面定时器后才能拖动，不然就会和上面的冲突
 				clearInterval(timer);
 			}
-			document.title = scrollTop;
-		},30);
-	};
-	function judge(){
-		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-		if(scrollTop > oWinHeight){// 说明超过一屏了
-			oBtn.style.display = "block";
-		}
-		else{
-			oBtn.style.display = "none";
+			oBar = false;
 		}
 	}
-	// 滚动的时候，第一刻不会走，后面就走了
-	window.onscroll = function(){
-		judge();
-		if(!oBar){
-			// 只有清除上面定时器后才能拖动，不然就会和上面的冲突
-			clearInterval(timer);
-		}
-		oBar = false;
-	}
-}
-</script>
-<div style="height: 2000px;">
-	<p>关键：点击按钮的时候会触发滚动事件，要区分点击按钮时的滚动和人为拖动滚动条的滚动，以判断是否要清楚定时器。</p>
-	<div id="btn">Top</div>
-</div>
+	moveup();
+	</script>
+</body>
+</html>

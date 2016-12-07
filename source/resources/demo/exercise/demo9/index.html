@@ -1,81 +1,75 @@
 ---
-title: 苹果菜单
-comments: false
+layout: false
 ---
-<style>
-#wrap *{
-	margin: 0;
-	padding: 0;
-}
-#wrap{
-	text-align: center;
-}
-#wrap input{
-	width: 100px;
-}
-.content-wrap{
-	position: relative;
-}
-#div1 {
-	position:absolute;
-	right: 0;
-	bottom:0;
-	left: 0;
-	text-align:center;
-}
-#div1 a{
-	border-bottom: none;
-}
-#div1 img{
-	display: inline;
-}
-</style>
-<div id="wrap">
-	<input type="text" />
-	<input type="text" />
-	<input type="text" />
-	<input type="text" />
-	<input type="text" />
-	<div id="div1">
-	    <img src="./images/1.png" width="64" height="64">
-	    <img src="./images/2.png" width="64" height="64">
-	    <img src="./images/3.png" width="64" height="64">
-	    <img src="./images/4.png" width="64" height="64">
-	    <img src="./images/5.png" width="64" height="64">
-	</div>
-</div>
-<script>
-var oAaa = document.querySelector(".content-wrap");
-
-var oWrap = document.querySelector("#wrap");
-var oDiv = document.querySelector("#div1");
-var aImg = oWrap.getElementsByTagName('img');
-var aTxt = oWrap.getElementsByTagName('input');
-document.onmousemove=function (ev)
-{
-	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-	var oEvent = ev||event;
-	
-	for(var i = 0;i < aImg.length;i ++)
-	{
-		var x = aImg[i].offsetLeft + aImg[i].offsetWidth / 2;
-		var y = aImg[i].offsetTop + oDiv.offsetTop + aImg[i].offsetHeight / 2;// 注意这里
-		
-		var a = x - oEvent.clientX + oAaa.offsetLeft;// offset...到文档距离
-		var b = y - oEvent.clientY - scrollTop;
-		
-		var dis = Math.sqrt(a * a + b * b);// 求出两点之间的距离
-		
-		var scale = 1 - dis / 100;// 取反，目的是中间大两边小
-		
-		if(scale < 0.5)// 限制范围
-		{
-			scale = 0.5;
-		}
-		
-		aImg[i].width = scale * 128;
-		
-		aTxt[i].value = scale.toFixed(2);// 四舍五入为指定小数为的数字
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>苹果菜单</title>
+	<style>
+	#wrap *{
+		margin: 0;
+		padding: 0;
 	}
-};
-</script>
+	#wrap{
+		text-align: center;
+	}
+	#div1 {
+		position:absolute;
+		right: 0;
+		bottom:0;
+		left: 0;
+		text-align:center;
+	}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<input type="text" />
+		<input type="text" />
+		<input type="text" />
+		<input type="text" />
+		<input type="text" />
+		<div id="div1">
+		    <img src="./images/1.png" width="64">
+		    <img src="./images/2.png" width="64">
+		    <img src="./images/3.png" width="64">
+		    <img src="./images/4.png" width="64">
+		    <img src="./images/5.png" width="64">
+		</div>
+	</div>
+	<script>
+	var oWrap = document.querySelector("#wrap");
+	var oDiv = document.querySelector("#div1");
+	var aImg = oWrap.getElementsByTagName('img');
+	var aTxt = oWrap.getElementsByTagName('input');
+	document.onmousemove=function (ev)
+	{
+		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		var oEvent = ev||event;
+		
+		for(var i = 0;i < aImg.length;i ++)
+		{
+			var x = aImg[i].offsetLeft + aImg[i].offsetWidth / 2;
+			var y = aImg[i].offsetTop + oDiv.offsetTop + aImg[i].offsetHeight / 2;// 注意这里
+			
+			var a = x - oEvent.clientX;// offset...到文档距离
+			var b = y - oEvent.clientY - scrollTop;
+			
+			var dis = Math.sqrt(a * a + b * b);// 求出两点之间的距离
+			
+			var scale = 1 - dis / 300;// 取反，目的是中间大两边小
+			
+			if(scale < 0.5)// 限制范围
+			{
+				scale = 0.5;
+			}
+			
+			aImg[i].width = scale * 128;
+			
+			aTxt[i].value = scale.toFixed(2);// 四舍五入为指定小数为的数字
+		}
+	};
+	</script>
+</body>
+</html>

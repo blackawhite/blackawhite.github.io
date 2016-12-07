@@ -1,24 +1,30 @@
 ---
-title: 美女
-comments: false
+layout: false
 ---
-<style>
-.wrap{
-	width: 520px;
-	height: 520px;
-	margin: 0 auto;
-	position: relative;
-}
-.wrap div{
-	width: 50px;
-	height: 50px;
-	position: absolute;
-	transition: .5s;
-	opacity: 0.1;
-}
-</style>
-<script>
-window.onload = function(){
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>美女</title>
+	<style>
+	.wrap{
+		width: 520px;
+		height: 520px;
+		margin: 0 auto;
+		position: relative;
+	}
+	.wrap div{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		transition: .5s;
+		opacity: 0.1;
+	}
+	</style>
+</head>
+<body>
+	<div id="wrap"></div>
+	<script>
 	var oDiv = document.createElement("div");
 	oDiv.className = "wrap";
 	document.querySelector("#wrap").appendChild(oDiv);
@@ -44,6 +50,6 @@ window.onload = function(){
 			this.style.opacity = 1;
 		};
 	}
-};
-</script>
-<div id="wrap"></div>
+	</script>
+</body>
+</html>

@@ -1,35 +1,51 @@
 ---
-title: 布局转换
-comments: false
+layout: false
 ---
-<style>
-#ul1 *{
-	margin: 0;
-	padding: 0;
-}
-#ul1{
-	width: 186px;
-	height: 186px;
-	position: relative;
-	margin: 100px auto;
-}
-#ul1 li{
-	list-style-type: none;
-	width: 50px;
-	height: 50px;
-	margin: 5px;
-	border: 1px solid #000;
-	float: left;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #000;
-	background-color: #fff;
-}
-</style>
-<script src="../../../js/move.js"></script>
-<script>
-window.onload = function(){
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>布局转换</title>
+	<style>
+	#ul1 *{
+		margin: 0;
+		padding: 0;
+	}
+	#ul1{
+		width: 186px;
+		height: 186px;
+		position: relative;
+		margin: 100px auto;
+	}
+	#ul1 li{
+		list-style-type: none;
+		width: 50px;
+		height: 50px;
+		margin: 5px;
+		border: 1px solid #000;
+		float: left;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #000;
+		background-color: #fff;
+	}
+	</style>
+</head>
+<body>
+	<ul id="ul1">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<script src="../../../js/move.js"></script>
+	<script>
 	function Start(){
 		this.oUl = document.querySelector("#ul1");
 		this.aLi = this.oUl.querySelectorAll("li");
@@ -78,16 +94,6 @@ window.onload = function(){
 			};
 		}
 	}
-};
-</script>
-<ul id="ul1">
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-</ul>
+	</script>
+</body>
+</html>

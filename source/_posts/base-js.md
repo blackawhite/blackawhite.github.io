@@ -425,6 +425,7 @@ oDiv.onclick = function(){
 
 ```
 ### 数组去重
+#### 删除相同的
 ``` javascript
 var arr = [1,2,1,3,3,2,4,6,2,6,5,7,4,4,6,2,9,9,8,3,2,7];
 // 1 [2,1,3,3,2,4,6,2,6,5,7,4,4,6,2,9,9,8,3,2,7]
@@ -444,6 +445,54 @@ for(var i = 0;i < arr.length;i ++){
 }
 console.log(arr);
 ```
+#### 根据对象属性名不能等
 ``` javascript
+var arr = [1,2,1,3,3,3,2,4,6,2,6,6,7,4,4,6,2,9,9,8,3,2,7,"yangk","yangk"];
 
+//把数组中的每一项，当做一个新对象的属性名和属性值存起来，在存储的时候判断当前的属性名是否已经存在，存在就代表数组该项重复了，进行删除，否则则代表不重复，直接存储
+
+var obj = {};
+for(var i = 0;i < arr.length;i ++){
+    if(obj[arr[i]] == arr[i]){// 如果有就删除且跳出
+        arr.splice(i,1);
+        i --;
+        continue;// 跳出本次循环，也提高了查询次数提高性能
+    }
+    obj[arr[i]] = arr[i];
+}
+obj = null;
+
+console.log(arr);
+```
+#### push非重复的
+``` javascript
+// arr[0] : arr[1]，相当退出内循环，此时j = false
+// arr[1] : arr[2]，arr[1] : arr[3]，发现相等又退出内循环，此时j = false
+// arr[2] : arr[3]，arr[2] : arr[4]，arr[2] : arr[5]发现一切正常，此时i等于2故push: arr[2]，此时j = 6
+// arr[3] : arr[4]，arr[3] : arr[5]，发现相等又退出内循环，此时j = false
+// arr[4] : arr[5]，无异常，push: arr[4]，此时j = 6
+// arr[5] 此时j等于6，push: arr[5]，此时j = 6
+var arr=[5,5,4,5,2,5];
+function jiayou(arr)
+{ 
+    var newArr = [];
+    for(var i = 0;i < arr.length;i ++)
+    { 
+        for(var j = i + 1;j < arr.length;j ++)
+        { 
+            if(arr[i] === arr[j])
+            { 
+                j = false;// 与后面比较完再看j的值
+                break;// 直接退出循环
+            }
+        }
+        console.log(i + ":" + j);
+        if(j)
+        { 
+            newArr.push(arr[i]);
+        }
+    }
+    return newArr;
+}
+console.log(jiayou(arr));
 ```

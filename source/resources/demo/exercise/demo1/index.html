@@ -1,34 +1,71 @@
 ---
-title: 百叶窗
-comments: false
+layout: false
 ---
-<style>
-#ul1 *{
-	margin: 0;
-	padding: 0;
-}
-#ul1{
-	width: 200px;
-	margin: 0 auto;
-}
-#ul1 li{
-	position: relative;
-	height: 30px;
-	overflow: hidden;
-	border-bottom: 1px dashed #333;
-	box-sizing: border-box;
-}
-#ul1 div{
-	position: absolute;
-	top: 0;
-	left: 0;
-	padding-left: 20px;
-	line-height: 30px;
-}
-</style>
-<script src="../../../js/move.js"></script>
-<script>
-window.onload = function(){
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百叶窗</title>
+	<style>
+	#ul1 *{
+		margin: 0;
+		padding: 0;
+	}
+	#ul1{
+		width: 200px;
+		margin: 50px auto;
+	}
+	#ul1 li{
+		position: relative;
+		height: 30px;
+		overflow: hidden;
+		border-bottom: 1px dashed #333;
+		box-sizing: border-box;
+	}
+	#ul1 div{
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding-left: 20px;
+		line-height: 30px;
+	}
+	</style>
+</head>
+<body>
+	<ul id="ul1">
+		<li>
+			<div>
+				<p>000000000000000001</p>
+				<p>000000000000000002</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<p>000000000000000001</p>
+				<p>000000000000000002</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<p>000000000000000001</p>
+				<p>000000000000000002</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<p>000000000000000001</p>
+				<p>000000000000000002</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<p>000000000000000001</p>
+				<p>000000000000000002</p>
+			</div>
+		</li>
+	</ul>
+	<script src="../../../js/move.js"></script>
+	<script>
 	var oUl = document.querySelector("#ul1");
 	var aDiv = oUl.getElementsByTagName("div");
 	var timer = null;
@@ -57,39 +94,6 @@ window.onload = function(){
 			}
 		},100);
 	}
-
-};
-</script>
-
-<ul id="ul1">
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-	<li>
-		<div>
-			<p>000000000000000001</p>
-			<p>000000000000000002</p>
-		</div>
-	</li>
-</ul>
+	</script>
+</body>
+</html>
