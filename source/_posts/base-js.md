@@ -130,8 +130,26 @@ setInterval(count,1000);
 
 ### 函数
 
-### 隔N行变色的多种实现思路
+### 简单的隔N行变色
+``` javascript
+var aLi = document.getElementsByTagName("li");
+var arrColor = ["red","green","yellow","pink"];
+function changeBg(num){
+    for(var i = 0;i < aLi.length;i ++){
+        aLi[i].style.backgroundColor = arrColor[i % num];
 
+        var oldColor = "";
+        aLi[i].onmouseover = function(){
+            oldColor = this.style.backgroundColor;
+            this.style.backgroundColor = "#ccc";
+        };
+        aLi[i].onmouseout = function(){
+            this.style.backgroundColor = oldColor;
+        };
+    }
+}
+changeBg(2);
+```
 ### ...
 
 ### 预解析
@@ -543,3 +561,69 @@ while(pre){
 ### String常用方法
 
 ### Array常用方法
+
+### 关于this
+看方法名前面是否有点，有的话点前面是谁this就是谁
+``` javascript
+function fn(){
+    console.log(this);
+}
+var obj = {
+    fn:fn
+};
+fn();// this > window,严格模式下undefined
+obj.fn();// this > obj
+```
+``` javascript
+function Person(){
+    this.name = "yangk";
+}
+Person.prototype.showName = function(){
+    console.log(this.name);
+};
+var p1 = new Person;
+p1.showName();// this > p1
+p1.__proto__.showName();// this > p1.__proto__
+Person.prototype.showName();// this > p1.prototype
+```
+自执行函数中的this永远是window，严格模式下是undefined
+``` javascript
+(function(){
+    console.log(this);// this > window
+})();
+~function(){
+    console.log(this);// this > window
+}();
+```
+元素的某一个行为绑定一个方法，this > 元素
+``` javascript
+function fn(){
+    console.log(this);
+}
+oDiv.onclick = fn;
+oDiv.onclick = fn();// 注意这里是执行的返回结果返回！！！！！！undefined
+
+oDiv.onclick = function(){
+    fn();// this  >  window
+};
+```
+使用call/apply强制改变this
+``` javascript
+var obj = {
+    fn: function(){
+        console.log(this);
+    }
+};
+obj.fn();// this > obj
+obj.fn.call(12);// this > 12
+```
+``` javascript
+function sum(){
+    
+}
+sum.call(100,100...)// 第一个参数是this，后面对应接受的形参，没有undefined
+
+sum.call();//在非严格模式下，call的第一个参数不写或者写null/undefined，默认的this都是window，严格模式下写谁就是谁，写null就是null，不写是undefined
+
+apply(obj,[...]);
+```
