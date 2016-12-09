@@ -559,7 +559,35 @@ while(pre){
 }
 ```
 ### String常用方法
+``` javascript
+var str = 'yangkkk';
 
+str.length;
+
+str.charAt(0);// 获取指定索引对应的字符
+
+str.charCodeAt(0);// 索引位置字符对应的ASCII码值
+
+str.substr(n,m);// 索引n(包括n)开始截取 m个 字符
+
+str.substring(n,m);// 从索引n找到m(不包括m)处
+
+str.slice(n,m);// 和substring()一样，支持负数作为索引，例如splice(-10)
+
+str.indexOf(字符);// 获取指定字符在对应字符串中第一次出现的索引和charAt()相反
+
+lastIndexOf(字符);// 获取字符在字符串中最后一次出现的位置，如果没有返回-1
+
+str.toLowerCase();
+
+toUpperCase();
+
+str.replace(旧字符，新字符);// 配合正则使用较好
+str.replace('k',"o").replace('k',"o").replace('k',"o");
+str.replace(/k/g,"o");
+
+str.split("")//变成数组
+```
 ### Array常用方法
 
 ### 关于this
