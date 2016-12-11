@@ -5,6 +5,435 @@ tags: JS基础知识
 ---
 JavaScript学习中一些零碎笔记，持续更新...
 <!--more-->
+### 数据类型
+``` javascript
+基本：
+    number、string、boolean、null、undefined
+引用：
+    object:{}、[]、/^$/、Date
+    function
+```
+### 预解析
+``` javascript
+// 带var会进行预解析，结果undefined，不加报错则不会预解析，报错
+console.log(num1);// undefined
+var num1 = 12;
+console.log(num2);// 报错
+num2 = 12
+```
+``` javascript
+var a=2;
+function box(){ 
+    alert(a);// 先预解析弹出undifined，注意这两句的先后顺序！再注意下面的var，由于预解析时找出下面的var，故不向上找啦！
+    var a=1;
+}
+box();
+alert(a);// 弹出2
+```
+``` javascript
+var a=2;
+function box(){ 
+    alert(a);// 函数内预解析找不到var，向上找为2就弹出2.然后向下执行又被修改为1
+    a=1;// 能修改全部变量的a
+}
+box();
+alert(a);// 所以弹出1
+```
+``` javascript
+var a=2;
+function box(a){ 
+    alert(a);// 函数内预解析找到参数a，就不向上找了，由于调用时没有传入参数，所以弹出undefined 
+    a=1;// 此时的a为局部变量，并赋值为1，与此函数外面的a没有任何关系啦
+}
+box();
+alert(a);// 所以弹出2
+```
+``` javascript
+var a=2;
+function box(a){// 参数的本质是个局部变量即var a=2;
+    alert(a);// 弹出2
+    a=1;// 此时的a之所以不能修改外面的值啦，是因为预解析时函数内已找到参数，此时修改的是函数内a的值
+}
+box(a);
+alert(a);// 弹出2
+```
+``` javascript
+alert(f2);// undefined
+if(true){ 
+    function f2(){ 
+        var b=2;
+        alert(b);
+    }
+}
+```
+``` javascript
+// 带var和不带var的区别：有没有预解析，undefined和报错的区别
+console.log(a);// undefined
+var a = 12;
+
+console.log(b);// 报错，没有var预解析，找不到b
+b = 12;
+```
+``` javascript
+// 带var的先声明默认赋值undefined，预解析只发生在当前作用域
+// 带function的声明并定义完成，即开辟内存空间并存储完成
+alert(n);// undefined
+var n = 9;// 
+function fn(){
+    alert(n);// undefined
+    n = 7;// 私有作用域变成7
+    var n = 6;// 私有作用域变成6
+}
+fn();
+alert(n);// 9
+```
+``` javascript
+var n = 9;
+var s = "yangk";
+function fn(){
+    console.log(n);// undefined
+    s = 'jiangjun';
+    n = 7;
+    var n = 6;
+    console.log(s);// jiangjun
+}
+fn();
+console.log(n);// 9
+console.log(s);// jiangjun
+```
+``` javascript
+// 发现相重的，不重复声明，但可以重复定义赋值，而函数预解析时声明并定义赋值
+console.log(a);// function a(){ console.log(2); }
+var a;
+console.log(a);// function a(){ console.log(2); }
+function a(){
+    console.log(1);
+}
+function a(){
+    console.log(2);
+}
+console.log(a);// function a(){ console.log(2); }
+var a = 3;// 重新赋值为3
+console.log(a);// 3
+```
+``` javascript
+// 预解析是不管条件语句的
+if(!("a" in window)){
+    var a = 12;
+    console.log(1);
+}
+else{
+    console.log(2);// √
+}
+
+console.log(a);// undefined
+if(1 != 1){
+    var a = 12;
+}
+```
+``` javascript
+// 只预解释=左边的，右边不解释
+console.log(fn);// undefined
+console.log(a);// 报错
+var fn = function a(){};
+fn();
+```
+``` javascript
+// function中return 下面 的代码虽然不执行了，但是会预解析，后面 返回值不预解释
+// 预解释发生在一个(script)脚本块中，不同的脚本块中不预解释
+function fn(){
+    console.log(b);// undefined
+    console.log(a);// 报错
+    return function a(){};
+    var b = 12;
+}
+fn();
+```
+``` javascript
+// 自执行函数在全局作用域下是不尽兴预解释的，当代码执行到这里的时候定义和执行一起完成
+(function(){})();
+~(function(){})();
+!(function(){})();
++(function(){})();
+-(function(){})();
+```
+``` javascript
+// JS中如果变量的名字和函数的名字一样其实是一个东西，会重复，会冲突
+// 预解释的时候如果名字已经声明过了，则不需要重新的声明，但是需要重新的赋值
+// var fn = 13;
+// function fn(){
+//     console.log("ok");
+// }
+
+// 注意函数的预解释是声明加定义
+fn();// 2
+function fn(){// 声明 + 定义(赋值)，由于一开始就声明+定义了，这里不会对再经过的代码起作用（声明／定义）
+    console.log(1);
+}
+fn();// 2
+var fn = 10;// 再此经过时会重新定义
+fn();// 10()会报错
+function fn(){// 定义
+    console.log(2);
+}
+fn();
+```
+``` javascript
+function fo(){
+    var i = 0;
+    return function(n){
+        return n + i ++;// 这里先执行i ++
+    };
+}
+var f = fo();
+var a = f(15);
+alert(a);// 15，并且上面f()中的i变成了1
+var d = f(20);
+alert(d);// 21
+var b = fo()(15);// 重新执行了15
+alert(b);
+var c = fo()(20);// 重新执行了20
+alert(c);
+```
+``` javascript
+var number = 2;
+var obj = {
+    number: 4,
+    fn1: (function(){// 一上来自执行
+        this.number *= 2;// this是window
+        number = number * 2;// undefined * 2
+        console.log(number);// NaN
+        var number = 3;
+        return function(){
+            this.number *= 2;
+            number *= 3;
+            alert(number);
+        }
+    })()
+};
+var fn1 = obj.fn1;// 这里只是return的函数，上面的console.log(number)不会再输出了
+alert(number);// 全局的number等于4
+fn1();// 局部的number等于9，此时全局的number已经变成8
+
+obj.fn1();// 局部的number驻留内存9 * 3 = 27，此时obj.number已经等于8
+alert(window.number);// 8
+alert(obj.number);// 8
+```
+### 查找上级作用域
+``` javascript
+// 如何查找当前作用域的上一级作用域：看当前函数是在哪个作用域下定义的，和函数在哪执行的无关
+var num = 12;
+function fn(){
+    var num = 120;
+    return function(){// return后的不预解释，直接在这里定义，返回函数的内存地址。函数是在这里定义的
+        console.log(num);
+    };
+}
+var f = fn();// fn()执行后返回一个函数，执行函数会形成一个私有作用域
+f();// 形成私有作用域，num不是私有的，往上找...
+
+~function(){
+    var num = 1200;
+    f();
+}();
+// 上面将形成3个栈内存，2个堆内存，画图理解
+```
+### 点击计数
+#### 利用全局变量
+``` javascript
+// 利用全局作用域不销毁的原理，弊端：不销毁且容易冲突
+var oDiv = document.createElement("div");
+oDiv.innerHTML = 0;
+oDiv.style.cssText = "border: 1px solid red;height: 40px;line-height: 40px;text-align: center;font-size: 20px;cursor: pointer;";
+document.body.appendChild(oDiv);
+var num = 0;
+oDiv.onclick = function(){
+    num ++;
+    oDiv.innerHTML = num;
+};
+```
+#### 利用私有作用域
+``` javascript
+// 弊端：有一个不销毁的私有作用域，占一丢丢内存
+var oDiv = document.createElement("div");
+oDiv.innerHTML = 0;
+oDiv.style.cssText = "border: 1px solid red;height: 40px;line-height: 40px;text-align: center;font-size: 20px;cursor: pointer;";
+document.body.appendChild(oDiv);
+~function(){
+    var num = 0;
+    oDiv.onclick = function(){
+        num ++;
+        oDiv.innerHTML = num;
+    };
+}();
+```
+函数执行形成一个私有作用域，保护里面的私有变量不受外界干扰，我们把这种机制叫做闭包
+``` javascript
+function fn(){
+    var n = 12;
+    return function(){// 销毁不了
+        n ++;
+        console.log(n);
+    }
+}
+var f = fn();
+f();// 13 >> 驻留内存
+f();// 14
+```
+``` javascript
+var oDiv = document.createElement("div");
+oDiv.innerHTML = 0;
+oDiv.style.cssText = "border: 1px solid red;height: 40px;line-height: 40px;text-align: center;font-size: 20px;cursor: pointer;";
+document.body.appendChild(oDiv);
+
+// oDiv.onclick = function(){
+//     var i = 0;
+//     return function(){
+//         i ++;
+//         oDiv.innerHTML = i;
+//     };
+// }();
+
+oDiv.onclick = (function(){
+    var i = 0;
+    return function(){
+        i ++;
+        oDiv.innerHTML = i;
+    };
+})();
+```
+#### 利用innerHTML
+``` javascript
+// 弊端：重新渲染
+var oDiv = document.createElement("div");
+oDiv.innerHTML = 0;
+oDiv.style.cssText = "border: 1px solid red;height: 40px;line-height: 40px;text-align: center;font-size: 20px;cursor: pointer;";
+document.body.appendChild(oDiv);
+oDiv.onclick = function(){
+    // oDiv.innerHTML = parseInt(oDiv.innerHTML) + 1;
+    oDiv.innerHTML ++;// 有默认的转换机制
+};
+```
+#### 利用自定义属性
+``` javascript
+var oDiv = document.createElement("div");
+oDiv.innerHTML = 0;
+oDiv.style.cssText = "border: 1px solid red;height: 40px;line-height: 40px;text-align: center;font-size: 20px;cursor: pointer;";
+document.body.appendChild(oDiv);
+oDiv.num = 0;// 既不是全局变量也不是私有变量，是自定义属性
+oDiv.onclick = function(){
+    this.innerHTML = ++ this.num;
+};
+```
+### 内存释放／垃圾回收(待续，高程3...)
+``` javascript
+// 堆内存：存放引用类型的值
+// 对象数据类型或者函数数据类型在定义的时候都会先开辟一个堆内存，堆内存有一个引用地址，当堆内存被占用(引用)的情况下数销毁不了的
+
+var obj1 = {// 开一个堆内存，假如地址是xxxfff000，obj1指向该堆内存
+    name: "yangk"
+};
+var obj2 = obj1;// obj2也指向xxxfff000
+
+// 当堆内存没人引用时，浏览器将在空闲的时候将其回收，所以销毁堆内存时我们只需要把引用他的变量赋值为null即可
+obj1 = null;// 空对象指针，谁都不指
+obj2 = null;
+```
+``` javascript
+// 栈内存(作用域)
+// 全局作用域和私有作用域
+
+// 全局作用域：只有当页面关闭的时候其才销毁
+// 私有作用域：函数执行会产生私有作用域，当私有作用域中的代码执行完成后，当前作用域会进行释放和销毁(闭包除外)
+
+// 当私有作用域中的部分内容被占用的情况下是不能被销毁的
+
+// 不销毁情况：
+// 函数执行返回了一个引用数据类型值，并且被外面一个东西给接受了
+function fn(){
+    var num = 100;
+    return function(){
+        num ++;
+        console.log(num);
+    };
+}
+var f = fn();
+f();// 101
+f();// 102
+fn()();// 这种情况fn返回的函数没有被占用，但是还需要执行一次，暂时不销毁，当返回的函数执行完成后，浏览器会在空闲的时候将其销毁
+// 私有作用域中给DOM元素的事件绑定方法一般也不销毁
+var oDiv = document.getElementById("div1");// 通过DOM方法获取的元素都是对象数据类型的值
+~function(){
+    oDiv.onclick = function(){
+
+    };
+}();
+```
+### 关于this
+看方法名前面是否有点，有的话点前面是谁this就是谁
+``` javascript
+function fn(){
+    console.log(this);
+}
+var obj = {
+    fn:fn
+};
+fn();// this > window,严格模式下undefined
+obj.fn();// this > obj
+```
+``` javascript
+function Person(){
+    this.name = "yangk";
+}
+Person.prototype.showName = function(){
+    console.log(this.name);
+};
+var p1 = new Person;
+p1.showName();// this > p1
+p1.__proto__.showName();// this > p1.__proto__
+Person.prototype.showName();// this > p1.prototype
+```
+自执行函数中的this永远是window，严格模式下是undefined
+``` javascript
+(function(){
+    console.log(this);// this > window
+})();
+~function(){
+    console.log(this);// this > window
+}();
+```
+元素的某一个行为绑定一个方法，this > 元素
+``` javascript
+function fn(){
+    console.log(this);
+}
+oDiv.onclick = fn;
+oDiv.onclick = fn();// 注意这里是执行的返回结果返回！！！！！！undefined
+
+oDiv.onclick = function(){
+    fn();// this  >  window
+};
+```
+使用call/apply强制改变this
+``` javascript
+var obj = {
+    fn: function(){
+        console.log(this);
+    }
+};
+obj.fn();// this > obj
+obj.fn.call(12);// this > 12
+```
+``` javascript
+function sum(){
+    
+}
+sum.call(100,100...)// 第一个参数是this，后面对应接受的形参，没有undefined
+
+sum.call();//在非严格模式下，call的第一个参数不写或者写null/undefined，默认的this都是window，严格模式下写谁就是谁，写null就是null，不写是undefined
+
+apply(obj,[...]);
+```
 ### 乘法表
 #### 加换行符实现
 ``` javascript
@@ -127,10 +556,18 @@ document.body.appendChild(oDiv);
 count();
 setInterval(count,1000);
 ```
-
+注意星期
+``` javascript
+var oDate = new Date();
+week = "日一二三四五六".charAt(oDate.getDay());
+console.log(week);
+```
 ### 函数
-
-### 简单的隔N行变色
+一个function生命周期：
+出生：预解释时声明加定义，开辟一个新的内存空间，让函数名存储这个快的地址
+生长：函数执行形成私有作用域，里面开始类似window的新一轮与解析
+死亡：一般情况下(如果没有返回function)，私有作用域下的代码执行完成后，整个私有作用域就销毁了
+#### 简单的隔N行变色
 ``` javascript
 var aLi = document.getElementsByTagName("li");
 var arrColor = ["red","green","yellow","pink"];
@@ -150,237 +587,33 @@ function changeBg(num){
 }
 changeBg(2);
 ```
-### ...
-
-### 预解析
-``` javascript
-var a=2;
-function box()
-{ 
-    alert(a);    // 先预解析弹出undifined，注意这两句的先后顺序！再注意下面的var，由于预解析时找出下面的var，故不向上找啦！
-    var a=1;
-}
-box();
-alert(a);         // 弹出2
-```
-``` javascript
-var a=2;
-function box()
-{ 
-    alert(a);  // 函数内预解析找不到var，向上找为2就弹出2.然后向下执行又被修改为1
-    a=1;       // 能修改全部变量的a
-}
-box();
-alert(a);     // 所以弹出1
-```
-``` javascript
-var a=2;
-function box(a)
-{ 
-    alert(a);  // 函数内预解析找到参数a，就不向上找了，由于调用时没有传入参数，所以弹出undefined 
-    a=1;       // 此时的a为局部变量，并赋值为1，与此函数外面的a没有任何关系啦
-}
-box();
-alert(a);      // 所以弹出2
-```
-``` javascript
-var a=2;
-function box(a)  // 参数的本质是个局部变量即var a=2;
-{ 
-    alert(a);    // 弹出2
-    a=1;         // 此时的a之所以不能修改外面的值啦，是因为预解析时函数内已找到参数，此时修改的是函数内a的值
-}
-box(a);
-alert(a);        // 弹出2
-```
-``` javascript
-alert(f2);//undefined
-if(true)
-{ 
-    function f2()
-    { 
-        var b=2;
-        alert(b);
-    }
-}
-```
-``` javascript
-// 带var和不带var的区别：有没有预解析，undefined和报错的区别
-console.log(a);// undefined
-var a = 12;
-
-console.log(b);// 报错，没有var预解析，找不到b
-b = 12;
-```
-``` javascript
-// 带var的先声明默认赋值undefined，预解析只发生在当前作用域
-// 带function的声明并定义完成，即开辟内存空间并存储完成
-alert(n);// undefined
-var n = 9;// 
-function fn(){
-    alert(n);// undefined
-    n = 7;// 私有作用域变成7
-    var n = 6;// 私有作用域变成6
-}
-fn();
-alert(n);// 9
-```
-``` javascript
-var n = 9;
-var s = "yangk";
-function fn(){
-    console.log(n);// undefined
-    s = 'jiangjun';
-    n = 7;
-    var n = 6;
-    console.log(s);// jiangjun
-}
-fn();
-console.log(n);// 9
-console.log(s);// jiangjun
-```
-``` javascript
-// 发现相重的，不重复声明，但可以重复定义赋值，而函数预解析时声明并定义赋值
-console.log(a);// function a(){ console.log(2); }
-var a;
-console.log(a);// function a(){ console.log(2); }
-function a(){
-    console.log(1);
-}
-function a(){
-    console.log(2);
-}
-console.log(a);// function a(){ console.log(2); }
-var a = 3;// 重新赋值为3
-console.log(a);// 3
-```
-``` javascript
-// 预解析是不管条件语句的
-if(!("a" in window)){
-    var a = 12;
-    console.log(1);
-}
-else{
-    console.log(2);// √
-}
-
-console.log(a);// undefined
-if(1 != 1){
-    var a = 12;
-}
-```
-``` javascript
-// 只预解释=左边的，右边不解释
-console.log(fn);// undefined
-console.log(a);// 报错
-var fn = function a(){
-}
-fn();
-```
-``` javascript
-// function中return后面的返回值不预解释
-// 预解释发生在一个(script)脚本块中，不同的脚本块中不预解释
-function fn(){
-    console.log(b);// undefined
-    console.log(a);// 报错
-    return function a(){};
-    var b = 12;
-}
-fn();
-```
-``` javascript
-function fo(){
-    var i = 0;
-    return function(n){
-        return n + i ++;//这里先执行i ++
-    };
-}
-var f = fo();
-var a = f(15);
-alert(a);// 15，并且上面f()中的i变成了1
-var d = f(20);
-alert(d);//21
-var b = fo()(15);//重新执行了15
-alert(b);
-var c = fo()(20);//重新执行了20
-alert(c);
-```
-``` javascript
-var number = 2;
-var obj = {
-    number: 4,
-    fn1: (function(){// 一上来自执行
-        this.number *= 2;// this是window
-        number = number * 2;// undefined * 2
-        console.log(number);// NaN
-        var number = 3;
-        return function(){
-            this.number *= 2;
-            number *= 3;
-            alert(number);
-        }
-    })()
-};
-var fn1 = obj.fn1;// 这里只是return的函数，上面的console.log(number)不会再输出了
-alert(number);// 全局的number等于4
-fn1();// 局部的number等于9，此时全局的number已经变成8
-
-obj.fn1(); // 局部的number驻留内存9 * 3 = 27，此时obj.number已经等于8
-alert(window.number);// 8
-alert(obj.number);// 8
-```
-### 作用域
-一个function生命周期：
-出生：预解释时声明加定义，开辟一个新的内存空间，让函数名存储这个快的地址
-生长：函数执行形成私有作用域，里面开始类似window的新一轮与解析
-死亡：一般情况下(如果没有返回function)，私有作用域下的代码执行完成后，整个私有作用域就销毁了
+#### 简单的求和
 ``` javascript
 function sum(){
-    var total = 1 + 12;
-    var obj = {
-        name: 'yangk'
-    };
+    var total = 0;
+    for(var i = 0;i <arguments.length;i ++){
+        var num = Number(arguments[i]);//两种情况：NaN或者数字
+        if(isNaN(num)){
+            continue;
+        }
+        total += num;
+    }
     console.log(total);
 }
-sum();// 13
-sum();// 13
+sum(1,2,"a","3","4");
 ```
-函数执行形成一个私有作用域，保护里面的私有变量不受外界干扰，我们把这种机制叫做闭包
+#### 简单的变色
 ``` javascript
-function fn(){
-    var n = 12;
-    return function(){// 销毁不了
-        n ++;
-        console.log(n);
-    }
-}
-var f = fn();
-f();// 13 >> 驻留内存
-f();// 14
-```
-``` javascript
-var oDiv = document.createElement("div");
-oDiv.innerHTML = 0;
-oDiv.style.cssText = "border: 1px solid red;height: 40px;line-height: 40px;text-align: center;font-size: 20px;cursor: pointer;";
-document.body.appendChild(oDiv);
+var num = 0;
+var arr = ["red","green","blue","white"];
 
-// oDiv.onclick = function(){
-//     var i = 0;
-//     return function(){
-//         i ++;
-//         oDiv.innerHTML = i;
-//     };
-// }();
-
-oDiv.onclick = (function(){
-    var i = 0;
-    return function(){
-        i ++;
-        oDiv.innerHTML = i;
-    };
-})();
+document.onclick = function(){
+    this.body.style.backgroundColor = arr[num++%arr.length];
+};
 ```
+
 ### 随机数
+#### 找n-m间不重复的随机数
 ``` javascript
 // 找10 - 100之间不重复的整数10个整数并排序
 var arr = [];
@@ -390,7 +623,7 @@ for(var i = 0;i < 10;i ++){
 }
 function find(){
     var iNum = Math.round( Math.random() * 90 + 10 );
-    for(var i = 0;i < arr.length;i ++){
+    for(var i = 0;i < arr.length;i ++){// push之前检查一遍
         if(arr[i] == iNum){
             find();
             return false;
@@ -514,7 +747,7 @@ function jiayou(arr)
 }
 console.log(jiayou(arr));
 ```
-### 节点查找
+### DOM
 #### 找一个节点下的子节点
 ``` javascript
 function getChild(oParent,tagName){
@@ -588,70 +821,266 @@ str.replace(/k/g,"o");
 
 str.split("")//变成数组
 ```
-### Array常用方法
+#### 时间转换
+主要用到String的split()方法
+``` javascript
+var time = "2016-12-10 12:45:3";// 转成：2016年12月10日 12时45分03秒
 
-### 关于this
-看方法名前面是否有点，有的话点前面是谁this就是谁
-``` javascript
-function fn(){
-    console.log(this);
-}
-var obj = {
-    fn:fn
-};
-fn();// this > window,严格模式下undefined
-obj.fn();// this > obj
-```
-``` javascript
-function Person(){
-    this.name = "yangk";
-}
-Person.prototype.showName = function(){
-    console.log(this.name);
-};
-var p1 = new Person;
-p1.showName();// this > p1
-p1.__proto__.showName();// this > p1.__proto__
-Person.prototype.showName();// this > p1.prototype
-```
-自执行函数中的this永远是window，严格模式下是undefined
-``` javascript
-(function(){
-    console.log(this);// this > window
-})();
-~function(){
-    console.log(this);// this > window
-}();
-```
-元素的某一个行为绑定一个方法，this > 元素
-``` javascript
-function fn(){
-    console.log(this);
-}
-oDiv.onclick = fn;
-oDiv.onclick = fn();// 注意这里是执行的返回结果返回！！！！！！undefined
+var arr = time.split(" ");// 字符串按空格拆分成数组
+var arrLeft = arr[0].split("-");// 数组中的字符串按-拆分成数组
+var arrRight = arr[1].split(":");
 
-oDiv.onclick = function(){
-    fn();// this  >  window
-};
-```
-使用call/apply强制改变this
-``` javascript
-var obj = {
-    fn: function(){
-        console.log(this);
+var leftStr = "";
+var rightStr = "";
+
+var l = "";
+var r = "";
+for(var i = 0;i < arrLeft.length;i ++){
+    switch(i){
+        case 1:
+            l = "年";
+        break;
+        case 2:
+            l = "月";
+        break;
+        default:
+            l = "日";
     }
-};
-obj.fn();// this > obj
-obj.fn.call(12);// this > 12
+    leftStr += arrLeft[i] + l;
+}
+for(var i = 0;i < arrRight.length;i ++){
+    switch(i){
+        case 1:
+            r = "时";
+        break;
+        case 2:
+            r = "分";
+        break;
+        default:
+            r = "秒";
+    }
+    rightStr += arrRight[i] + r;
+}
+console.log(leftStr + " " + rightStr);
+```
+### Array常用方法
+``` javascript
+// push:返回新数组的长度，原来数组改变
+// unshift:数组开头增加，返回改变后的长度，原来数组改变
+// pop:不穿参数，删除数组最后一个，返回删除的内容，返回类型和删除内容类型一样，原来数组改变
+// shift:不传参数，删除数组第一个，返回删除的内容，返回类型和删除内容类型一样，原来数组改变
+
+// splice(n,0,x):向数组中索引为n的前面添加新的内容，返回空数组，原来数组改变
+// splice(n,m):从索引n（包含n）开始删除m个元素，把删除的内容当作新的数组返回，原来数组改变
+// splice(n,m,x):从索引n开始删除m个元素，用x替换删除的，把删除的内容当作新的数组返回，原来数组改变
+
+// splice(0,0,x)   >>  unshift
+// splice(arr.length,0,x)  >>  push
+// splice(arr.length-1,1)  >>  pop
+// splice(0,1) >>  shift
+// 注意以上虽然功效一样，但返回的内容是不一样的
+
+// slice(n,m):从索引n（包含n）开始，找到索引m处（不含m），找到内容作为一个新数组返回，原有数组不变
+// slice(n):从n找到末尾
+// slice(0)或slice():将原来数组原封不动的复制一份
+
+// concat:数组与数组的拼接，例如arr1.concat(arr2)
+
+// toString:将对象转换为字符串，把数组中每一项拿出来用逗号隔开拼接为一个字符串，原有数组不变
+
+// join(分隔符):将对象转换为字符串，把数组中每一项拿出来用逗号隔开拼接为一个字符串，原有数组不变
+// 例如实现数组所有数字相加：eval(arr.join("+"))
+
+// reverse:返回反转后的数组，原有数组改变
+
+// sort:排序，直接写sort只能处理10以内的数字，处理所有的传参数，是利用冒泡排序的思想实现的
+
+// 常用但不兼容的几个方法(待续)：
+// indexOf()
+// forEach()
+// map()
+// ...
+```
+### 冒泡排序
+``` javascript
+// 冒泡排序：当前项和后一项进行比较，如果当前项 > 后一项，两者交换位置
+
+var arr = [12,10,13,8,4];
+
+// [10,12,13,8,4]
+// [10,12,13,8,4]
+// [10,12,8,13,4]
+// [10,12,8,4,13]
+
+// [10,12,8,4,13]
+// [10,8,12,4,13]
+// [10,8,4,12,13]
+
+// [8,10,4,12,13]
+// [8,4,10,12,13]
+
+// [4,8,10,12,13]
+
+// 每一轮都将最大的放在后面，比较arr.length - 1轮，每一轮又比较arr.length - 1 - i次
+
+function sortArr(arr,type){
+    for(var i = 0;i < arr.length - 1;i ++){
+        for(var j = 0;j < arr.length - 1 - i;j ++){
+            if(arr[j] > arr[j + 1]){
+                var temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+    type == 1 ? arr.reverse() : void 0;
+}
+
+sortArr(arr,1);
+
+console.log(arr);
+```
+### 数据类型检测
+#### typeof
+#### instanceof
+#### constructor
+#### Object.prototype.toString.call()
+
+### 比较的奥秘
+``` javascript
+switch中case的比较是===
+
+!：首先将值转换为布尔类型的，然后再取反
+
+!!：将其他数据类型转换为布尔类型，相当于Boolean()
+
+1、对象和对象比较永远不想等，例如[]==[],{}=={}
+
+2、对象和字符串比较，先调用toString()方法先将对象转换为字符串，然后再进行比较，例如[] == ""为true，{}转换为字符串是"[object object]"，所以{} == ""为false
+
+3、对象和布尔类型比较，对象先转化为字符串(toString)，然后转换为数字(Number)，布尔类型也转换为数字(1或0)，Number("")是0，例如[] == false是true
+
+4、对象和数字比较，同上...例如[] == 1为false
+
+5、布尔和数字比较，布尔转换为数字(1或0)
+
+6、字符串和数字，字符串转换为数字
+
+7、字符串和布尔，都转换为数字
+
+9、null == undefined是true，除此之外null或undefined和其他任何数据类型的比较都不相等
+
+10、JS中==是值比较，===是值和类型都比较
+```
+
+### 题目/技巧
+#### 求值
+``` javascript
+for(var i = 0;i < 5;i ++){
+    if(i <= 5){
+        i += 1;
+        continue;
+    }
+    else{
+        break;
+        i += 2;
+    }
+}
+console.log(i);
 ```
 ``` javascript
-function sum(){
-    
+var j = 0;
+while(j < 5){
+    if(j <= 5){
+        j += 1;
+        j ++;
+        continue;
+    }
+    else{
+        break;
+        j += 2;
+    }
 }
-sum.call(100,100...)// 第一个参数是this，后面对应接受的形参，没有undefined
-
-sum.call();//在非严格模式下，call的第一个参数不写或者写null/undefined，默认的this都是window，严格模式下写谁就是谁，写null就是null，不写是undefined
-
-apply(obj,[...]);
+console.log(j);
+```
+``` javascript
+for(var i = 0;i < 10;i ++){// 5 ++
+    if(i <= 5){
+        i += 2;
+        continue;
+    }
+    i += 3;
+    break;
+}
+console.log(i);
+```
+``` javascript
+function fn(){
+    var i = 10;
+    return function(n){
+        console.log(n + (++ i));
+    };
+}
+var f = fn();
+f(10);// 21
+f(20);// 32
+fn()(10);// 21
+fn()(20);// 31
+```
+``` javascript
+function fn(i){
+    return function(n){
+        console.log(n + i ++);// 先执行i ++
+    };
+}
+var f = fn(13);
+f(12);// 25
+f(14);// 28
+fn(15)(12);// 27
+fn(16)(13);// 29
+```
+``` javascript
+var num = 20;
+var obj = {
+    num: 30,
+    fn: (function(num){// fn是自执行函数的返回结果，即return后面的函数
+        this.num *= 3;// 自执行函数的this永远是window，所以window下的num = 60
+        num += 15;// 35
+        var num = 45;// 形参已经有了就不重新声明了，直接等于45
+        return function(){
+            this.num *= 4;// this是window，结果是240
+            num += 20;// 上级作用域45 + 20 = 65
+            console.log(num);
+        };
+    })(num)// 20
+};
+var fn = obj.fn;// return的函数
+fn();// 65
+//fn();// 85
+obj.fn();// 85，这里执行后上面this.num *= 4结果是120
+console.log(window.num,obj.num);// 240,120
+```
+#### typeof
+``` javascript
+console.log(typeof typeof typeof []);
+```
+#### 三目运算符
+``` javascript
+num > 0 ? console.log("yes") : void 0;// 不符合条件又没内容返回时可以这样写就是返回undefined
+```
+#### for in循环顺序问题
+for in循环的顺序问题：首先循环数字的属性名(从小到大)，再按我们写的顺序循环其他的
+``` javascript
+var obj = {
+    name: "yangk",
+    age: 25,
+    1: 10086
+};
+for(var key in obj){
+    console.log(obj[key]);
+}
+```
+#### JS中的6个假值
+``` javascript
+false、null、undefined、0、""、NaN
 ```
