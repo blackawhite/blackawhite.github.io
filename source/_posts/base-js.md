@@ -13,6 +13,32 @@ JavaScript学习中一些零碎笔记，持续更新...
     object:{}、[]、/^$/、Date
     function
 ```
+### 比较的奥秘
+``` javascript
+switch中case的比较是===
+
+!：首先将值转换为布尔类型的，然后再取反
+
+!!：将其他数据类型转换为布尔类型，相当于Boolean()
+
+1、对象和对象比较永远不想等，例如[]==[],{}=={}
+
+2、对象和字符串比较，先调用toString()方法先将对象转换为字符串，然后再进行比较，例如[] == ""为true，{}转换为字符串是"[object object]"，所以{} == ""为false
+
+3、对象和布尔类型比较，对象先转化为字符串(toString)，然后转换为数字(Number)，布尔类型也转换为数字(1或0)，Number("")是0，例如[] == false是true
+
+4、对象和数字比较，同上...例如[] == 1为false
+
+5、布尔和数字比较，布尔转换为数字(1或0)
+
+6、字符串和数字，字符串转换为数字
+
+7、字符串和布尔，都转换为数字
+
+9、null == undefined是true，除此之外null或undefined和其他任何数据类型的比较都不相等
+
+10、JS中==是值比较，===是值和类型都比较
+```
 ### 预解析
 同一次预解析只发生在一个(script)脚本块中
 ``` javascript
@@ -590,7 +616,7 @@ changeBg(2);
 function sum(){
     var total = 0;
     for(var i = 0;i <arguments.length;i ++){
-        var num = Number(arguments[i]);//两种情况：NaN或者数字
+        var num = Number(arguments[i]);// 两种情况：NaN或者数字
         if(isNaN(num)){
             continue;
         }
@@ -608,6 +634,24 @@ var arr = ["red","green","blue","white"];
 document.onclick = function(){
     this.body.style.backgroundColor = arr[num++%arr.length];
 };
+```
+#### 函数的3种角色
+``` javascript
+// 函数的3中角色互不相关
+function Fn(){
+    var num = 500;
+    this.x = 100;
+}
+Fn.prototype.getX = function(){
+    console.log(this.x);
+};
+Fn.aaa = 1000;// 当做一个普通对象来使用
+var f = new Fn;
+var res = Fn();// undefined
+
+console.log(f.num);// undefined
+console.log(f.aaa);// undefined
+console.log(Fn.aaa);// 1000
 ```
 
 ### 随机数
@@ -671,7 +715,6 @@ document.body.appendChild(oDiv);
 oDiv.onclick = function(){
     rand();
 };
-
 ```
 ### 数组去重
 #### 删除相同的
@@ -744,6 +787,155 @@ function jiayou(arr)
     return newArr;
 }
 console.log(jiayou(arr));
+```
+### 找数组最大/最小值
+#### 排序后掐头去尾法
+``` javascript
+var arr = [33,73,23,13,9];
+arr.sort(function(a,b){
+    return a - b;
+});
+var min = arr[0];
+var max = arr[arr.length - 1];
+console.log(min,max);
+```
+#### 假设法
+``` javascript
+var arr = [33,73,23,13,9];
+// 假设法：先假设一个是最小值，然后和数组后面的每一项进行比较，如果比我们的当前值还要小，说明假设错误，把当前值赋值给假设值，最大值同理！
+var min = max = arr[0];
+for(var i = 1; i < arr.length;i ++){
+    arr[i] < min ? min = arr[i] : null;
+    arr[i] > max ? max = arr[i] : null;
+}
+console.log(min,max);
+```
+#### eval()法
+``` javascript
+var arr = [33,73,23,13,9];
+
+/*var aaa = arr.toString();// 数组转字符串，也可以用join转
+var bbb = eval(aaa);// 字符串转表达式，保留的是最后一项的结果还是不行
+// 括号表达式：一个括号中放多项值，中间用逗号隔开，最后获取的只有最后一项，例如(33,73,23,13,9)返回的结果是9
+console.log(Math.max(bbb));// 结果是9，所以这种方式行不通*/
+
+var min = eval("Math.min("+ arr.toString() +")");
+var max = eval("Math.max("+ arr.toString() +")");
+console.log(min,max);
+```
+关于括号表达式
+``` javascript
+function fn(){
+    console.log(this);
+}
+var obj = {};
+obj.fn = fn;
+(fn,obj.fn)();// 一个括号中出现多项内容中间用逗号隔开，取最后，是直接把内容复制一份一模一样的放进来(理解this)，所以这里的this是window
+(obj.fn)();// 只有一项时，this是obj，只有一项加不加小括号无所谓
+```
+#### Math.max.apply()法
+``` javascript
+// apply，虽然传递的是一个数组，但是也相当于一个个传递参数，利用这个原理：
+var max = Math.max.apply(null,arr);
+console.log(max);
+```
+### 平均数
+#### 一般写法
+``` javascript
+function avgFn(){
+    //arguments.sort();// 类数组不能直接sort
+    var arr = [];
+    for(var i = 0;i < arguments.length;i ++){
+        arr[arr.length] = arguments[i];
+    }
+    arr.sort(function(a,b){
+        return a - b;
+    });
+
+    arr.shift();// 删头
+    arr.pop();// 删尾
+
+    var total = 0;
+    for(var i = 0;i < arr.length;i ++){
+        total += arr[i];
+    }
+
+    return (total / arr.length).toFixed(2);
+}
+var res = avgFn(10,10,9,8,1);
+
+console.log(res);
+```
+#### 求和优化
+``` javascript
+function avgFn(){
+    //arguments.sort();// 类数组不能直接sort
+    var arr = [];
+    for(var i = 0;i < arguments.length;i ++){
+        arr[arr.length] = arguments[i];
+    }
+    arr.sort(function(a,b){
+        return a - b;
+    });
+
+    arr.shift();
+    arr.pop();
+
+    return (eval(arr.join("+")) / arr.length).toFixed(2);// 求和
+}
+var res = avgFn(10,10,9,8,1);
+
+console.log(res);
+```
+#### 类数组转数组优化
+``` javascript
+// Array.prototype.slice = function(){
+//     var arr = [];
+//     // this就是我们想要操作的那个数组
+//     for(var i = 0;i < this.length;i++){
+//         arr[arr.length] = this[i];
+//     }
+//     // 让this变成arguments就实现arguments转数组了
+//     // for(var i = 0;i < arguments.length;i ++){
+//     //     arr[arr.length] = arguments[i];
+//     // }
+//     return arr;
+// };
+// [12,23,34].slice();
+
+function avgFn(){
+    var arr = Array.prototype.slice.call(arguments);
+    //[].slice.call(arguments,0)// 实例也有slice方法和上面一样的事，0可传可不传
+    //[].__proto__.slice.call(...)// ie不兼容
+    //[].slice.apply[arguments,[0]]
+    
+    arr.sort(function(a,b){
+        return a - b;
+    }).shift();
+
+    arr.length --;
+
+    return (eval(arr.join("+")) / arr.length).toFixed(2);// 求和
+}
+var res = avgFn(10,10,9,8,1);
+
+console.log(res);
+```
+#### 换个姿势
+``` javascript
+// arguments可以通过下面方式使用数组中的所有方法
+function avgFn(){
+    [].sort.call(arguments,function(a,b){
+        return a - b;
+    });
+    [].shift.call(arguments);
+    [].pop.call(arguments);
+    
+    return (eval([].join.call(arguments,"+")) / arguments.length).toFixed(2);
+}
+var res = avgFn(10,10,9,8,1);
+
+console.log(res);
 ```
 ### DOM
 #### 找一个节点下的子节点
@@ -944,31 +1136,37 @@ console.log(arr);
 #### constructor
 #### Object.prototype.toString.call()
 
-### 比较的奥秘
+### JSON
+JSON是一种数据格式，主要用于前后台交互时作为数据的载体
 ``` javascript
-switch中case的比较是===
+var arr = [
+    {"name":"yangk"},
+    {"age":"24"}
+];
+// 把JSON格式的数组转换为JSON格式的字符串
+var str = window.JSON.stringify(arr);// 转为JSON格式的字符串，window可不加
 
-!：首先将值转换为布尔类型的，然后再取反
+// 把JSON格式的字符串转换为JSON格式的数组/对象
+var jsonArr = JSON.parse(str);
+console.log(jsonArr);// 数组格式的
 
-!!：将其他数据类型转换为布尔类型，相当于Boolean()
-
-1、对象和对象比较永远不想等，例如[]==[],{}=={}
-
-2、对象和字符串比较，先调用toString()方法先将对象转换为字符串，然后再进行比较，例如[] == ""为true，{}转换为字符串是"[object object]"，所以{} == ""为false
-
-3、对象和布尔类型比较，对象先转化为字符串(toString)，然后转换为数字(Number)，布尔类型也转换为数字(1或0)，Number("")是0，例如[] == false是true
-
-4、对象和数字比较，同上...例如[] == 1为false
-
-5、布尔和数字比较，布尔转换为数字(1或0)
-
-6、字符串和数字，字符串转换为数字
-
-7、字符串和布尔，都转换为数字
-
-9、null == undefined是true，除此之外null或undefined和其他任何数据类型的比较都不相等
-
-10、JS中==是值比较，===是值和类型都比较
+// ie6-7不兼容JSON，可以下面方法实现
+var str = '[{"name":"yangk"},{"age":"24"}]';
+var jsonArr = eval("("+ str +")");
+console.log(jsonArr instanceof Array);
+```
+### 中文排序
+``` javascript
+var arr = [
+    {name: "菜花",age: 24},
+    {name: "狗蛋",age: 30},
+    {name: "美丽",age: 21},
+    {name: "郑红",age: 38},
+    {name: "拴住",age: 17}
+];
+arr.sort(function(a,b){
+    return a.name.localeCompare(b.name);
+});
 ```
 
 ### 题目/技巧

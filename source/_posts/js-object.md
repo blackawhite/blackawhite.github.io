@@ -21,6 +21,7 @@ var person1 = CreatePerson("yangk");
 var person1 = CreatePerson("jiangjun");
 // 问题：person1和person2之间没有内在的联系，不能反映出它们是同一个原型对象的实例
 ```
+<!--more-->
 ### 封装-工厂模式
 ``` javascript
 function CreatePerson(name,age){
