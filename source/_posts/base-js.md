@@ -246,6 +246,44 @@ obj.fn1();// 局部的number驻留内存9 * 3 = 27，此时obj.number已经等�
 alert(window.number);// 8
 alert(obj.number);// 8
 ```
+### try catch
+语法
+``` javascript
+try{
+    //JS要执行的代码
+}
+catch(e){//形参一定要写，名字可以随便起，当try中代码报错了，会自动的执行catch中的代码
+    //e.message;
+    //throw new Error("shit");
+    //throw new ReferenceError;// 引用错误
+    //throw new TypeError;// 类型错误
+    throw new RangeError("ss");// 范围错误
+}
+finally{// 不管try是否报错这里都会执行
+    // 一般不加
+}
+```
+作用1：不让浏览器控制台报错，继续执行后面的JS代码
+``` javascript
+try{
+    console.log(num);
+}
+catch(e){
+    console.log(e.message);
+}
+console.log(1);// 我会继续执行
+```
+作用2：既要捕获错误信息，也可手动定义错误内容，又要下面的代码不执行
+``` javascript
+try{
+    console.log(num);
+}
+catch(e){
+    throw new Error("shit");
+}
+console.log(1);// 我会继续执行
+```
+作用3：处理浏览器的兼容性...
 ### 查找上级作用域
 ``` javascript
 // 如何查找当前作用域的上一级作用域：看当前函数是在哪个作用域下定义的，和函数在哪执行的无关
@@ -1130,6 +1168,22 @@ sortArr(arr,1);
 
 console.log(arr);
 ```
+### 表格排序原理
+``` javascript
+var oUl = document.querySelector("#ul1");
+var aLi = document.querySelectorAll("li");
+
+// 类数组转数组
+var newAli = [].slice.call(aLi);
+// 排序数组
+newAli.sort(function(a,b){
+    return parseInt(a.innerHTML) - parseInt(b.innerHTML);
+});
+// appendChild
+for(var i = 0;i < newAli.length;i ++){
+    oUl.appendChild(newAli[i]);
+}
+```
 ### 数据类型检测
 #### typeof
 #### instanceof
@@ -1168,7 +1222,29 @@ arr.sort(function(a,b){
     return a.name.localeCompare(b.name);
 });
 ```
-
+### 常用方法封装
+#### Array.prototype.slice
+``` javascript
+function listToArray(likeArr){
+    var arr = [];
+    try{
+        arr = Array.prototype.slice.call(likeArr);// [].slice，ie低版本不兼容
+    }
+    catch(e){
+        for(var i = 0;i < likeArr.length;i ++){
+            arr[arr.length] = likeArr[i];
+        }
+    }
+    return arr;
+}
+```
+#### JSON.parse
+``` javascript
+// 把JSON格式的字符串转换为JSON格式的数组/对象
+function toJSON(str){
+    return "JSON" in window ? JSON.parse(str) : eval("("+ str +")");
+}
+```
 ### 题目/技巧
 #### 求值
 ``` javascript
