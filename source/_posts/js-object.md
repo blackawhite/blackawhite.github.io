@@ -3,89 +3,183 @@ title: JavaScript Object
 date: 2016-12-11 21:45:05
 tags:
 ---
-# 待重新梳理...高程，还有瀑布
-## 封装
-### 单例模式
+### 封装-单例模式
 ``` javascript
 var person1 = {// 命名空间，起到了分组的作用，也避免了冲突
     "name": "yangk"
 };
-var person2 = {// 命名空间
+var person2 = {
     "name": "jiangjun"
 };
 // 解决上述代码重复的问题
-function Person(name){
+function CreatePerson(name){
     return {
         name: name
     };
 }
-var person1 = Person("yangk");
-var person1 = Person("jiangjun");
+var person1 = CreatePerson("yangk");
+var person1 = CreatePerson("jiangjun");
+// 问题：person1和person2之间没有内在的联系，不能反映出它们是同一个原型对象的实例
 ```
-### 工厂模式
+### 封装-工厂模式
 ``` javascript
-function Person(name,age){// 低耦合，高内聚，减少冗余，提高重复利用率
+function CreatePerson(name,age){
+    // 原料
     var obj = {};
+    // 加工
     obj.name = name;
     obj.age = age;
     obj.showName = function(){
         console.log(this.name);
     };
+    // 出厂
     return obj;
 }
-var person1 = Person("yangk","24");
-person1.showName();
+var person1 = CreatePerson("yangk","24");
+var person2 = CreatePerson("jiangjun","25");
+
+console.log(person1.showName == person2.showName);// false
 ```
-### 构造函数模式
+### 封装-构造函数+原型模式
 ``` javascript
-function Person(name,age){
+function CreatePerson(name,age){
     this.name = name;
     this.age = age;
 }
-Person.prototype.showName = function(){
+CreatePerson.prototype.showName = function(){
     console.log(this.name);
 };
-var person1 = new Person("yangk","24");// 不传参时可以把后面的括号省略
-var person2 = new Person("jiangjun","28");
-console.log(person1.showName == person2.showName);
+var person1 = new CreatePerson("yangk","24");// 不传参时可以把后面的括号省略
+var person2 = new CreatePerson("jiangjun","28");
+console.log(person1.showName == person2.showName);// true
 ```
-## 继承
-### 构造函数绑定
+### 继承-call/apply
 ``` javascript
-function Aaa(){
-    this.age = "25";
+function CreatePerson(name,sex){
+    this.name = name;
+    this.sex = sex;
 }
-Aaa.prototype.showAge = function(){
-    console.log(this.age);
+CreatePerson.prototype.showName = function(){
+    console.log(this.name);
 };
-function Bbb(){
-    Aaa.apply(this,arguments);
-    this.name = "yangk";
-}
 
-var person1 = new Bbb();
-console.log(person1.age);
+function CreateStar(name,sex,job){
+    CreatePerson.call(this,name,sex);// this实例对象，继承属性
+    this.job = job;
+}
+CreateStar.prototype = CreatePerson.prototype;// 继承方法，CreateStar.prototype上添加方法会影响父类
+CreateStar.prototype.showJob = function(){
+    console.log(this.job);
+};
+
+
+var person1 = new CreatePerson('yangk','男');
+console.log(person1.showJob);// 有
+
+var person2 = new CreateStar('黄晓明','男','演员');
+person2.showName();
 ```
-### prototype模式
+### 继承-浅拷贝
 ``` javascript
-function Aaa(){
-    this.age = "25";
+// 解决上面prototype继承的时候影响父类的问题
+function extend(obj1,obj2){
+    for(var attr in obj2){
+        obj1[attr] = obj2[attr];
+    }
 }
-Aaa.prototype.showAge = function(){
-    console.log(this.age);
+
+function CreatePerson(name,sex){
+    this.name = name;
+    this.sex = sex;
+}
+CreatePerson.prototype.showName = function(){
+    console.log(this.name);
 };
-function Bbb(){
-    this.name = "yangk";
+
+function CreateStar(name,sex,job){
+    CreatePerson.call(this,name,sex);// this实例对象，继承属性
+    this.job = job;
 }
-Bbb.prototype = new Aaa;
-Bbb.prototype.constructor = Bbb;
+//CreateStar.prototype = CreatePerson.prototype;// 继承方法，CreateStar.prototype上添加方法会影响父类
+extend(CreateStar.prototype,CreatePerson.prototype);
+CreateStar.prototype.showJob = function(){
+    console.log(this.job);
+};
 
-var person1 = new Bbb();
-person1.showAge();
+var person1 = new CreatePerson('yangk','男');
+console.log(person1.showJob);// undefined
+
+var person2 = new CreateStar('黄晓明','男','演员');
+person2.showName();
 ```
-### 直接继承prototype
+### 继承-深拷贝
+``` javascript
+function extend(Child,Parent){
+    for(var attr in Parent){
+        Child[attr] = Parent[attr];
+    }
+}
+function deepCopy(Parent,Child){
+　　　　var Child = Child || {};
+　　　　for(var i in Parent){
+　　　　　　if(typeof Parent[i] === 'object'){
+　　　　　　　　Child[i] = (Parent[i].constructor === Array) ? [] : {};
+　　　　　　　　deepCopy(Parent[i], Child[i]);
+　　　　　　}
+        else{
+　　　　　　　　Child[i] = Parent[i];
+　　　　　　}
+　　　　}
+　　　　return Child;
+　　}
+var arrParent = [
+    1,
+    2,
+    [3,4,5]
+];
+var arrChild = [];
+// extend(arrChild,arrParent);
+// deepCopy(arrParent,arrChild);
+arrChild = deepCopy(arrParent);
 
-## 关于类中return要注意的
+arrChild[2][0] = "yangk";
+console.log(arrParent[2][0]);// 父元素不变
+```
+### 继承-空对象中介
+``` javascript
+function extend(Child,Parent){
+    var F = function(){};
+    F.prototype = Parent.prototype;
+    Child.prototype = new F();
+    Child.prototype.constructor = Child;
+}
+
+function CreatePerson(name){
+    this.name = name;
+}
+CreatePerson.prototype.showName = function(){
+    console.log(this.name);
+};
+
+function CreateStar(name){
+    CreatePerson.call(this,name);// 属性还是需要call办法继承
+}
+// 避免属性继承，只继承showName，画画原型链就明白
+// var F = function(){};
+// F.prototype = CreatePerson.prototype;
+// CreateStar.prototype = new F();
+// CreateStar.prototype.constructor = CreateStar;
+extend(CreateStar,CreatePerson);
+
+CreateStar.prototype.showYi = function(){// 对父类没影响
+    console.log(1);
+};
+
+var person1 = new CreateStar("yangk");
+person1.showName();
+person1.showYi();
+```
+### 关于类中return要注意的
 ``` javascript
 function Fn(){
     var num = 10;// 这里的num和this.num没有任何关系
@@ -107,7 +201,7 @@ console.log(f1 instanceof Object);// true
 
 // typeof不能细分Object下的数组、正则...，可以用instanceof来细分
 ```
-## 判断是否公有属性/方法
+### 判断是否公有属性/方法
 ``` javascript
 // 检测某一个属性是否属于这个对象
 console.log("getX" in f1);
@@ -120,9 +214,11 @@ function hasPubProperty(obj,attr){// 检测是否是共有
 }
 console.log(hasPubProperty(f1,"getX"));
 ```
-## 理解原型链
+### 理解原型链
 ```
-每一个函数数据类型(普通函数、类、Object)都有一个天生的属性：prototype，并且这个属性是一个对象数据类型的；prototype上又有一个天生的属性：constructor，属性值是当前函数／类本身，Fn；每一个对象(普通对象、实例、prototype)数据类型也天生自带属性：__proto__，属性值是当前实例所属类的原型。
+每一个函数数据类型(普通函数、类、Object)都有一个天生的属性：prototype，并且这个属性是一个对象数据类型的；
+prototype上又有一个天生的属性：constructor，属性值是当前函数／类本身，Fn；
+每一个对象(普通对象、实例、prototype)数据类型也天生自带属性：__proto__，属性值是当前实例所属类的原型。
 ``` javascript
 function Fn(){
     this.x = 100;
@@ -158,7 +254,7 @@ Fn.prototype.sum = function(){
 };
 ```
 ![](/resources/images/js.jpeg)
-## 关于this
+### 关于this
 ``` javascript
 function Fn(){
     this.x = 100;// 这里的this是实例
@@ -191,7 +287,7 @@ f.getY();// 执行私有的
 
 Fn.prototype.getY();// 直接执行公有的
 ```
-## 数组去重
+### 数组去重
 ``` javascript
 Array.prototype.myUnique = function(){
     var obj = {};
@@ -218,7 +314,7 @@ arr.myUnique().sort(function(a,b){
 }).reverse().pop();// pop返回的是被删除的元素
 console.log(arr);
 ```
-## 遍历私有属性/方法
+### 遍历私有属性/方法
 ``` javascript
 for(var key in obj){// 会遍历私有或自己写的公有的
     // if(obj.propertyIsEnumerable(key)){// 可枚举

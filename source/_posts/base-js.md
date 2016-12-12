@@ -14,6 +14,7 @@ JavaScript学习中一些零碎笔记，持续更新...
     function
 ```
 ### 预解析
+同一次预解析只发生在一个(script)脚本块中
 ``` javascript
 // 带var会进行预解析，结果undefined，不加报错则不会预解析，报错
 console.log(num1);// undefined
@@ -1056,6 +1057,30 @@ fn();// 65
 //fn();// 85
 obj.fn();// 85，这里执行后上面this.num *= 4结果是120
 console.log(window.num,obj.num);// 240,120
+```
+``` javascript
+var number = 2;
+var obj = {
+    number: 4,
+    fn1: (function(){
+        this.number *= 2;// 闭包形式的this >> window
+        number = number * 2;// 只声明没定义undefined * 2
+        console.log(number);// NaN
+        var number = 3;
+        return function(){// return 给fn1，必包有return不销毁
+            this.number *= 2;// this >> window 8
+            number *= 3;// 找没有销毁的必包中的变量 9
+            alert(number);// 
+        }//这个匿名方法返回这个函数，fn1最终就是这个函数
+    })()//这个匿名函数运行就是一个必包
+};
+var fn1 = obj.fn1;// NaN
+alert(number);// 4
+fn1();// 9.........window
+
+obj.fn1(); // 27............obj
+alert(window.number);// 8
+alert(obj.number);// 8
 ```
 #### typeof
 ``` javascript
