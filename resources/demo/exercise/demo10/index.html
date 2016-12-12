@@ -1,729 +1,159 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="yesokiloveyou.com,html,css,js,惜时" />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="水手" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/resources/images/favicon.ico?v=5.0.2" />
-
-
-
-
-
-
-<meta name="description" content="#main *{
-    margin: 0;
-    padding: 0;
-}
-#main{
-    position: absolute;
-    z-index: 99;
-    width: 1210px;
-    left: 50%;
-    margin-left: -605px;
-}
-#main .box{
-    padding: 10px;
-    float: left;">
-<meta property="og:type" content="website">
-<meta property="og:title" content="瀑布流">
-<meta property="og:url" content="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo10/index.html">
-<meta property="og:site_name" content="水手">
-<meta property="og:description" content="#main *{
-    margin: 0;
-    padding: 0;
-}
-#main{
-    position: absolute;
-    z-index: 99;
-    width: 1210px;
-    left: 50%;
-    margin-left: -605px;
-}
-#main .box{
-    padding: 10px;
-    float: left;">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/1.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/2.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/3.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/4.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/5.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/6.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/7.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/8.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/9.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/10.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/1.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/2.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/3.png">
-<meta property="og:image" content="http://wwww.yesokiloveyou.com/images/4.png">
-<meta property="og:updated_time" content="2016-12-06T16:54:57.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="瀑布流">
-<meta name="twitter:description" content="#main *{
-    margin: 0;
-    padding: 0;
-}
-#main{
-    position: absolute;
-    z-index: 99;
-    width: 1210px;
-    left: 50%;
-    margin-left: -605px;
-}
-#main .box{
-    padding: 10px;
-    float: left;">
-<meta name="twitter:image" content="http://wwww.yesokiloveyou.com/images/1.png">
-
-
-
-<script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"right","display":"post"},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '6221398885181425000',
-      author: 'k神'
+    <meta charset="UTF-8">
+    <title>瀑布流</title>
+    <style>
+    #main *{
+        margin: 0;
+        padding: 0;
     }
-  };
-</script>
-
-
-
-
-  <link rel="canonical" href="http://wwww.yesokiloveyou.com/resources/demo/exercise/demo10/"/>
-
-
-  <title>
-  
-
-  
-    瀑布流 | 水手
-  
-</title>
+    #main{
+        margin: 0 auto;
+    }
+    #main .box{
+        padding: 10px;
+        float: left;
+    }
+    #main .box img{
+        vertical-align: top;
+        padding: 10px;
+        box-shadow: 0 0 5px #333;
+        border: 1px solid #f1f1f1;
+        width: 200px;
+        height: auto;
+    }
+    </style>
 </head>
-
-<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container one-collumn sidebar-position-right  ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
-
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">水手</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle">为之则易，不为则难</p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-    
-      <style>
-#main *{
-    margin: 0;
-    padding: 0;
-}
-#main{
-    position: absolute;
-    z-index: 99;
-    width: 1210px;
-    left: 50%;
-    margin-left: -605px;
-}
-#main .box{
-    padding: 10px;
-    float: left;
-}
-#main .box img{
-    vertical-align: top;
-    padding: 10px;
-    box-shadow: 0 0 5px #333;
-    border: 1px solid #f1f1f1;
-    width: 200px;
-    height: auto;
-}
-</style>
-<div id="main">
-    <div class="box">
-        <img src="images/1.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/2.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/3.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/4.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/5.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/6.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/7.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/8.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/9.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/10.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/1.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/2.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/3.png" alt="">
-    </div>
-    <div class="box">
-        <img src="images/4.png" alt="">
-    </div>
-</div>
-<script>
-var oMain = document.querySelector("#main");
-var dataAll = {"data":[
-    {"src":"images/1.png"},
-    {"src":"images/2.png"},
-    {"src":"images/3.png"},
-    {"src":"images/4.png"},
-    {"src":"images/5.png"},
-    {"src":"images/6.png"},
-    {"src":"images/7.png"},
-    {"src":"images/8.png"},
-    {"src":"images/9.png"},
-    {"src":"images/10.png"}
-]};
-window.onload = function(){
-    waterfall(oMain,"box");    
-};
-
-window.onscroll = function(){
-    if(checkScroll(oMain)){
-        for(var i = 0;i < dataAll.data.length;i ++){
-            var oBox = document.createElement("div");
-            oBox.className = "box";
-            oMain.appendChild(oBox);
-
-            var oImg = document.createElement("img");
-            oImg.src = dataAll.data[i].src;
-            oBox.appendChild(oImg);
-        }
-        waterfall(oMain,"box");
-    }
-};
-function waterfall(obj,sClass){
-    var aBox = getByClass(obj,sClass);
-    var oWinW = document.documentElement.clientWidth||document.body.clientWidth;
-    var oBoxW = aBox[0].offsetWidth;
-    var aNum = Math.floor(oWinW/oBoxW);
-    obj.style.cssText = 'width:' + oBoxW * aNum + 'px;' + 'left: 50%;margin-left:'+ -oBoxW * aNum / 2 +'px;';
-    //console.log(oBoxW*aNum);
-    var arr = [];
-    var oMinNum = 0;
-    var oMinIndex = 0;
-    for(var i = 0;i < aBox.length;i ++){
-        if(i < aNum){
-            arr.push(aBox[i].offsetHeight);
-            //[236, 305, 283, 338, 438]
-        }
-        else{
-            oMinNum = getMin(arr);
-            oMinIndex = getMinIndex(arr,oMinNum);
-            aBox[i].style.position = "absolute";
-            aBox[i].style.left = aBox[oMinIndex].offsetLeft + "px";
-            aBox[i].style.top = oMinNum + "px";
-            arr[oMinIndex] += aBox[i].offsetHeight;
-        }
-    }
-    //console.log(aBox.length);
-}
-function getMin(arr){
-    return Math.min.apply(null,arr);
-}
-function getMinIndex(arr,min){
-    for(var i = 0;i < arr.length;i ++){
-        if(arr[i] == min){
-            return i;
-        }
-    }
-}
-function getByClass(oParent,sClass){
-    var aEle = oParent.getElementsByTagName("*");
-    var aResult = [];
-    for(var i = 0;i < aEle.length;i ++){
-        if(aEle[i].className == sClass){
-            aResult.push(aEle[i]);
-        }
-    }
-    return aResult;
-}
-function checkScroll(obj){
-    var aBox = getByClass(obj,"box");
-    var oLast = aBox[aBox.length - 1].offsetTop + Math.floor(aBox[aBox.length - 1].offsetHeight / 2);
-    var oWinH = document.documentElement.clientHeight || document.body.clientHeight;
-    var oScroll = document.documentElement.scrollTop || document.body.scrollTop;
-    return (oLast < oWinH + oScroll) ? true : false;
-}
-</script>
-
-    
-  </div>
-
-
-          </div>
-          
-
-
-          
-
+<body>
+    <div id="main">
+        <div class="box">
+            <img src="images/1.png" alt="">
         </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/yangk.png"
-               alt="yangk" />
-          <p class="site-author-name" itemprop="name">yangk</p>
-          <p class="site-description motion-element" itemprop="description">为之则易，不为则难</p>
+        <div class="box">
+            <img src="images/2.png" alt="">
         </div>
-        <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">7</span>
-              <span class="site-state-item-name">日志</span>
-            </a>
-          </div>
-
-          
-            <div class="site-state-item site-state-categories">
-              <a href="/categories">
-                <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="http://f2er.club/" target="_blank" title="前端资源一">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  前端资源一
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.w3cmark.com/mark/" target="_blank" title="前端资源二">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  前端资源二
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://cssreference.io/" target="_blank" title="CSS">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  CSS
-                </a>
-              </span>
-            
-          
+        <div class="box">
+            <img src="images/3.png" alt="">
         </div>
-
-        
-        
-
-        
-        
-
-      </section>
-
-      
-
+        <div class="box">
+            <img src="images/4.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/5.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/6.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/7.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/8.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/9.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/10.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/1.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/2.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/3.png" alt="">
+        </div>
+        <div class="box">
+            <img src="images/4.png" alt="">
+        </div>
     </div>
-  </aside>
+    <script>
+    var oMain = document.querySelector("#main");
+    var dataAll = {"data":[
+        {"src":"images/1.png"},
+        {"src":"images/2.png"},
+        {"src":"images/3.png"},
+        {"src":"images/4.png"},
+        {"src":"images/5.png"},
+        {"src":"images/6.png"},
+        {"src":"images/7.png"},
+        {"src":"images/8.png"},
+        {"src":"images/9.png"},
+        {"src":"images/10.png"}
+    ]};
+    window.onload = function(){
+        waterfall(oMain,"box");    
+    };
+    window.onscroll = function(){
+        if(checkScroll(oMain)){
+            for(var i = 0;i < dataAll.data.length;i ++){
+                var oBox = document.createElement("div");
+                oBox.className = "box";
+                oMain.appendChild(oBox);
 
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2016.11.11 - 
-  <span itemprop="copyrightYear">2016</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">yangk</span>
-</div>
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-        
-
-        
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
-
-
-
-  
-
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"yangk"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-  
-    
-    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/js/src/hook-duoshuo.js"></script>
-  
-
-
-
-
-
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-
+                var oImg = document.createElement("img");
+                oImg.src = dataAll.data[i].src;
+                oBox.appendChild(oImg);
+            }
+            waterfall(oMain,"box");
+        }
+    };
+    function waterfall(obj,sClass){
+        var aBox = getByClass(obj,sClass);
+        var oWinW = document.documentElement.clientWidth||document.body.clientWidth;
+        var oBoxW = aBox[0].offsetWidth;
+        var aNum = Math.floor(oWinW/oBoxW);
+        obj.style.cssText = 'width:' + oBoxW * aNum + 'px;';
+        //console.log(oBoxW*aNum);
+        var arr = [];
+        var oMinNum = 0;
+        var oMinIndex = 0;
+        for(var i = 0;i < aBox.length;i ++){
+            if(i < aNum){
+                arr.push(aBox[i].offsetHeight);
+                //[236, 305, 283, 338, 438]
+            }
+            else{
+                oMinNum = getMin(arr);
+                oMinIndex = getMinIndex(arr,oMinNum);
+                aBox[i].style.position = "absolute";
+                aBox[i].style.left = aBox[oMinIndex].offsetLeft + "px";
+                aBox[i].style.top = oMinNum + "px";
+                arr[oMinIndex] += aBox[i].offsetHeight;
+            }
+        }
+        //console.log(aBox.length);
+    }
+    function getMin(arr){
+        return Math.min.apply(null,arr);
+    }
+    function getMinIndex(arr,min){
+        for(var i = 0;i < arr.length;i ++){
+            if(arr[i] == min){
+                return i;
+            }
+        }
+    }
+    function getByClass(oParent,sClass){
+        var aEle = oParent.getElementsByTagName("*");
+        var aResult = [];
+        for(var i = 0;i < aEle.length;i ++){
+            if(aEle[i].className == sClass){
+                aResult.push(aEle[i]);
+            }
+        }
+        return aResult;
+    }
+    function checkScroll(obj){
+        var aBox = getByClass(obj,"box");
+        var oLast = aBox[aBox.length - 1].offsetTop + Math.floor(aBox[aBox.length - 1].offsetHeight / 2);
+        var oWinH = document.documentElement.clientHeight || document.body.clientHeight;
+        var oScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        return (oLast < oWinH + oScroll) ? true : false;
+    }
+    </script>
 </body>
 </html>
