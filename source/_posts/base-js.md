@@ -1168,7 +1168,7 @@ sortArr(arr,1);
 
 console.log(arr);
 ```
-### 表格排序原理
+### 内容排序原理
 ``` javascript
 var oUl = document.querySelector("#ul1");
 var aLi = document.querySelectorAll("li");
@@ -1184,7 +1184,7 @@ for(var i = 0;i < newAli.length;i ++){
     oUl.appendChild(newAli[i]);
 }
 ```
-### 数据类型检测
+### 数据类型检测的4种方式
 #### typeof
 typeof返回的都是字符串，字符串中包含了对应的数据类型，例如"number"、"string"、"boolean"、"undefined"、"function"、"object"，局限性：不能细分正则、数组、null，常见应用如下：
 ``` javascript
