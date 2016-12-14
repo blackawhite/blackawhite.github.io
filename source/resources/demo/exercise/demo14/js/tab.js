@@ -20,7 +20,6 @@ function dataInit(){// 初始化数据
     var frg = document.createDocumentFragment();
     for(var i = 0;i < data.length;i ++){
         var oTr = document.createElement("tr");
-
         for(var key in data[i]){
             var oTd = document.createElement("td");
             if(key === "sex"){
@@ -32,7 +31,6 @@ function dataInit(){// 初始化数据
             
             oTr.appendChild(oTd);
         }
-
         frg.appendChild(oTr);
     }
     oTBody.appendChild(frg);
@@ -51,9 +49,7 @@ function sort(num){
     var aRowsArr = utils.listToArray(aRows);// 类数组转数组
 
     for(var i = 0;i < aThs.length;i ++){
-        if(i !== this.index){
-            aThs[i].flag = -1;
-        }
+        i !== this.index ? aThs[i].flag = -1 : null;
     }
     this.flag *= -1;
     var _this = this;
@@ -71,9 +67,26 @@ function sort(num){
         }
     });
 
-    for(var i = 0;i < aRowsArr.length;i ++){
-        oTBody.appendChild(aRowsArr[i]);
+    /*for(var k = 0;k < aThs.length;k++){
+        //aThs[k].flag = "";
+        if(k !== num){//不是当前列才清除
+            aThs[k].flag = null;
+        }
     }
+    if(this.flag === "asc"){
+        aRowsArr.reverse();
+        this.flag = "desc";
+    }
+    else{
+        // 这种自定义属性浏览器console看不出来
+        this.flag = "asc";
+    }*/
+
+    var frg = document.createDocumentFragment();
+    for(var i = 0;i < aRowsArr.length;i ++){
+        frg.appendChild(aRowsArr[i]);
+    }
+    oTBody.appendChild(frg);
 }
 
 for(var i = 0;i < aThs.length;i ++){
@@ -84,5 +97,3 @@ for(var i = 0;i < aThs.length;i ++){
         changeBg();
     };
 }
-
-
