@@ -1,7 +1,8 @@
 ---
 title: JavaScript Object
 date: 2016-12-11 21:45:05
-tags:
+tags: 面向对象
+categories: JS
 ---
 ### 封装-单例模式
 ``` javascript
