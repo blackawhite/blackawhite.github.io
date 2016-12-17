@@ -976,6 +976,71 @@ var res = avgFn(10,10,9,8,1);
 
 console.log(res);
 ```
+### 插入数据的几种方法
+回流（重排）：结构改变（增加，删除，位置改变）
+重绘：部分样式改变，浏览器只需要重新渲染当前元素即可
+``` javascript
+// 原始内容
+var oUl = document.getElementById("ul1");
+var aLi = oUl.getElementsByTagName("li");
+for(var i = 0;i < aLi.length;i ++){
+    aLi[i].onmouseover = function(){
+        this.style.backgroundColor = "orange";
+    };
+    aLi[i].onmouseout = function(){
+        this.style.backgroundColor = "";
+    };
+}
+var arr = [
+    "水电费水电费的是否",
+    "fgdgdfg规范的身高大概",
+    "个梵蒂冈法规的",
+    "就换个价格"
+];
+```
+#### 字符串拼接
+优：对原来内容的事件绑定有影响，劣：1次回流，模板引擎数据绑定的原理就是字符串拼接
+``` javascript
+var str = "";
+for(var i = 0;i < arr.length;i ++){
+    str += "<li>" + arr[i] + "</li>";
+}
+// oUl.innerHTML = oUl.innerHTML + str;// 之前的变成字符串...
+// 一拿一放一渲染的方式（之前）的li的所有事件都会消失的
+oUl.innerHTML += str;
+```
+``` javascript
+var str = "";
+for(var i = 0;i < arr.length;i ++){
+    str += "<li>";
+    str += "<span>"+ (i + 4) +"</span>";
+    str += arr[i].title;
+    str += "</li>";
+}
+// 先把之前的3个li以字符串拿出来，再以字符串添加，再重新渲染，原来的事件会消失
+oUl.innerHTML += str;
+```
+#### 动态创建
+优：对原来无影响，劣：添加一次回流一次...
+``` javascript
+for(var i = 0;i < arr.length;i ++){
+    var oLi = document.createElement("li");
+    oLi.innerHTML = arr[i];
+    oUl.appendChild(oLi);//向末尾增加，不会影响之前的元素
+}
+```
+#### 文档碎片
+文档碎片：JS中用来临时存储元素的容器
+``` javascript
+var frg = document.createDocumentFragment();
+for(var i = 0;i < arr.length;i ++){
+    var oLi = document.createElement("li");
+    oLi.innerHTML = arr[i];
+    frg.appendChild(oLi);
+}
+oUl.appendChild(frg);
+frg = null;// 手动释放容器
+```
 ### DOM
 #### 找一个节点下的子节点
 ``` javascript
@@ -1091,6 +1156,20 @@ for(var i = 0;i < arrRight.length;i ++){
     rightStr += arrRight[i] + r;
 }
 console.log(leftStr + " " + rightStr);
+```
+#### str.replace()
+``` javascript
+var str = "20151213";
+var arr = ["零","一","二","三","四","五","六","七","八","九"];
+
+str = str.replace(/\d/g,function(){
+    // var num = arguments[0];
+    // var str = arr[num];
+    // return str;
+    // ["2", 0, "20151213"]// 数字，索引，str
+    return arr[arguments[0]];
+});
+console.log(str);
 ```
 ### Array常用方法
 ``` javascript
