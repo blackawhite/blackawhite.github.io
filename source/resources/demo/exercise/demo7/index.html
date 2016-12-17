@@ -52,7 +52,7 @@ layout: false
 					clearInterval(timer);
 				}
 				document.title = scrollTop;
-			},30);
+			},30);// 时间太短不行...
 		};
 		function judge(){
 			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -74,6 +74,46 @@ layout: false
 		}
 	}
 	moveup();
+
+
+	/*另一种形式*/
+	/*var oRet = document.querySelector("#return");
+	var timer = null;
+	var oBar = true;//........
+
+	function isShow(){
+	    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	    var oWinHeight = document.documentElement.clientHeight || document.body.clientHeight;
+	    oRet.style.display = scrollTop > oWinHeight ? "block" : "none";
+	}
+	oRet.onclick = function(){
+	    clearInterval(timer);
+	    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+	    var duration = 500;// 总时间ms
+	    var pinlv = 10;// 10ms走一步/次
+	    var juli = scrollTop;// 当前的位置(scrollTop)-目标的位置(0)
+	    var buchang = scrollTop / 500 * 10;// 每1ms走的距离 * interval = 每一步/次走的距离
+	    
+	    timer = setInterval(function(){
+	        oBar = true;//........
+	        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	        if(scrollTop === 0){
+	            clearInterval(timer);
+	        }
+	        document.documentElement.scrollTop -= buchang;
+	        document.body.scrollTop -= buchang;
+	    },pinlv);// AAAA
+	};
+	window.onscroll = function(){
+	    isShow();
+	    console.log(oBar);// 和AAA出有关系，时间太短不行
+	    if(!oBar){//........
+	        clearInterval(timer);
+	    }
+	    oBar = false;//........
+	};*/
+
 	</script>
 </body>
 </html>

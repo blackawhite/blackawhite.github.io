@@ -435,6 +435,20 @@ var oDiv = document.getElementById("div1");// 通过DOM方法获取的元素都�
     };
 }();
 ```
+### 定时器
+setTimeout配合递归模拟setInterval
+``` javascript
+var num = 0;
+function go(){
+    console.log(num++);
+    if(num === 5){
+        return;
+    }
+    var timer = setTimeout(go,1000);
+}
+go();
+```
+
 ### 关于this
 看方法名前面是否有点，有的话点前面是谁this就是谁
 ``` javascript
@@ -1041,50 +1055,8 @@ for(var i = 0;i < arr.length;i ++){
 oUl.appendChild(frg);
 frg = null;// 手动释放容器
 ```
-### DOM
-#### 找一个节点下的子节点
-``` javascript
-function getChild(oParent,tagName){
-    var arr = [];
-    var aTag = oParent.childNodes;
-    for(var i = 0;i < aTag.length;i ++){
-        if(aTag[i].nodeType == 1){// 元素节点
-            if(tagName){// 有限定子节点的话
-                if(aTag[i].nodeName.toLowerCase() === tagName){
-                    arr.push(aTag[i]);
-                }
-            }
-            else{// 那就找出所有的子元素节点
-                arr.push(aTag[i]);
-            }
-        }
-    }
-    return arr;
-}
-var oUl = document.querySelector("#ul1");
-console.log(getChild(oUl));
-```
-#### 找上一个元素节点
-``` javascript
-var oDiv = document.getElementById("div1");
-var pre = oDiv.previousSibling;
-while(pre && pre.nodeType !== 1){
-    pre = pre.previousSibling;
-}
-console.log(pre);
-```
-#### 找上N个元素节点
-``` javascript
-var oDiv = document.getElementById("div1");
-var pre = oDiv.previousSibling;
-var arr = [];
-while(pre){
-    if(pre.nodeType === 1){
-        arr.push(pre);
-    }
-    pre = pre.previousSibling;
-}
-```
+### 关于DOM元素宽高距离
+...
 ### String常用方法
 ``` javascript
 var str = 'yangkkk';
@@ -1408,6 +1380,76 @@ arr.sort(function(a,b){
     return a.name.localeCompare(b.name);
 });
 ```
+### JS中的异步
+同步：没有完成之前，绝对不会做下一件事情
+``` javascript
+while(1){
+
+}
+console.log("ok");// 永远都不会执行
+```
+常见异步形式：定时器、事件绑定、Ajax读取数据的时候一般设置为异步、回调函数
+例一：
+``` javascript
+var n = 0;
+window.setTimeout(function(){
+    n ++;
+    console.log(n);// 再1
+},1000);
+console.log(n);// 先0
+```
+例二：
+``` javascript
+// 浏览器对于定时器都有一个最小等待时间，如果设置时间小于等待时间则设置时间不起作用
+var n = 0;
+window.setTimeout(function(){
+    n ++;
+    console.log(n);// 再1
+},0);
+console.log(n);// 先0
+```
+例三：
+``` javascript
+var n = 0;
+window.setTimeout(function(){
+    n ++;
+    console.log(n);// 下面没结束这里永远不执行
+},0);
+// 定时器设置的时间不一定就是等待执行的时间，如果定时器之后还有其他的事情等待处理，不管定时器的时间有没有到，都是不会执行定时器的
+console.log(n);// 输出一次0，下面就卡死了
+while(1){
+    n ++;
+}
+console.log(n);// 不执行
+```
+例四：
+``` javascript
+// 谁时间短执行谁，时间一样按先后顺序
+var n = 0;
+window.setTimeout(function(){
+    n += 2;
+    console.log(n);// 7第四次
+},7);
+
+window.setTimeout(function(){
+    n += 5;
+    console.log(n);// 5第三次
+},5);
+
+console.log(n);// 0第一次
+for(var i = 0;i < 10000000;i++){// 即便这里执行时间大于7毫秒也不会先执行上面的
+
+}
+console.log(n);// 0第二次
+```
+例五：
+``` javascript
+for(var i = 0;i <aLi.length;i++){
+    aLi[i].onclick = function(){
+        // 异步编程：一点上面的就循环完了，爱我所爱不等待
+    }
+}
+```
 ### 常用方法封装
 #### Array.prototype.slice
 ``` javascript
@@ -1429,6 +1471,49 @@ function listToArray(likeArr){
 // 把JSON格式的字符串转换为JSON格式的数组/对象
 function toJSON(str){
     return "JSON" in window ? JSON.parse(str) : eval("("+ str +")");
+}
+```
+#### 找一个节点下的子节点
+``` javascript
+function getChild(oParent,tagName){
+    var arr = [];
+    var aTag = oParent.childNodes;
+    for(var i = 0;i < aTag.length;i ++){
+        if(aTag[i].nodeType == 1){// 元素节点
+            if(tagName){// 有限定子节点的话
+                if(aTag[i].nodeName.toLowerCase() === tagName){
+                    arr.push(aTag[i]);
+                }
+            }
+            else{// 那就找出所有的子元素节点
+                arr.push(aTag[i]);
+            }
+        }
+    }
+    return arr;
+}
+var oUl = document.querySelector("#ul1");
+console.log(getChild(oUl));
+```
+#### 找上一个元素节点
+``` javascript
+var oDiv = document.getElementById("div1");
+var pre = oDiv.previousSibling;
+while(pre && pre.nodeType !== 1){
+    pre = pre.previousSibling;
+}
+console.log(pre);
+```
+#### 找上N个元素节点
+``` javascript
+var oDiv = document.getElementById("div1");
+var pre = oDiv.previousSibling;
+var arr = [];
+while(pre){
+    if(pre.nodeType === 1){
+        arr.push(pre);
+    }
+    pre = pre.previousSibling;
 }
 ```
 ### 题目/技巧
