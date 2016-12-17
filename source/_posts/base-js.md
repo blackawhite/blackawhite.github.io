@@ -1169,7 +1169,7 @@ sortArr(arr,1);
 
 console.log(arr);
 ```
-### 表格排序原理
+### 内容排序原理
 ``` javascript
 var oUl = document.querySelector("#ul1");
 var aLi = document.querySelectorAll("li");
@@ -1185,12 +1185,118 @@ for(var i = 0;i < newAli.length;i ++){
     oUl.appendChild(newAli[i]);
 }
 ```
-### 数据类型检测
+### 数据类型检测的4种方式
 #### typeof
+typeof返回的都是字符串，字符串中包含了对应的数据类型，例如"number"、"string"、"boolean"、"undefined"、"function"、"object"，局限性：不能细分正则、数组、null，常见应用如下：
+``` javascript
+// 实现num2不传的时候默认0
+function fn(num1,num2){
+    //num2 = num2 || 0;// 有真即真，假如传的false这里结果也会是0
+    if(typeof num2 === "undefined"){// 改写成这样
+        num2 = 0;
+    }
+    console.log(num2);
+}
+fn(10,false);
+```
+``` javascript
+function fn(callback){
+    //callback && callback();// 同真为真，有假即加，不传值的时候不至于出错
+    typeof callback === "function" ? callback() : null;
+}
+fn(function(){
+    console.log('hello world');
+});
+```
 #### instanceof
-#### constructor
-#### Object.prototype.toString.call()
+问题1：只能区分实例创建出来的结果是有区别的，对于字面量创建的无法判断，严格意义上来讲只有实例创建出来的结果才是标准的对象
+``` javascript
+console.log(1 instanceof Number);// false
+console.log("" instanceof String);// false
+console.log(true instanceof Boolean);// false
 
+console.log( new Number(1) instanceof Number );
+console.log( new String(1) instanceof String );
+console.log( new Boolean(true) instanceof Boolean );
+```
+问题2：结果未必准确
+``` javascript
+var arr = [];
+console.log(arr instanceof Array);// true
+console.log(arr instanceof Object);// true
+
+function Fn(){}
+Fn.prototype = new Array;
+var f = new Fn;
+console.log(f instanceof Array);// true
+```
+问题3：对于特殊的数据类型，例如null和undefined所属的类是Null和undefined，但是浏览器把这两个类保护起来了，不允许我们外部访问使用
+``` javascript
+console.log(null instanceof Null);// 报错
+console.log(undefined instanceof Undefined);
+```
+#### constructor
+``` javascript
+var obj = [];
+console.log(obj.constructor);// function Array(){ ... }
+
+var num = 1;
+console.log(num.constructor === Number);// true
+
+var reg = /^$/;
+console.log(reg.constructor === RegExp);
+console.log(reg.constructor === Object);// false
+```
+问题：发生继承时检测失败
+``` javascript
+function Fn(){}
+Fn.prototype = new Array;
+var f = new Fn();
+console.log(f.constructor);// Array，检测失败
+```
+#### Object.prototype.toString.call()
+解释：执行Object.prototype.toString方法并改变this指向
+作用1：对于Number、String、Boolean、Array、RegExp、Date、Function原型上的toString方法都是把当前的数据类型转为字符串
+``` javascript
+console.log(typeof (1).toString());// Number.prototype.toString
+console.log(typeof ('1').toString());// String.prototype.toString
+console.log(typeof (true).toString());
+console.log(typeof ([]).toString());
+console.log(typeof (/^$/).toString());
+console.log(typeof (new Date()).toString());
+console.log(typeof (new Function()).toString());
+```
+作用2：进制转换
+``` javascript
+console.log((128).toString(2));
+console.log((128).toString(8));
+console.log((128).toString(10));
+```
+作用3：返回当前方法的执行主体（this）所属类的详细信息
+``` javascript
+// 例如下面：执行主体是{name:"yangk"}，所属类的详细信息"[object Object]"，第一个小写的object代表当前对象是对象数据类型的，第二个Object代表的是obj是Object这个类的一个实例，即obj所属的类是Object
+var obj = {name:"yangk"};
+console.log( obj.toString() );
+console.log( Math.toString() );// "[object Math]"，toString中的this是谁，返回的就是谁所属类的信息"[object Math]"
+```
+案例实战
+``` javascript
+var arr = [];
+console.log(Object.prototype.toString.call(arr));// [object Array]
+
+console.log({}.toString.call(1));// 这种写法和上面一样,{}找到也是Object.prototype.toString
+console.log({}.toString.call(null));
+console.log({}.toString.call(undefined));
+
+if(Object.prototype.toString.call(arr) === "[object Array]"){ ... }
+```
+``` javascript
+var arr = [];
+var reg = /^\[object Array\]$/;
+if(reg.test(Object.prototype.toString.call(arr))){
+    console.log('这是一个数组！');
+}
+```
 ### JSON
 JSON是一种数据格式，主要用于前后台交互时作为数据的载体
 ``` javascript
