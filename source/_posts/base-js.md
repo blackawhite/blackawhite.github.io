@@ -2,6 +2,7 @@
 title: JavaScript mark
 date: 2016-12-04 00:11:18
 tags: JS基础知识
+categories: JS
 ---
 JavaScript学习中一些零碎笔记，持续更新...
 <!--more-->
