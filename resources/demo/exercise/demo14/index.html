@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #tab{
+        display: block;
+        margin: 20px auto;
+        padding: 20px;
+        width: 400px;
+        border: 1px solid #008000;
+
+        border-radius: 5px;
+        box-shadow: 3px 3px 8px 0 #999;
+    }
+    #tab thead tr th{
+        width: 100px;
+        height: 35px;
+        line-height: 35px;
+        background-color: #08Bece;
+    }
+    #tab thead tr th.cursor{
+        cursor: pointer;
+    }
+    #tab tbody tr.even{
+        background-color: wheat;
+    }
+    #tab tbody tr td{
+        height: 35px;
+        margin-left: 35px;
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <table id="tab" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <!-- cursor代表可点击可排序 -->
+                <th class="cursor">姓名</th>
+                <th class="cursor">年龄</th>
+                <th class="cursor">分数</th>
+                <th class="cursor">性别</th>
+            </tr>            
+        </thead>
+        <!-- tbody可以有多个 -->
+        <tbody>
+            <!-- 隔行变色，让偶数行的class="even" -->
+        </tbody>
+    </table>
+    <script src="./js/utils.js" charset="utf-8"></script>
+    <script src="./js/tab.js" charset="utf-8"></script>
+</body>
+</html>
