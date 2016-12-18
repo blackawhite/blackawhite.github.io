@@ -1055,8 +1055,149 @@ for(var i = 0;i < arr.length;i ++){
 oUl.appendChild(frg);
 frg = null;// 手动释放容器
 ```
-### 关于DOM元素宽高距离
-...
+### DOM元素宽高距离
+``` javascript
+// clientHeight：height + padding，真实内容高度，和父级是否隐藏无关
+// clientTop：上边框的宽度
+// offsetHeight：clientHeight + clientTop + clientBottom，height + padding + border
+// offsetTop：当前元素的外边框距离有定位父级的内边框的距离
+// offsetParent：当前元素有定位的父级
+
+// scrollHeight：同clientHeight
+// document.documentElement.scrollHeight：文档高
+// document.documentElement.clientHeight：窗口高
+// document.documentElement.scrollTop：滚动高
+
+// window.getComputedStyle(obj,null)["height"]
+// obj.currentStyle["height"]
+```
+### 图片懒加载
+#### 首屏
+给对应区域一张尽量小默认图，当真实内容加载陈功时再加载真实图片
+``` javascript
+var oDiv = document.querySelector("#div1");
+var oImg = oDiv.getElementsByTagName("img")[0];
+var timer = null;
+
+timer = setTimeout(function(){
+    var loadImg = new Image();
+    loadImg.src = oImg.getAttribute("data-src");
+    loadImg.onload = function(){
+        oImg.src = this.src;
+        oImg.style.display = "block";
+        loadImg = null;// 注意这里释放别搞错了...
+
+        console.log("加载完成！");// 里面处理完成的
+        var time2 = new Date();
+        console.log(time2 - time1);// 加载时间
+    };
+    var time1 = new Date();
+    console.log("正在加载中...");// 外面处理loading的
+},500);
+```
+#### 其他屏
+出现在屏幕中时开始加载真实图片
+``` javascript
+var oDiv = document.querySelector("#div1");
+var oImg = oDiv.getElementsByTagName("img")[0];
+
+window.onscroll = function(){
+    if(oImg.isLoad)return;
+    var A = utils.offset(oDiv).top + oDiv.offsetHeight;// 这里不能用oImg，oImg藏起来获取有问题
+    var B = utils.win("scrollTop") + utils.win("clientHeight");
+    if(A < B){
+        var loadImg = new Image();
+        loadImg.src = oImg.getAttribute("data-src");
+        loadImg.onload = function(){
+            console.log("ok");
+            oImg.src = this.src;
+            oImg.style.display = "block";
+            loadImg = null;
+        };
+        oImg.isLoad = true;// 不管是否加载成功进入后就不再重新加载了，JS定义的属性控制台上看不见的
+    }
+};
+```
+#### 案例
+<a href="javascript">连接</a>
+补充：数据异步加载一般是开始把前两屏的数据加载进来，当页面滚动到对应区域时再加载渲染数据
+### 兼容性处理举例
+try catch:不管是什么都要走try中的代码，不好
+``` javascript
+function getStyle(ele,attr){
+    try{
+        return getComputedStyle(ele,null)[attr];
+    }
+    catch(e){
+        return ele.currentStyle[attr];
+    }
+}
+```
+判断是否存在此属性
+``` javascript
+function getStyle(ele,attr){
+    if(window.getComputedStyle){
+        return getComputedStyle(ele,null)[attr];
+    }
+    else{
+        return ele.currentStyle[attr];
+    }
+}
+```
+``` javascript
+function getStyle(ele,attr){
+    if("getComputedStyle" in window){
+        return getComputedStyle(ele,null)[attr];
+    }
+    else{
+        return ele.currentStyle[attr];
+    }
+}
+```
+``` javascript
+function getStyle(ele,attr){
+    if(typeof window.getComputedStyle === "function"){
+        return getComputedStyle(ele,null)[attr];
+    }
+    else{
+        return ele.currentStyle[attr];
+    }
+}
+```
+navigator.userAgent
+``` javascript
+function getStyle(ele,attr){
+    if(/MSIE(6|7|8)/.test(navigator.userAgent)){
+        return ele.currentStyle[attr];
+    }
+    else{
+        return getComputedStyle(ele,null)[attr];
+    }
+}
+```
+对单位的处理
+``` javascript
+function getStyle(ele,attr){
+    var val = null,reg = null;
+    //var val = reg = null;// 这样写reg是全局的
+    if(window.getComputedStyle){
+        val = window.getComputedStyle(ele,null)[attr];
+    }
+    else{// ie6-8
+        if(attr === "opacity"){
+            val = ele.currentStyle["filter"];// alpha(opacty=10)
+            reg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+            val = reg.test(val) ? reg.exec(val)[1] / 100 : 1;
+        }
+        else{
+            val = ele.currentStyle[attr];
+        }
+    }
+    // 负数、小数、单位可能出现或不出现
+    reg = /^(-?\d+(\.\d+)?)(px|pt|rem|em)?$/i;
+    return reg.test(val) ? parseFloat(val) : val;
+}
+```
 ### String常用方法
 ``` javascript
 var str = 'yangkkk';
@@ -1514,6 +1655,65 @@ while(pre){
         arr.push(pre);
     }
     pre = pre.previousSibling;
+}
+```
+#### 获取样式
+```` javascript
+function getStyle(ele,attr){
+    var val = null,reg = null;
+    //var val = reg = null;// 这样写reg是全局的
+    if(window.getComputedStyle){
+        val = window.getComputedStyle(ele,null)[attr];
+    }
+    else{// ie6-8
+        if(attr === "opacity"){
+            val = ele.currentStyle["filter"];// alpha(opacty=10)
+            reg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+            val = reg.test(val) ? reg.exec(val)[1] / 100 : 1;
+        }
+        else{
+            val = ele.currentStyle[attr];
+        }
+    }
+    // 负数、小数、单位可能出现或不出现
+    reg = /^(-?\d+(\.\d+)?)(px|pt|rem|em)?$/i;
+    return reg.test(val) ? parseFloat(val) : val;
+}
+````
+#### 到文档距离
+``` javascript
+function offset(curEle){
+    var totalLeft = 0;
+    var totalTop = 0;
+    var parent = curEle.offsetParent;
+
+    totalLeft += curEle.offsetLeft;
+    totalTop += curEle.offsetTop;
+
+    while(parent){
+        // 在标准的ie8中，offsetLeft已经把边框算进去了
+        if(navigator.userAgent.indexOf("MSIE 8.0") === -1){// 不是ie8
+            totalLeft += parent.clientLeft;// 边框
+            totalTop += parent.clientTop;
+        }
+        totalLeft += parent.offsetLeft;
+        totalTop += parent.offsetTop;
+        parent = parent.offsetParent;
+    }
+    return {
+        "top": totalTop,
+        "left": totalLeft
+    };
+}
+```
+#### 窗口大小
+``` javascript
+function win(attr,value){
+    if(typeof value === "undefined"){
+        return document.documentElement[attr]||document.body[attr];
+    }
+    document.documentElement[attr] = value;
+    document.body[attr] = value;
 }
 ```
 ### 题目/技巧
