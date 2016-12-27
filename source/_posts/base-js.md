@@ -1881,6 +1881,20 @@ obj.fn1(); // 27............obj
 alert(window.number);// 8
 alert(obj.number);// 8
 ```
+``` javascript
+// 注意1和2位置切换后的结果是不一样的
+function Person(){
+}
+Person.prototype = {// 1
+    constructor: Person,
+    name: "yangk",
+    showName: function(){
+        console.log(this.name);
+    }
+};
+var person1 = new Person();// 2
+person1.showName();
+```
 #### typeof
 ``` javascript
 console.log(typeof typeof typeof []);
