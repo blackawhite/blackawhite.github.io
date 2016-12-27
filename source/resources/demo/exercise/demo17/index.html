@@ -1,0 +1,125 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态输入框</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    input{
+        display: block;
+        outline: none;
+    }
+    a{
+        display: block;
+        text-decoration: none;
+        color: #000;
+    }
+    ul,li{
+        list-style: none;
+    }
+    .box{
+        width: 400px;
+        top: 20px;
+        left: 50%;
+        margin-left: -200px;
+        position: absolute;
+    }
+    .box input{
+        width: 378px;
+        height: 35px;
+        padding: 0 10px;
+        border: 1px solid #333;
+    }
+    .box ul{
+        display: none;
+        position: relative;
+        top: -1px;
+        border: 1px solid #333;
+    }
+    .box a{
+        height: 35px;
+        line-height: 35px;
+        padding: 0 10px;
+    }
+    .box a:hover{
+        background-color: #ccc;
+    }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <input type="text" id="searchInp">
+        <ul id="search">
+            <!-- <li>
+                <a href="javascript:;">2016年</a>
+            </li> -->
+        </ul>
+    </div>
+    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+    // https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=文本框关键字&cb=jQuery110206459947210848092_1470109645300&_=1470109645302
+    var moduleFn = (function(){
+        var $input = $("#searchInp");
+        var $search = $("#search");
+        var $li = $search.find("li");
+        var searchKey = ""; 
+
+        function initData(){
+            searchKey = $input.val();
+            $.ajax({
+                url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + searchKey,
+                dataType: "jsonp",
+                jsonp: "cb",// 接口要求这里需要指定
+                success: callback
+            });
+        }
+        // {q:"yangk",p:false,s:["杨坤","杨开慧","杨凯pk4","杨可","杨康","养寇自重"]}
+        function callback(data){
+            var str = '';// 这个不能定义为全局变量
+            var data = data["s"];
+            $.each(data,function(index,item){
+                if(index <= 3){
+                    str += '<li><a href="javascript:;">'+ item +'</a></li>';
+                }
+            });
+            if(data.length == 0){
+                $search.hide();
+            }
+            else{
+                $search.html(str).show();
+            }
+        }
+        function bind(){
+            $input.on("focus keyup",function(){
+                initData();
+            });
+            $(document).on("click",function(ev){
+                var evTar = ev.target;
+                // 点击输出框除外
+                if(evTar.tagName.toLowerCase() == "input" && evTar.parentNode.id == "box"){
+                    return;
+                }
+                // 点击li列表中的a除外
+                if(evTar.tagName.toLowerCase() == "a" && evTar.parentNode.parentNode.id == "search"){
+                    $input.val($(evTar).html());
+                }
+                $search.hide();
+            });
+        }
+        function init(){
+            bind();
+        }
+        return {
+            init: init
+        };
+    })();
+    moduleFn.init();
+    </script>
+</body>
+</html>

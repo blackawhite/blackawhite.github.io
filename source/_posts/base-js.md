@@ -1508,6 +1508,60 @@ var str = '[{"name":"yangk"},{"age":"24"}]';
 var jsonArr = eval("("+ str +")");
 console.log(jsonArr instanceof Array);
 ```
+### AJAX
+一个基本的AJAX
+``` javascript
+var xhr = new XMLHttpRequest();
+xhr.open("get","data.txt",true);
+xhr.onreadystatechange = function(){
+    if(xhr.readyState == 4 && xhr.status == 200){
+        var data = xhr.responseText;
+        document.body.innerHTML = data;
+    }
+};
+xhr.send();
+```
+关于JSONP
+``` javascript
+// 1、JSONP需要获取数据的服务器端做支持
+// 2、原理：利用script标签的特性
+// 3、把当前页面中的一个函数当作参数传递给服务器(url?callback=fn)，服务器返回'fn([{"name":"aaa"}])'
+// 4、客户端让fn执行，fn中的参数就是我们想要的数据
+function fn(data){
+    console.log(data);
+}
+<script src="http://matchweb.sports.qq.com/kbs/calendar?columnId=100000&callback=fn"></script>
+```
+关于JQUERY中的AJAX
+``` javascript
+$.ajax({
+    url: "data.txt",
+    type: "get",
+    dataType: "json",
+    data: null,// post方式传输时放数据
+    async: true,// 异步
+    cache: false,// 不要缓存，自动会在请求地址的url末尾加参数，默认走缓存
+    timeout: 3000,// 超过3秒不成功走error
+    success: function(data){
+        console.log(data);// 不指定dataType的情况下是string
+    },
+    error: function(){
+
+    }
+});
+```
+JQUERY中的JSONP：都是GET和异步请求
+``` javascript
+$.ajax({
+    url: "http://matchweb.sports.qq.com/kbs/calendar?columnId=100000",
+    jsonpCallback: "fn",// 指定函数名fn，不指定就是随机的
+    jsonp: "cb",// cb代替callback
+    dataType: "jsonp",
+    success: function(data){
+        console.log(data);
+    }
+});
+```
 ### 中文排序
 ``` javascript
 var arr = [

@@ -1,0 +1,108 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>静态输入框</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    input{
+        display: block;
+        outline: none;
+    }
+    a{
+        display: block;
+        text-decoration: none;
+        color: #000;
+    }
+    ul,li{
+        list-style: none;
+    }
+    .box{
+        width: 400px;
+        top: 20px;
+        left: 50%;
+        margin-left: -200px;
+        position: absolute;
+    }
+    .box input{
+        width: 378px;
+        height: 35px;
+        padding: 0 10px;
+        border: 1px solid #333;
+    }
+    .box ul{
+        display: none;
+        position: relative;
+        top: -1px;
+        border: 1px solid #333;
+    }
+    .box a{
+        height: 35px;
+        line-height: 35px;
+        padding: 0 10px;
+    }
+    .box a:hover{
+        background-color: #ccc;
+    }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <input type="text" id="searchInp">
+        <ul id="search">
+            <li>
+                <a href="javascript:;">2016年</a>
+            </li>
+            <li>
+                <a href="javascript:;">2017年</a>
+            </li>
+            <li>
+                <a href="javascript:;">2018年</a>
+            </li>
+            <li>
+                <a href="javascript:;">2019年</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+    var oBox = document.getElementById("box");
+    var oInput = document.getElementById("searchInp");
+    var oUl = document.getElementById("search");
+
+    oInput.onfocus = oInput.onkeyup = function(){
+        var val = this.value.replace(/(^ +| +$)/g,"");// 删除首尾空格
+        oUl.style.display = val.length > 0 ? "block" : "none";
+    };
+
+    // 这里最好不要用onblur，因为当点击下拉列表的时候会触发oInput的onblur会有影响
+    // oInput.onblur = function(){
+    //     oUl.style.display = "none";
+    // };
+
+    // oInput.onclick = function(ev){// 防止点击输入框的时候冒泡到document
+    //     var ev = ev || window.event;
+    //     ev.stopPropagation ? ev.stopPropagation() : ev.cancelable = true;
+    // };
+
+    document.onclick = function(ev){
+        ev = ev || window.event;
+        ev.target = ev.target || ev.srcElement;
+
+        // 假如不阻止冒泡，也可以不让其运行document的内容
+        if(ev.target.tagName.toLowerCase() == "input" && ev.target.parentNode.id == "box"){
+            return;
+        }
+        if(ev.target.tagName.toLowerCase() == "a" && ev.target.parentNode.parentNode.id == "search"){
+            oInput.value = ev.target.innerHTML;
+        }
+        oUl.style.display = "none";
+    };
+    </script>
+</body>
+</html>
