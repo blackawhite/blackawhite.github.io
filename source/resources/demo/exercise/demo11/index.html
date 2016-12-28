@@ -1,0 +1,197 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公告栏</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    a{
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .update{
+        width: 500px;
+        height: 32px;
+        line-height: 32px;
+        margin: 20px auto;
+        border-bottom: 1px solid #dbdbdb;
+        background: -webkit-linear-gradient(top,#d7d7d7,#f9f9f9);
+        position: relative; overflow: hidden;
+    }
+    .update_bg{
+        position: absolute;
+        width: 50px;
+        height: 13px;
+        background: url(images/update.png) no-repeat;
+        left: 20px;
+        top: 10px;
+    }
+    .update_list{
+        position: absolute;
+        left: 90px;
+        top: 0;
+    }
+    .update_list li{
+        height: 32px;
+        line-height: 32px;
+        width: 280px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+    .update_list li strong{
+        color: #d30703;
+    }
+    .update_list li span{
+        color: #999999;
+        margin: 0 3px;
+    }
+    .triangle_up{
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 4px solid #d30703;
+        position: absolute;
+        left: 410px;
+        top: 10px;
+    }
+    .triangle_down{
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid #d30703;
+        position: absolute; left: 410px;
+        top: 20px;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/tween.js"></script>
+</head>
+<body>
+    <div class="update">
+        <span class="update_bg"></span>
+        <ul class="update_list">
+            <li>
+                <!-- <a href="javascript:;">
+                    <strong>萱萱</strong>
+                    <span>5分钟前</span>
+                    写了一篇新文章：那些灿烂华美的瞬间…
+                </a> -->
+            </li>
+        </ul>
+        <a class="triangle_up" href="javascript:;"></a>
+        <a class="triangle_down" href="javascript:;"></a>
+    </div>
+    <script>
+    var Go = (function(){
+        var $list = $(".update_list");
+        var oH = $list.find("li").height();
+        var $top = $(".triangle_up");
+        var $bot = $(".triangle_down");
+        var $wrap = $(".update");
+        var str = '';
+        var iNow = 0;
+        var len = 0;
+        function dataInit(){// 初始化数据
+            var data = [
+                {
+                    "url": "aaa",
+                    "name": "萱萱",
+                    "time": "5",
+                    "con": "写了一篇新文章：那些灿烂华美的瞬间哈哈哈哈哈哈"
+                },
+                {
+                    "url": "bbb",
+                    "name": "毛毛",
+                    "time": "8",
+                    "con": "写了一篇新文章：那些灿烂华美的瞬间哈哈哈哈哈哈"
+                },
+                {
+                    "url": "ccc",
+                    "name": "淡淡",
+                    "time": "9",
+                    "con": "写了一篇新文章：那些灿烂华美的瞬间哈哈哈哈哈哈"
+                },
+                {
+                    "url": "ddd",
+                    "name": "琪琪",
+                    "time": "2",
+                    "con": "写了一篇新文章：那些灿烂华美的瞬间哈哈哈哈哈哈"
+                }
+            ];
+            for(var i = 0;i < data.length;i ++){
+                str += '<li>';
+                    str += '<a href="'+ data[i].url +'">';
+                        str += '<strong>'+ data[i].name +'</strong>';
+                        str += '<span>'+ data[i].time +'分钟前</span>' + data[i].con;
+                    str += '</a>';
+                str += '</li>';
+            }
+            $list.html(str);
+        }
+        
+        function move(num){
+            iNow += num;// iNow允许活动区间-1、-2、-3
+
+            // if(iNow > (len - 1) || iNow < - (len - 1)){
+            //     iNow = 0;
+            // }
+            
+            if(Math.abs(iNow) > len - 1){// 简化上面代码
+                iNow = 0;
+            }
+            if(iNow > 0){
+                iNow = -(len - 1);
+            }
+            if(iNow > 0){
+                iNow = - (len - 1);
+            }
+            else if(iNow < - (len - 1)){
+                iNow = 0;
+            }
+            $list.stop().animate({
+                "top": iNow * oH
+            },2000,"elasticOut");
+        }
+        function autoPlay(){
+            len = $list.find("li").length;// 放在插入之后获取
+            timer = setInterval(function(){
+                move(-1);
+            },2000);
+        }
+        function bind(){
+            $wrap.hover(function(){
+                clearInterval(timer);
+            },function(){
+                autoPlay();
+            });
+            $top.on("click",function(){
+                move(-1);
+            });
+            $bot.on("click",function(){
+                move(1);
+            });
+        }
+        function init(){
+            dataInit();
+            bind();
+            autoPlay();
+        }
+        return {
+            init: init
+        }
+    })();
+    Go.init();
+    </script>
+</body>
+</html>
