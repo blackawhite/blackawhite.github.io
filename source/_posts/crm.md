@@ -249,3 +249,336 @@ server.listen(3000,function(){
 });
 ```
 ## 编写接口
+### getList
+1)获取所有客户信息：http://localhost:3000/getList
+``` javascript
+var con = null,
+    result = null,
+    customId = null,
+    customPath = "./js/custom.json";
+
+con = fs.readFileSync(customPath,"utf-8");// 首先读取内容
+con = JSON.parse(con.length === 0 ? '[]' : con);// JSON.parse("")，防止为空时报错
+
+if(pathname === "/getList"){
+    // 按照接口开发
+    result = {
+        code: 1,
+        msg: "获取客户信息失败",
+        data: null
+    };
+    if(con.length > 0){
+        result = {
+            code: 0,
+            msg: "获取客户信息成功",
+            data: con
+        };
+    }
+    res.writeHead(200,{
+        'content-type': 'application/json;charset=utf-8;'// 重置相应头信息，防止IE乱码
+    });
+    res.end(JSON.stringify(result));// 返回信息，把对象转为JSON格式的字符串
+    return;
+}
+```
+### getInfo
+2)根据客户端传递ID获取对应信息
+``` javascript
+if(pathname === "/getInfo"){
+    customId = query["id"];
+    result = {
+        code: 1,
+        msg: "获取客户信息失败",
+        data: null
+    };
+    for(var i = 0;i < con.length;i ++){
+        if(con[i].id == customId){
+            result = {
+                code: 0,
+                msg: "获取客户信息成功",
+                data: con[i]
+            };
+            break;// 找到就不用再往下继续找了，提高性能
+        }
+    }
+    res.writeHead(200,{
+        'content-type': 'application/json;charset=utf-8;'
+    });
+    res.end(JSON.stringify(result));
+    return;
+}
+```
+### removeInfo
+3)根据客户端传递删除对应信息
+``` javascript
+if(pathname === "/removeInfo"){
+    customId = query["id"];
+    result = {
+        code: 1,
+        msg: "删除客户信息失败"
+    };
+    for(var i = 0;i < con.length;i ++){
+        var flag = false;
+        if(customId == con[i]["id"]){
+            con.splice(i,1);
+            flag = true;
+            break;// 删除完毕则推出循环
+        }
+    }
+    if(flag){// 说明删除成功了，把con写入
+        fs.writeFileSync(customPath,JSON.stringify(con),"utf-8");// 读取进来的是字符串，写入的也是字符串
+        result = {
+            code: 0,
+            msg: "删除客户信息成功"
+        };
+    }
+    res.writeHead(200,{
+        'content-type': 'application/json;charset=utf-8;'
+    });
+    res.end(JSON.stringify(result));
+    return;
+}
+```
+### addInfo
+4)增加客户信息
+``` javascript
+if(pathname === "/addInfo"){
+    var str = '';
+    req.on('data',function(chunk){// 服务器接收post中data传递的内容
+        str += chunk;
+    });
+    req.on('end',function(){
+        // str = '{"name":"","age":""}'
+        var data = JSON.parse(str);// 转JSON对象
+        result = {
+            code: 1,
+            msg: "增加客户信息失败"
+        };
+        if(data["name"] == ""){// data["age"]...
+            res.writeHead(200,{
+                'content-type': 'application/json;charset=utf-8;'
+            });
+            res.end(JSON.stringify(result));
+            return;
+        }
+        con.length === 0 ? data["id"] = 1 : data["id"] = parseFloat(con[con.length - 1]["id"]) + 1;
+        con.push(data);
+
+        fs.writeFileSync(customPath,JSON.stringify(con),"utf-8");
+        result = {
+            code: 0,
+            msg: "增加客户信息成功"
+        };
+        res.writeHead(200,{
+            'content-type': 'application/json;charset=utf-8;'
+        });
+        res.end(JSON.stringify(result));
+    });
+    return;// 注意位置！
+}
+```
+### updateInfo
+5)修改客户信息
+``` javascript
+if(pathname === "/updateInfo"){
+    var str = '';
+    req.on("data",function(chunk){
+        str += chunk;
+    });
+    // 注意：req.on("end",function(){...})和res.end('...')别搞混淆了
+    req.on("end",function(){
+        var data = JSON.parse(str);// 转JSON对象
+        result = {
+            code: 1,
+            msg: "修改客户信息失败"
+        };
+        if(data["name"] == ""){// data["age"]...
+            res.writeHead(200,{
+                'content-type': 'application/json;charset=utf-8;'
+            });
+            res.end(JSON.stringify(result));
+            return;
+        }
+
+        var flag = false;
+        for(var i = 0;i < con.length;i ++){
+            if(data["id"] == con[i]["id"]){
+                con[i] = data;// 能改...
+                flag = true;
+                break;
+            }
+        }
+        if(flag){// 说明修改成功了
+            fs.writeFileSync(customPath,JSON.stringify(con),"utf-8");// 写入
+            result = {
+                code: 0,
+                msg: "修改客户信息成功"
+            };
+        }
+        res.writeHead(200,{
+            'content-type': 'application/json;charset=utf-8;'
+        });
+        res.end(JSON.stringify(result));
+    });
+    return;
+}
+```
+## JavaScript
+### index.js
+``` javascript
+var indexInit = (function(){
+    var $list = $("#list"),
+        $del = $("#del");
+    function addData(){
+        $.ajax({
+            "url": "/getList",// 相对于根目录
+            success: callback
+        });
+    }
+    function callback(jsonData){
+        var arr = jsonData.data;
+        var str = '';
+        for(var i = 0;i < arr.length;i ++){
+            str += '<li>';
+                str += '<span class="w50">'+ arr[i].id +'</span>';
+                str += '<span class="w150">'+ arr[i].name +'</span>';
+                str += '<span class="w50">'+ arr[i].age +'</span>';
+                str += '<span class="w200">'+ arr[i].phone +'</span>';
+                str += '<span class="w200">'+ arr[i].address +'</span>';
+                str += '<span class="w150 control">';
+                    str += '<a href="add.html?id='+ arr[i].id +'">修改</a>';
+                    str += '<a href="javascript:;" id="del" customId="'+ arr[i].id +'">删除</a>';
+                str += '</span>';
+            str += '</li>';
+        }
+        $list.html(str);
+    }
+    function bind(){
+        $list.on("click",function(ev){// 这里可能还没加载进来，所以获取删除按钮要用事件委托
+            ev = ev || event;
+            ev.target = ev.target || ev.srcElement;
+            if(ev.target.tagName.toLowerCase() == "a" && ev.target.id == "del"){
+                var flag = window.confirm("are you sure?")
+                if(flag){
+                    $.ajax({
+                        url: "/removeInfo?id=" + ev.target.getAttribute("customId"),
+                        success: function(jsonData){
+                            if(jsonData && jsonData.code == 0){
+                                $list[0].removeChild(ev.target.parentNode.parentNode);
+                                return;
+                            }
+                            alert(jsonData.msg);
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+    function init(){
+        addData();// 初始化数据
+        bind();// 事件绑定
+    }
+    return {
+        init: init
+    };
+})();
+indexInit.init();
+```
+### add.js
+``` javascript
+var addInit = (function(){
+    var $name = $("#userName"),
+        $age = $("#userAge"),
+        $phone = $("#userPhone"),
+        $address = $("#userAddress"),
+        $submit = $("#submit"),
+        objData = null;
+    function bind(){
+        String.prototype.queryURLParameter = function () {
+            var obj = {},
+                reg = /([^?=&#]+)=([^?=&#]+)/g;
+            this.replace(reg, function () {
+                var key = arguments[1],
+                    value = arguments[2];
+                obj[key] = value;
+            });
+            return obj;
+        };
+        var urlObj = window.location.href.queryURLParameter(),// {id: 1}
+            customId = urlObj["id"],
+            isFlag = typeof customId === "undefined" ? false : true;// true代表修改，false代表增加
+
+        // 更新，不应该需要时间触发
+        $.ajax({
+            url: "/getInfo?id=" + customId,
+            success: function(jsonData){
+                if(jsonData && jsonData.code == 0){
+                    $name.val(jsonData.data["name"]);
+                    $age.val(jsonData.data["age"]);
+                    $phone.val(jsonData.data["phone"]);
+                    $address.val(jsonData.data["address"]);
+                }
+            }
+        });
+
+        // 点击增加
+        function addInfo(){
+            $.ajax({
+                url: "/addInfo",
+                type: "post",
+                data: JSON.stringify(objData),// 传字符串格式的数据！
+                success: addCallback
+            });
+        }
+        function addCallback(jsonData){
+            if(jsonData.code == 0){
+                window.location.href = "index.html";
+                return;
+            }
+        }
+        // 点击修改
+        function updateInfo(){
+
+            objData.id = customId;// 因为增加的时候不需要穿ID，所以这里单独存放
+            $.ajax({
+                url: "/updateInfo",
+                type: "post",
+                data: JSON.stringify(objData),
+                success: updateCallback
+            });
+        }
+        function updateCallback(jsonData){
+            if(jsonData && jsonData.code == 0){
+                window.location.href= "index.html";
+                return;
+            }
+            alert(jsonData.msg);
+        }
+
+        $submit.on("click",function(){// 点击提交的时候是修改或者增加，要区分
+            objData = {
+                "name": $name.val() || "无",
+                "age": $age.val() || "无",
+                "phone": $phone.val() || "无",
+                "address": $address.val() || "无"
+            };
+            if(isFlag){// 修改
+                updateInfo();
+            }
+            else{// 增加
+                addInfo();
+            }
+        });
+    }
+    function init(){
+        bind(); 
+    };
+    return {
+        init: init
+    };
+})();
+addInit.init();
+```
+## 代码下载
+[CRM](/resources/files/Node.zip)
