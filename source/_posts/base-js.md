@@ -251,13 +251,13 @@ alert(obj.number);// 8
 语法
 ``` javascript
 try{
-    //JS要执行的代码
+    // JS要执行的代码
 }
-catch(e){//形参一定要写，名字可以随便起，当try中代码报错了，会自动的执行catch中的代码
-    //e.message;
-    //throw new Error("shit");
-    //throw new ReferenceError;// 引用错误
-    //throw new TypeError;// 类型错误
+catch(e){// 形参一定要写，名字可以随便起，当try中代码报错了，会自动的执行catch中的代码
+    // e.message;
+    // throw new Error("shit");
+    // throw new ReferenceError;// 引用错误
+    // throw new TypeError;// 类型错误
     throw new RangeError("ss");// 范围错误
 }
 finally{// 不管try是否报错这里都会执行
@@ -448,7 +448,19 @@ function go(){
 }
 go();
 ```
+### 事件
+``` javascript
+var oDiv = document.querySelector("#div1");
+oDiv.onclick = function(ev){
+    ev = ev || window.event;
+    ev.target = ev.target || ev.srcElement;// 事件源
+    // ev.pageY = ev.pageY || ev.clientY + win("scrollTop");// 兼容IE6-8
+    ev.preventDefault ? ev.preventDefault() : ev.returnValue = true;// 阻止默认行为
+    return false;
 
+    ev.stopPropagation ? ev.stopPropagation() : ev.cancelBubble = true;// 阻止冒泡
+};
+```
 ### 关于this
 看方法名前面是否有点，有的话点前面是谁this就是谁
 ``` javascript
@@ -794,7 +806,7 @@ console.log(arr);
 ``` javascript
 var arr = [1,2,1,3,3,3,2,4,6,2,6,6,7,4,4,6,2,9,9,8,3,2,7,"yangk","yangk"];
 
-//把数组中的每一项，当做一个新对象的属性名和属性值存起来，在存储的时候判断当前的属性名是否已经存在，存在就代表数组该项重复了，进行删除，否则则代表不重复，直接存储
+// 把数组中的每一项，当做一个新对象的属性名和属性值存起来，在存储的时候判断当前的属性名是否已经存在，存在就代表数组该项重复了，进行删除，否则则代表不重复，直接存储
 
 var obj = {};
 for(var i = 0;i < arr.length;i ++){
@@ -896,7 +908,7 @@ console.log(max);
 #### 一般写法
 ``` javascript
 function avgFn(){
-    //arguments.sort();// 类数组不能直接sort
+    // arguments.sort();// 类数组不能直接sort
     var arr = [];
     for(var i = 0;i < arguments.length;i ++){
         arr[arr.length] = arguments[i];
@@ -922,7 +934,7 @@ console.log(res);
 #### 求和优化
 ``` javascript
 function avgFn(){
-    //arguments.sort();// 类数组不能直接sort
+    // arguments.sort();// 类数组不能直接sort
     var arr = [];
     for(var i = 0;i < arguments.length;i ++){
         arr[arr.length] = arguments[i];
@@ -958,9 +970,9 @@ console.log(res);
 
 function avgFn(){
     var arr = Array.prototype.slice.call(arguments);
-    //[].slice.call(arguments,0)// 实例也有slice方法和上面一样的事，0可传可不传
-    //[].__proto__.slice.call(...)// ie不兼容
-    //[].slice.apply[arguments,[0]]
+    // [].slice.call(arguments,0)// 实例也有slice方法和上面一样的事，0可传可不传
+    // [].__proto__.slice.call(...)// ie不兼容
+    // [].slice.apply[arguments,[0]]
     
     arr.sort(function(a,b){
         return a - b;
@@ -1040,7 +1052,7 @@ oUl.innerHTML += str;
 for(var i = 0;i < arr.length;i ++){
     var oLi = document.createElement("li");
     oLi.innerHTML = arr[i];
-    oUl.appendChild(oLi);//向末尾增加，不会影响之前的元素
+    oUl.appendChild(oLi);// 向末尾增加，不会影响之前的元素
 }
 ```
 #### 文档碎片
@@ -1179,7 +1191,7 @@ function getStyle(ele,attr){
 ``` javascript
 function getStyle(ele,attr){
     var val = null,reg = null;
-    //var val = reg = null;// 这样写reg是全局的
+    // var val = reg = null;// 这样写reg是全局的
     if(window.getComputedStyle){
         val = window.getComputedStyle(ele,null)[attr];
     }
@@ -1226,7 +1238,7 @@ str.replace(旧字符，新字符);// 配合正则使用较好
 str.replace('k',"o").replace('k',"o").replace('k',"o");
 str.replace(/k/g,"o");
 
-str.split("")//变成数组
+str.split("")// 变成数组
 ```
 #### 时间转换
 主要用到String的split()方法
@@ -1383,7 +1395,7 @@ typeof返回的都是字符串，字符串中包含了对应的数据类型，�
 ``` javascript
 // 实现num2不传的时候默认0
 function fn(num1,num2){
-    //num2 = num2 || 0;// 有真即真，假如传的false这里结果也会是0
+    // num2 = num2 || 0;// 有真即真，假如传的false这里结果也会是0
     if(typeof num2 === "undefined"){// 改写成这样
         num2 = 0;
     }
@@ -1393,7 +1405,7 @@ fn(10,false);
 ```
 ``` javascript
 function fn(callback){
-    //callback && callback();// 同真为真，有假即加，不传值的时候不至于出错
+    // callback && callback();// 同真为真，有假即加，不传值的时候不至于出错
     typeof callback === "function" ? callback() : null;
 }
 fn(function(){
@@ -1715,7 +1727,7 @@ while(pre){
 ```` javascript
 function getStyle(ele,attr){
     var val = null,reg = null;
-    //var val = reg = null;// 这样写reg是全局的
+    // var val = reg = null;// 这样写reg是全局的
     if(window.getComputedStyle){
         val = window.getComputedStyle(ele,null)[attr];
     }
@@ -1853,7 +1865,7 @@ var obj = {
 };
 var fn = obj.fn;// return的函数
 fn();// 65
-//fn();// 85
+// fn();// 85
 obj.fn();// 85，这里执行后上面this.num *= 4结果是120
 console.log(window.num,obj.num);// 240,120
 ```
@@ -1870,8 +1882,8 @@ var obj = {
             this.number *= 2;// this >> window 8
             number *= 3;// 找没有销毁的必包中的变量 9
             alert(number);// 
-        }//这个匿名方法返回这个函数，fn1最终就是这个函数
-    })()//这个匿名函数运行就是一个必包
+        }// 这个匿名方法返回这个函数，fn1最终就是这个函数
+    })()// 这个匿名函数运行就是一个必包
 };
 var fn1 = obj.fn1;// NaN
 alert(number);// 4

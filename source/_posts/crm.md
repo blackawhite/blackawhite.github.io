@@ -94,9 +94,9 @@ var fs = require("fs");
 var url = require("url");
 
 var server = http.createServer(function(req,res){
-    //->req.url: "/index.html?name=yangk"
-    //->pathname: "/index.html"
-    //->query: {name:'yangk'}
+    // req.url: "/index.html?name=yangk"
+    // pathname: "/index.html"
+    // query: {name:'yangk'}
 
     var urlObj = url.parse(req.url,true);// true返回的query是json格式
     var pathname = urlObj.pathname;
