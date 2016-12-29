@@ -1,0 +1,201 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #wrap{
+        width: 100px;
+        height: 100px;
+        border: 1px solid #333;
+        position: absolute;
+        top: 100px;
+        left: 200px;/*不要用margin下面JS没有做处理*/
+    }
+    #wrap span{
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        background-color: #333;
+        z-index: 22;
+    }
+    #top{
+        top: -4px;
+        left: 50%;
+        margin-left: -3px;
+        cursor: n-resize;
+    }
+    #right{
+        right: -4px;
+        top: 50%;
+        margin-top: -3px;
+        cursor: e-resize;
+    }
+    #bottom{
+        bottom: -4px;
+        left: 50%;
+        margin-left: -3px;
+        cursor: s-resize;
+    }
+    #left{
+        left: -4px;
+        top: 50%;
+        margin-top: -3px;
+        cursor: w-resize;
+    }
+    #top-r{
+        right: -4px;
+        top: -4px;
+        cursor: ne-resize;
+    }
+    #top-l{
+        left: -4px;
+        top: -4px;
+        cursor: nw-resize;
+    }
+    #bottom-l{
+        bottom: -4px;
+        left: -4px;
+        cursor: sw-resize;
+    }
+    #bottom-r{
+        right: -4px;
+        bottom: -4px;
+        cursor: se-resize;
+    }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <span id="top"></span>
+        <span id="right"></span>
+        <span id="bottom"></span>
+        <span id="left"></span>
+        <span id="top-r"></span>
+        <span id="bottom-r"></span>
+        <span id="top-l"></span>
+        <span id="bottom-l"></span>
+    </div>
+    <script>
+    var Go = (function(){
+        // 获取到页面绝对位置
+        function getPos(obj){
+            var oLeft = obj.offsetLeft;
+            var oTop = obj.offsetTop;
+            var oParent = obj.offsetParent;
+            while(oParent!=null){
+                oLeft += oParent.offsetLeft;
+                oTop += oParent.offsetTop;
+                oParent = oParent.offsetParent;
+            }
+            return {"left": oLeft,"top": oTop};
+        }
+
+        // 元素获取
+        function $(obj){
+            return document.querySelector(obj);
+        }
+        var oWrap = $("#wrap");
+        var oTop = $("#top");
+        var oRight = $("#right");
+        var oBottom = $("#bottom");
+        var oLeft = $("#left");
+        var oTopR = $("#top-r");
+        var oBottomR = $("#bottom-r");
+        var oTopL = $("#top-l");
+        var oBottomL = $("#bottom-l");
+
+
+        function drag(curEle){
+            // 变量放在drag内定义，每次调用都重新开始算
+            var oldW = 0;
+            var oldH = 0;
+            var oldL = 0;// clientX
+            var newL = 0;
+            var oldT = 0;
+            var newT = 0;
+            var oLeft = 0;// offsetLeft
+            var oTop = 0;
+            curEle.onmousedown = function(ev){
+                ev = ev || window.event;
+                oldL = ev.clientX;
+                oldT = ev.clientY;
+                oLeft = getPos(curEle).left;
+                oldW = oWrap.offsetWidth - 2;
+                oldH = oWrap.offsetHeight - 2;
+                oLeft = getPos(oWrap).left;// 注意这里不应该是curEle
+                oTop = getPos(oWrap).top;
+                document.onmousemove = function(ev){
+                    ev = ev || window.event;
+                    newL = ev.clientX - oldL;
+                    newT = ev.clientY - oldT;
+                    if(curEle.id == "right"){
+                        oWrap.style.width = oldW + newL + "px";
+                    }
+                    else if(curEle.id == "bottom"){
+                        oWrap.style.height = oldH + newT + "px";
+                    }
+                    else if(curEle.id == "bottom-r"){
+                        oWrap.style.width = oldW + newL + "px";
+                        oWrap.style.height = oldH + newT + "px";
+                    }
+                    else if(curEle.id == "left"){// ...
+                        oWrap.style.width = oldW - newL + "px";
+                        oWrap.style.left = oLeft + newL + "px";// 重要
+                    }
+                    else if(curEle.id == "bottom-l"){// bottom + left的样式
+                        oWrap.style.height = oldH + newT + "px";
+                        oWrap.style.width = oldW - newL + "px";
+                        oWrap.style.left = oLeft + newL + "px";
+                    }
+                    else if(curEle.id == "top"){// ...
+                        oWrap.style.height = oldH - newT + "px";
+                        oWrap.style.top = oTop + newT + "px";
+                    }
+                    else if(curEle.id == "top-l"){// top + left的样式
+                        oWrap.style.height = oldH - newT + "px";
+                        oWrap.style.top = oTop + newT + "px";
+                        oWrap.style.width = oldW - newL + "px";
+                        oWrap.style.left = oLeft + newL + "px";
+                    }
+                    else if(curEle.id == "top-r"){// top + right的样式
+                        oWrap.style.height = oldH - newT + "px";
+                        oWrap.style.top = oTop + newT + "px";
+                        oWrap.style.width = oldW + newL + "px";
+                    }
+                    // 限制范围
+                    if(oWrap.offsetWidth <= 30){
+                        oWrap.style.width = 28 + "px";
+                    }
+                    if(oWrap.offsetHeight <= 30){
+                        oWrap.style.height = 28 + "px";
+                    }
+                }
+                document.onmouseup = function(){
+                    document.onmouseup = document.onmousemove = null;
+                };
+                return false;
+            };
+        }
+        // 入口
+        function init(){
+            drag(oRight);
+            drag(oBottom);
+            drag(oBottomR);
+            drag(oLeft);
+            drag(oBottomL);
+            drag(oTop);
+            drag(oTopL);
+            drag(oTopR);
+        }
+        return {
+            init: init
+        };
+    })();
+    Go.init();
+    </script>
+</body>
+</html>
