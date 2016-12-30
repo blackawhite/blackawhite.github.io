@@ -218,7 +218,7 @@ function addClass(curEle,className){
     // 包含多个class时
     var arr = className.replace(/(^ +| +$)/g,"").split(/ +/g);// 1到多个空格拆分
     for(var i = 0;i < arr.length;i ++){
-        if(!this.hasClass(curEle,arr[i])){
+        if(!hasClass(curEle,arr[i])){
             curEle.className += " " + arr[i];
         }
     }
@@ -229,7 +229,7 @@ function addClass(curEle,className){
 function removeClass(curEle,className){
     var arr = className.replace(/(^ +| +$)/g,"").split(/ +/g);// 1到多个空格拆分
     for(var i = 0;i < arr.length;i ++){
-        if(this.hasClass(curEle,arr[i])){
+        if(hasClass(curEle,arr[i])){
             var reg = new RegExp("(^| +)"+ arr[i] +"( +|$)","g");
             curEle.className = curEle.className.replace(reg," ");
         }
@@ -265,9 +265,9 @@ function getElementsByClass(oParent,className){
     return arr;
 }
 ```
-### getStyle(curEle,attr)
+### getCss(curEle,attr)
 ```` javascript
-function getStyle(curEle,attr){
+function getCss(curEle,attr){
     var val = null,reg = null;
     //var val = reg = null;// 这样写reg是全局的
     if(window.getComputedStyle){
@@ -288,6 +288,68 @@ function getStyle(curEle,attr){
     return reg.test(val) ? parseFloat(val) : val;
 }
 ````
+### setCss(curEle,attr)
+``` javascript
+function setCss(curEle,attr,value){
+    // float
+    if(attr === "float"){
+        curEle["style"]["cssFloat"] = value;
+        curEle["style"]["styleFloat"] = value;
+        return;
+    }
+    // opacity
+    if(attr === "opacity"){
+        curEle["style"]["opacity"] = value;
+        curEle["style"]["filter"] = "alpha(opacity="+ value * 100 +")";
+        return;
+    }
+    // 如果没有单位，需要加上默认的
+    var reg = null;
+    reg = /^(width|height|top|right|bottom|left|((margin|padding)(Top|Right|Bottom|Left)?))$/;
+    if(reg.test(attr)){
+        if(!isNaN(value)){// 传递进来的是否是数字
+            value += "px";
+        }
+    }
+    curEle["style"][attr] = value;
+}
+```
+### setGroupCss(curEle,opt)
+``` javascript
+function setGroupCss(curEle,opt){
+    // Object.prototype.toString.call()
+    opt = opt || 0;// null 或 undefined
+    if(opt.toString() !== "[object Object]"){
+        return;
+    }
+    for(var key in opt){
+        if(opt.hasOwnProperty(key)){// ?
+            setCss(curEle,key,opt[key]);
+        }
+    }
+}
+```
+### css(curEle)
+``` javascript
+// 获取、单独和批量设置
+function css(curEle){
+    var argTwo = arguments[1];
+    if(typeof argTwo === "string"){// 获取或设置
+        var argThree = arguments[2];
+        if(typeof argThree === "undefined"){// 第三个参数不存在，这样判断!argThree，传0出问题
+            // return getCss(curEle,argTwo);
+            return getCss.apply(this,arguments);
+        }
+        setCss.apply(this,arguments);
+        /*setCss(curEle,argTwo,argThree);*/
+    }
+    argTwo = argTwo || 0;
+    if(argTwo.toString() === "[object Object]"){
+        // 批量设置
+        setGroupCss.apply(this,arguments);
+    }
+}
+```
 ### offset(curEle)
 ``` javascript
 function offset(curEle){
