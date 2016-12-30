@@ -19,6 +19,7 @@ function listToArray(likeArr){
     return arr;
 }
 ```
+<!-- more -->
 ### toJSON(str)
 ``` javascript
 // 把JSON格式的字符串转换为JSON格式的数组/对象
