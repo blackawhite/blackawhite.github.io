@@ -1,0 +1,173 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+    }
+    .list1{
+        margin: 30px 0 0 30px;
+    }
+    .list1 li{
+        line-height: 30px;
+    }
+    .list1 i{
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+    }
+    .list1 .active{
+        background-color: #ccc;
+    }
+    .list1 i + span{
+        cursor: pointer;
+    }
+    .list1 li{
+        padding-left: 35px;
+    }
+    .list1 ul{
+        display: none;
+    }
+    </style>
+</head>
+<body>
+    <ul class="list1" id="list1">
+        <li>
+            <i></i>
+            <span>第一级第一个</span>
+            <ul class="list2">
+                <li>
+                    <i></i>
+                    <span>第二级第一个</span>
+                    <ul class="list3">
+                        <li>
+                            <span>第三级第一个</span>
+                        </li>
+                        <li>
+                            <i></i>
+                            <span>第三级第二个</span>
+                            <ul class="list4">
+                                <li>
+                                    <span>第四级第一个</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span>第二级第二个</span>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <i></i>
+            <span>第一级第一个</span>
+            <ul class="list2">
+                <li>
+                    <i></i>
+                    <span>第二级第一个</span>
+                    <ul class="list3">
+                        <li>
+                            <span>第三级第一个</span>
+                        </li>
+                        <li>
+                            <i></i>
+                            <span>第三级第二个</span>
+                            <ul class="list4">
+                                <li>
+                                    <span>第四级第一个</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <script>
+    function prev(curEle){
+        if(curEle.previousElementSibling){
+            return curEle.previousElementSibling;
+        }
+        var pre = curEle.previousSibling;
+        while(pre && pre.nodeType !== 1){
+            pre = pre.previousSibling;
+        }
+        return pre;
+    }
+    function next(curEle){
+        if(curEle.nextElementSibling){
+            return curEle.nextElementSibling;
+        }
+        var next = curEle.nextSibling;
+        while(next && next.nodeType !== 1){
+            next = next.nextSibling;
+        }
+        return next;
+    }
+    function children(curEle,tagName){
+        // childNodes、nodeType === 1
+        var flag = "getComputedStyle" in window;
+        var arr = [];
+        if(!flag){// /MSIE (6|7|8)/i.test(navigator.userAgent)
+            var nodeList = curEle.childNodes;
+            for(var i = 0;i < nodeList.length;i ++){
+                if(nodeList[i].nodeType === 1){
+                    arr[arr.length] = nodeList[i];
+                }
+            }
+        }
+        else{
+            // 标准浏览器直接使用children即可，然后类数组转数组
+            arr = Array.prototype.slice.call(curEle.children);
+        }
+        // 二次筛选
+        if(typeof tagName === "string"){
+            for(var i = 0;i < arr.length;i ++){// 注意这里arr.length不能和i一起声明
+                if(arr[i].nodeName.toLowerCase() !== tagName.toLowerCase()){
+                    arr.splice(i,1);
+                    i --;
+                }
+            }
+        }
+        return arr;
+    }
+    var oList = document.getElementById("list1");
+    // 采用事件委托的形式
+    oList.onclick = function(ev){
+        ev = ev || window.event;
+        var tar = ev.target || ev.srcElement;
+        if(/^(i|span)$/i.test(tar.tagName)){
+            var parent = tar.parentNode;
+            var oEm = children(parent,"i")[0];
+            var firstUl = children(parent,"ul")[0];
+            if(firstUl){
+                var isBlock = getComputedStyle(firstUl,null)["display"] === "block" ? true : false;
+                if(isBlock){// 显示的
+                    var allUl = parent.getElementsByTagName("ul");
+                    var allEm = parent.getElementsByTagName("i");
+                    for(var i = 0;i < allUl.length;i ++){
+                        allUl[i].style.display = "none";
+                        allEm[i].className = "";
+                    }
+                }
+                else{
+                    firstUl.style.display = "block";
+                    oEm.className = "active";
+                }
+            }
+        }
+    };
+    </script>
+</body>
+</html>
