@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wwww.yesokiloveyou.com/"/>
-  <updated>2016-12-30T06:09:53.000Z</updated>
+  <updated>2017-01-01T06:50:15.000Z</updated>
   <id>http://wwww.yesokiloveyou.com/</id>
   
   <author>
@@ -16,11 +16,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>2017</title>
+    <link href="http://wwww.yesokiloveyou.com/2017/01/01/20170101/"/>
+    <id>http://wwww.yesokiloveyou.com/2017/01/01/20170101/</id>
+    <published>2017-01-01T04:20:42.000Z</published>
+    <updated>2017-01-01T06:50:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>中学我很老实，寡不敌众也被欺负过，中二从村里去县城上学，自卑但也算开心，交了几个到现在也很铁的哥们，但学习一般，08年中考得了508就这样上了高中。</p>
+<p>高中我是个二流的混子，混到我自己都不察觉我在混的程度，朋友很多从不独行(现在都基本没联系了)，毕业目标是进入二专学校，至于干什么没想过，可能也是继续混，后来有幸能参加高考得了444分，超额实现目标挑了个2年制大专，至于干什么，不知道。</p>
+<p>大学最疼我的爷爷和外婆离开，心痛无以言表。期间也有妹子看得起我，但我是真的看不起自己，所以也就没有了结果。那会目标是上个本科，补回之前浪费掉的，好好学习也拿了各种奖学金，13年顺利考上了本科，本以为好好上学能改善一切，事实对于我自己也不一定，不再打算考研，所以14年就离校和一个朋友去了上海，在一家互联网公司从事打杂，后来慢慢也接触网站制作方面的工作，算是页面重构，专科我有基础知识，上手很快。期间我的姑姑离开，她很疼我，仍然记得小时候去姑姑家她从门后拿起苹果给我吃那时她的样子，她才40左右啊，老天就是这样无情，最后一次去看她时，她已被病痛折磨的像变了一个人，无力，心痛，自责…离开的亲人我很想念你们，我愿意相信有另一个世界，希望你们在那边能过的很好。</p>
+<p>今天就2017了，看到很多朋友在发朋友圈总结以及期盼，也看到之前互有好感的妹子纷纷晒出男友共同展望未来，祝他们幸福的同时也有感触，自己也要加油了～2017我只希望能和喜欢的她在一起，好好对她。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      问题：我在哪个县城上的中学？
+    
+    </summary>
+    
+      <category term="生活" scheme="http://wwww.yesokiloveyou.com/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="2017了" scheme="http://wwww.yesokiloveyou.com/tags/2017%E4%BA%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>常用方法封装</title>
     <link href="http://wwww.yesokiloveyou.com/2016/12/28/function/"/>
     <id>http://wwww.yesokiloveyou.com/2016/12/28/function/</id>
     <published>2016-12-28T15:40:36.000Z</published>
-    <updated>2016-12-30T06:09:53.000Z</updated>
+    <updated>2017-01-01T06:50:15.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="listToArray-likeArr"><a href="#listToArray-likeArr" class="headerlink" title="listToArray(likeArr)"></a>listToArray(likeArr)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 类数组转数组</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">listToArray</span>(<span class="params">likeArr</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> arr = [];</div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        arr = <span class="built_in">Array</span>.prototype.slice.call(likeArr);<span class="comment">// [].slice，ie低版本不兼容</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">catch</span>(e)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; likeArr.length;i ++)&#123;</div><div class="line">            arr[arr.length] = likeArr[i];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -58,6 +84,10 @@
     
     </summary>
     
+      <category term="JS" scheme="http://wwww.yesokiloveyou.com/categories/JS/"/>
+    
+    
+      <category term="方法封装" scheme="http://wwww.yesokiloveyou.com/tags/%E6%96%B9%E6%B3%95%E5%B0%81%E8%A3%85/"/>
     
   </entry>
   
@@ -66,7 +96,7 @@
     <link href="http://wwww.yesokiloveyou.com/2016/12/27/crm/"/>
     <id>http://wwww.yesokiloveyou.com/2016/12/27/crm/</id>
     <published>2016-12-27T13:44:56.000Z</published>
-    <updated>2016-12-28T15:43:58.000Z</updated>
+    <updated>2017-01-01T06:50:15.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="需求文档"><a href="#需求文档" class="headerlink" title="需求文档"></a>需求文档</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 1、查：打开页面时，获取所有用户信息</div><div class="line"> * 2、增：新增客户</div><div class="line"> * 3、改：先获取指定客户ID的信息，再更新其信息</div><div class="line"> * 4、删：删除指定客户ID的信息</div><div class="line"> */</div></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -93,6 +123,10 @@
     
     </summary>
     
+      <category term="Node" scheme="http://wwww.yesokiloveyou.com/categories/Node/"/>
+    
+    
+      <category term="CRM" scheme="http://wwww.yesokiloveyou.com/tags/CRM/"/>
     
   </entry>
   
@@ -242,7 +276,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line"><span class="keyword">var</span> reg = <span class="regexp">/^\[object Array\]$/</span>;</div><div class="line"><span class="keyword">if</span>(reg.test(<span class="built_in">Object</span>.prototype.toString.call(arr)))&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'这是一个数组！'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>JSON是一种数据格式，主要用于前后台交互时作为数据的载体<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [</div><div class="line">    &#123;<span class="string">"name"</span>:<span class="string">"yangk"</span>&#125;,</div><div class="line">    &#123;<span class="string">"age"</span>:<span class="string">"24"</span>&#125;</div><div class="line">];</div><div class="line"><span class="comment">// 把JSON格式的数组转换为JSON格式的字符串</span></div><div class="line"><span class="keyword">var</span> str = <span class="built_in">window</span>.JSON.stringify(arr);<span class="comment">// 转为JSON格式的字符串，window可不加</span></div><div class="line"></div><div class="line"><span class="comment">// 把JSON格式的字符串转换为JSON格式的数组/对象</span></div><div class="line"><span class="keyword">var</span> jsonArr = <span class="built_in">JSON</span>.parse(str);</div><div class="line"><span class="built_in">console</span>.log(jsonArr);<span class="comment">// 数组格式的</span></div><div class="line"></div><div class="line"><span class="comment">// ie6-7不兼容JSON，可以下面方法实现</span></div><div class="line"><span class="keyword">var</span> str = <span class="string">'[&#123;"name":"yangk"&#125;,&#123;"age":"24"&#125;]'</span>;</div><div class="line"><span class="keyword">var</span> jsonArr = <span class="built_in">eval</span>(<span class="string">"("</span>+ str +<span class="string">")"</span>);</div><div class="line"><span class="built_in">console</span>.log(jsonArr <span class="keyword">instanceof</span> <span class="built_in">Array</span>);</div></pre></td></tr></table></figure></p>
 <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><p>一个基本的AJAX<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">xhr.open(<span class="string">"get"</span>,<span class="string">"data.txt"</span>,<span class="literal">true</span>);</div><div class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(xhr.readyState == <span class="number">4</span> &amp;&amp; xhr.status == <span class="number">200</span>)&#123;</div><div class="line">        <span class="keyword">var</span> data = xhr.responseText;</div><div class="line">        <span class="built_in">document</span>.body.innerHTML = data;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">xhr.send();</div></pre></td></tr></table></figure></p>
-<p>关于JSONP<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1、JSONP需要获取数据的服务器端做支持</span></div><div class="line"><span class="comment">// 2、原理：利用script标签的特性</span></div><div class="line"><span class="comment">// 3、把当前页面中的一个函数当作参数传递给服务器(url?callback=fn)，服务器返回'fn([&#123;"name":"aaa"&#125;])'</span></div><div class="line"><span class="comment">// 4、客户端让fn执行，fn中的参数就是我们想要的数据</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">&#125;</div><div class="line">&lt;script src=<span class="string">"http://matchweb.sports.qq.com/kbs/calendar?columnId=100000&amp;callback=fn"</span>&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>关于JSONP<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1、JSONP需要获取数据的服务器端做支持</span></div><div class="line"><span class="comment">// 2、原理：利用script标签的特性</span></div><div class="line"><span class="comment">// 3、把当前页面中的一个函数当作参数传递给服务器(url?callback=fn)，服务器返回'fn([&#123;"name":"aaa"&#125;])'</span></div><div class="line"><span class="comment">// 4、客户端让fn执行，fn中的参数就是我们想要的数据</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">&#125;</div><div class="line">&lt;script src=<span class="string">"http://matchweb.sports.qq.com/kbs/calendar?columnId=100000&amp;callback=fn"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
 <p>关于JQUERY中的AJAX<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">"data.txt"</span>,</div><div class="line">    <span class="attr">type</span>: <span class="string">"get"</span>,</div><div class="line">    <span class="attr">dataType</span>: <span class="string">"json"</span>,</div><div class="line">    <span class="attr">data</span>: <span class="literal">null</span>,<span class="comment">// post方式传输时放数据</span></div><div class="line">    <span class="keyword">async</span>: <span class="literal">true</span>,<span class="comment">// 异步</span></div><div class="line">    cache: <span class="literal">false</span>,<span class="comment">// 不要缓存，自动会在请求地址的url末尾加参数，默认走缓存</span></div><div class="line">    timeout: <span class="number">3000</span>,<span class="comment">// 超过3秒不成功走error</span></div><div class="line">    success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(data);<span class="comment">// 不指定dataType的情况下是string</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>JQUERY中的JSONP：都是GET和异步请求<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">"http://matchweb.sports.qq.com/kbs/calendar?columnId=100000"</span>,</div><div class="line">    <span class="attr">jsonpCallback</span>: <span class="string">"fn"</span>,<span class="comment">// 指定函数名fn，不指定就是随机的</span></div><div class="line">    jsonp: <span class="string">"cb"</span>,<span class="comment">// cb代替callback</span></div><div class="line">    dataType: <span class="string">"jsonp"</span>,</div><div class="line">    <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(data);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <h3 id="中文排序"><a href="#中文排序" class="headerlink" title="中文排序"></a>中文排序</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [</div><div class="line">    &#123;<span class="attr">name</span>: <span class="string">"菜花"</span>,<span class="attr">age</span>: <span class="number">24</span>&#125;,</div><div class="line">    &#123;<span class="attr">name</span>: <span class="string">"狗蛋"</span>,<span class="attr">age</span>: <span class="number">30</span>&#125;,</div><div class="line">    &#123;<span class="attr">name</span>: <span class="string">"美丽"</span>,<span class="attr">age</span>: <span class="number">21</span>&#125;,</div><div class="line">    &#123;<span class="attr">name</span>: <span class="string">"郑红"</span>,<span class="attr">age</span>: <span class="number">38</span>&#125;,</div><div class="line">    &#123;<span class="attr">name</span>: <span class="string">"拴住"</span>,<span class="attr">age</span>: <span class="number">17</span>&#125;</div><div class="line">];</div><div class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> a.name.localeCompare(b.name);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
@@ -385,7 +419,7 @@
     <link href="http://wwww.yesokiloveyou.com/2016/11/13/note-nodejs/"/>
     <id>http://wwww.yesokiloveyou.com/2016/11/13/note-nodejs/</id>
     <published>2016-11-13T10:11:26.000Z</published>
-    <updated>2016-11-22T13:33:30.000Z</updated>
+    <updated>2016-12-30T06:17:56.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="FS-API的应用"><a href="#FS-API的应用" class="headerlink" title="FS API的应用"></a>FS API的应用</h2><p>需求：展示当前目录下列表并给出选择，当选择文件时显示内容，选择目录时，显示该目录下文件信息。<a id="more"></a></p>
 <h3 id="fs-readdir"><a href="#fs-readdir" class="headerlink" title="fs.readdir()"></a>fs.readdir()</h3><p>读取目录<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(fs.readdirSync(__dirname));<span class="comment">//同步获取当前目录的文件列表</span></div></pre></td></tr></table></figure></p>
