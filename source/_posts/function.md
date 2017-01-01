@@ -1,7 +1,8 @@
 ---
 title: 常用方法封装
 date: 2016-12-28 23:40:36
-tags:
+tags: 方法封装
+categories: JS
 ---
 ### listToArray(likeArr)
 ``` javascript
