@@ -1574,6 +1574,64 @@ $.ajax({
     }
 });
 ```
+### 表单事件
+``` javascript
+<input type="number" disabled id="number" value="15">
+<input type="range" id="range" min="0" max="65" step="1" value="15">
+var oRange = document.getElementById("range");
+var oNumber = document.getElementById("number");
+oRange.oninput = function(){
+    number.value = this.value;
+};
+```
+``` javascript
+var submit = document.getElementById("submit");
+var sexMan = document.getElementById("sexMan");
+var sexWoman = document.getElementById("sexWoMan");
+submit.onclick = function(){
+    var sexType = 0;
+    !sexMan.checked ? sexType = 1 : null;// 默认sexman.checked为true，选中女时sexMan.checked为false
+    
+};
+/*sexMan.onclick = sexWoman.onclick = function(){
+    console.log(this.value);
+};*/
+sexMan.onchange = sexWoman.onchange = function(){// 表单事件的正确姿势
+    console.log(this.value);
+};
+```
+### 存储
+#### cookie
+``` javascript
+// 把信息存储到客户端浏览器中，服务器端也可以获取到
+document.cookie = "age=7";
+escape(str);// 编码
+unescape(str);// 解码
+
+// cookie常用在：记住用户名密码；用户的部分信息，例如登陆信息；购物车；少量信息且对浏览器兼容要求高的...
+localStorage常用在：某一个JS或CSS的源代码；一些不需要经常更新的数据，存储的时候可以设置一个时间，刷新页面时，判断当前时间是否超过页面设置的时间，若超过，重新获取，没超则使用本地的。
+
+// 本地存储都是明文存储，需要加密
+```
+#### session
+``` javascript
+// 把信息存储到服务器上
+```
+#### localStorage
+``` javascript
+// 永久存储到本地
+localStorage.setItem('age',7);// 存，是字符串格式的
+localStorage.setItem('person1',JSON.stringify({name: "yangk"}));
+localStorage.getItem('person1');// 取，返回的也是字符串类型的
+localStorage.removeItem('age');// 删对应
+localStorage.clear();// 当前资源下所有的存储记录都移除掉
+localStorage.length;// 存储的条数
+localStorage.key(0);// 获取索引为0的那一条
+```
+#### sessionStorage
+``` javascript
+// 会话窗口关闭时消失
+```
 ### 中文排序
 ``` javascript
 var arr = [
