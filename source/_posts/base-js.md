@@ -1501,6 +1501,41 @@ if(reg.test(Object.prototype.toString.call(arr))){
     console.log('这是一个数组！');
 }
 ```
+### 枚举
+``` javascript
+// 无区别
+var obj = {};
+var obj = new Object();
+
+// 有区别
+var num = 1;// 基本，nun instanceof Number >> false
+var num = new Number(1);// 对象，num instanceof Number >> true
+
+Object.prototype.aaa = function(){
+    console.log("bbb");
+};
+var obj = {
+    name: "aaa"
+};
+obj.aaa();// obj.__proto__.aaa();
+
+for(var key in obj){// 能遍历私有和自己写的公有的
+    console.log(obj[key]);
+}
+
+// 是否可枚举，私有true，公有false
+console.log(obj.propertyIsEnumerable("name"));// true
+console.log(obj.propertyIsEnumerable("aaa"));// false
+
+for(var key in obj){
+    // if(obj.propertyIsEnumerable(key)){
+    //     console.log(key + "...");
+    // }
+    if(obj.hasOwnProperty(key)){
+        console.log(key + "...");
+    }
+}
+```
 ### JSON
 JSON是一种数据格式，主要用于前后台交互时作为数据的载体
 ``` javascript
