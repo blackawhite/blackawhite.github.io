@@ -693,3 +693,257 @@ categories: React
 </body>
 </html>
 ```
+### 单页应用
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+    <script src="js/ReactRouter.min.js"></script>
+    <style>
+    #container{
+        padding: 50px;
+        background-color: #fff;
+    }
+    body {
+        background-color: #FFCC00;
+        padding: 20px;
+        margin: 0;
+    }
+    h1, h2, p, ul, li {
+        font-family: Helvetica, Arial, sans-serif;
+    }
+    ul.header li {
+        display: inline;
+        list-style-type: none;
+        margin: 0;
+    }
+    ul.header {
+        background-color: #111;
+        padding: 0;
+    }
+    ul.header li a {
+        color: #FFF;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 20px;
+        display: inline-block;
+    }
+    .content {
+        background-color: #FFF;
+        padding: 20px;
+    }
+    .content h2 {
+        padding: 0;
+        margin: 0;
+    }
+    .content li {
+        margin-bottom: 10px;
+    }
+    .active {
+        background-color: #0099FF;
+    }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+    var Home = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <h2>HELLO</h2>
+                    <p>Cras facilisis urna ornare ex volutpat, et
+                    convallis erat elementum. Ut aliquam, ipsum vitae
+                    gravida suscipit, metus dui bibendum est, eget rhoncus nibh
+                    metus nec massa. Maecenas hendrerit laoreet augue
+                    nec molestie. Cum sociis natoque penatibus et magnis
+                    dis parturient montes, nascetur ridiculus mus.</p>
+                    <p>Duis a turpis sed lacus dapibus elementum sed eu lectus.</p>
+                </div>
+            );
+        }
+    });
+    var Contact = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <h2>GOT QUESTIONS?</h2>
+                    <p>The easiest thing to do is post on our <a href="http://forum.kirupa.com">forums</a>.</p>
+                </div>
+            );
+        }
+    });
+    var Stuff = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <h2>STUFF</h2>
+                    <p>Mauris sem velit, vehicula eget sodales vitae,
+                    rhoncus eget sapien:</p>
+                    <ol>
+                        <li>Nulla pulvinar diam</li>
+                        <li>Facilisis bibendum</li>
+                        <li>Vestibulum vulputate</li>
+                        <li>Eget erat</li>
+                        <li>Id porttitor</li>
+                    </ol>
+                </div>
+            );
+        }
+    });
+    var App = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <h1>Simple SPA</h1>
+                    <ul className="header">
+                        <li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
+                        <li><Link to="/stuff" activeClassName="active">Stuff</Link></li>
+                        <li><Link to="/contact" activeClassName="active">Contact</Link></li>
+                    </ul>
+                    <div className="content">
+                        {this.props.children}
+                    </div>
+                </div>
+            )
+        }
+    });
+    var destination = document.querySelector("#container");
+    var {
+        Router,
+        Route,
+        IndexRoute,
+        IndexLink,
+        Link
+    } = ReactRouter;
+    ReactDOM.render(
+        <Router>
+            <Route path="/" component={App}>
+                <IndexRoute component={Home}/>
+                <Route path="stuff" component={Stuff} />
+                <Route path="contact" component={Contact} />
+            </Route>
+        </Router>,
+        destination
+    );
+    </script>    
+</body>
+</html>
+```
+### Todo List
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+    <script src="js/ReactRouter.min.js"></script>
+    <style>
+    #container{
+        padding: 50px;
+    }
+    body {
+        padding: 50px;
+        background-color: #66CCFF;
+        font-family: sans-serif;
+    }
+    .todoListMain .header input {
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #FFF;
+    }
+    .todoListMain .header button {
+        padding: 10px;
+        font-size: 16px;
+        margin: 10px;
+        background-color: #0066FF;
+        color: #FFF;
+        border: 2px solid #0066FF;
+    }
+    .todoListMain .header button:hover {
+        background-color: #003399;
+        border: 2px solid #003399;
+        cursor: pointer;
+    }
+    .todoListMain .theList {
+        list-style: none;
+        padding-left: 0;
+        width: 255px;
+    }
+
+    .todoListMain .theList li {
+        color: #333;
+        background-color: rgba(255,255,255,.5);
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+    var TodoItems = React.createClass({
+        render: function() {
+            var todoEntries = this.props.entries;
+            function createTasks(item) {
+                return <li key={item.key}>{item.text}</li>
+            }
+            var listItems = todoEntries.map(createTasks);
+            return (
+                <ul className="theList">
+                    {listItems}
+                </ul>
+            );
+        }
+    });
+    var TodoList = React.createClass({
+        getInitialState: function() {
+            return {
+                items: []
+            };
+        },
+        addItem: function(e) {
+            var itemArray = this.state.items;
+            itemArray.push({
+                text: this._inputElement.value,
+                key: Date.now()
+            });
+            this.setState({
+                items: itemArray
+            });
+            this._inputElement.value = "";
+            e.preventDefault();
+        },
+        render: function() {
+            return (
+                <div className="todoListMain">
+                    <div className="header">
+                        <form onSubmit={this.addItem}>
+                            <input ref={(a) => this._inputElement = a} placeholder="enter task"></input>
+                            <button type="submit">add</button>
+                        </form>
+                    </div>
+                    <TodoItems entries={this.state.items}/>
+                </div>
+            );
+        }
+    });
+    ReactDOM.render(
+        <div>
+            <TodoList/>
+        </div>,
+        document.querySelector("#container")
+    );
+    </script>    
+</body>
+</html>
+```

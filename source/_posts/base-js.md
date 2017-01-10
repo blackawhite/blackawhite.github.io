@@ -1083,6 +1083,70 @@ frg = null;// 手动释放容器
 // window.getComputedStyle(obj,null)["height"]
 // obj.currentStyle["height"]
 ```
+### 关于运动
+#### 根据步长
+``` javascript
+var oDiv = document.getElementById("div1");
+var maxLeft = utils.win("clientWidth") - oDiv.offsetWidth;
+var duration = 2000;
+var step = (maxLeft / duration) * 10;// 步长
+var oDivLeft = 0;
+
+var timer = setInterval(function(){
+    oDivLeft = utils.css(oDiv,"left");
+    if(oDivLeft >= maxLeft){
+        clearInterval(timer);
+        return;
+    }
+    oDivLeft += step;
+    utils.css(oDiv,"left",oDivLeft);
+},10);
+```
+``` javascript
+var oDiv = document.getElementById("box");
+var maxLeft = utils.win("clientWidth") - oDiv.offsetWidth;// 目标值
+var step = 5;
+var curLeft = 0;
+
+var timer = setInterval(function(){
+    curLeft = utils.css(oDiv,"left");
+    if(curLeft + step >= maxLeft){// 再进行边界判断的时候加上步长
+        utils.css(oDiv,"left",maxLeft);// 如果上面不加，有种被拉回来的感觉会闪一次
+        clearInterval(timer);
+        return;
+    }
+    curLeft += step;// 也可以直接写上面这样边界判断的时候就不用加步长了
+    utils.css(oDiv,"left",curLeft);
+},10);
+```
+#### 限制时间
+``` javascript
+var oDiv = document.getElementById("box");
+var target = utils.win("clientWidth") - oDiv.offsetWidth;// 目标值
+var begin = utils.css(oDiv,"left");// 起始值
+var change = target - begin;// 总距离
+var duration = 2000;
+var time = null;
+
+// time(当前时间),begin(初始值),change(变化量),duration(持续时间)
+function Linear(t,b,c,d){
+    return c * t / d + b;
+}
+
+var timer = setInterval(function(){
+    time += 10;
+    console.log(time);
+    if(time >= duration){
+        utils.css(oDiv,"left",target);
+        clearInterval(timer);
+        return;
+    }
+    var curPos = Linear(time,begin,change,duration);
+    utils.css(oDiv,"left",curPos);
+},10);
+```
+#### 不限制时间
+
 ### 图片懒加载
 #### 首屏
 给对应区域一张尽量小默认图，当真实内容加载陈功时再加载真实图片
