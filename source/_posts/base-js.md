@@ -1083,6 +1083,10 @@ frg = null;// 手动释放容器
 // window.getComputedStyle(obj,null)["height"]
 // obj.currentStyle["height"]
 ```
+### 关于运动
+``` javascript
+gogogo
+```
 ### 图片懒加载
 #### 首屏
 给对应区域一张尽量小默认图，当真实内容加载陈功时再加载真实图片
