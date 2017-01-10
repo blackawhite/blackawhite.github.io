@@ -386,3 +386,49 @@ function win(attr,value){
     document.body[attr] = value;
 }
 ```
+### bind(curEle,evenType,evenFn)
+``` javascript
+function bind(curEle,evenType,evenFn){
+    if(document.addEventListener){// "addEventListener" in document
+        curEle.addEventListener(evenType,evenFn,false);
+        return;
+    }
+    // 直接写匿名函数不知道怎么删除了
+    var tempFn = function(){
+        evenFn.call(curEle);
+    }
+    tempFn.photo = evenFn;
+
+    if(!curEle["myBind" + evenType]){
+        curEle["myBind" + evenType] = [];
+    }
+    // 解决重复问题
+    var arr = curEle["myBind" + evenType];
+    for(var i = 0;i < arr.length;i ++){
+        if(arr[i].photo === evenFn){
+            return;
+        }
+    }
+    arr.push(tempFn);
+
+    curEle.attachEvent("on" + evenType,tempFn);
+}
+```
+### unbind(curEle,evenType,evenFn)
+``` javascript
+function unbind(curEle,evenType,evenFn){
+    if(document.removeEventListener){// "addEventListener" in document
+        curEle.removeEventListener(evenType,evenFn,false);
+        return;
+    }
+    //curEle.detachEvent("on" + evenType,tempFn);
+    var arr = curEle["myBind" + evenType];
+    for(var i = 0;i < arr.length;i ++){
+        if(arr[i].photo === evenFn){
+            arr.splice(i,1);
+            curEle.detachEvent("on" + evenType,arr[i]);
+            break;
+        }
+    }
+}
+```
