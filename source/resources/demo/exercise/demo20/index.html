@@ -1,0 +1,101 @@
+---
+layout: false
+---
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无缝切换</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    color:white;
+    font-size:50px;
+}
+#wrap{
+    position:relative;
+    width:400px;
+    height:100px;
+    margin:50px auto;
+    border:2px solid #999;
+    overflow:hidden;
+}
+#wrap ul{
+    position:absolute;
+    left:0;
+    top:0;
+    height:100px;
+}
+#wrap ul li{
+    width:90px;
+    height:90px;
+    background:green;
+    float:left;
+    list-style:none;
+    border:5px solid red;
+    text-align:center;
+    line-height:90px;
+}
+</style>
+</head>
+<body>
+<center>
+    <input type="button" value="Baby Go" id="btn">
+</center>
+<div id="wrap">
+    <ul id="ul1">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+</div>
+<script src="./../../../js/move.js"></script>
+<script>
+var move = (function(){
+    var oBtn = document.getElementById("btn");
+    var oWrap = document.getElementById("wrap");
+    var oUl = document.getElementById("ul1");
+    var aLi = oWrap.getElementsByTagName("li");
+    var iWid = aLi[0].offsetWidth;
+    var oBar = true;
+
+    function initWid(){
+        oUl.style.width = aLi.length * iWid + "px";
+    }
+    function init(){
+        initWid();
+        oBtn.onclick = function(){
+            if(oBar){// 测试这里不加oBar时问题的原因
+                oBar = false;
+                for(var i = 0;i < 4;i ++){
+                    var oLi = aLi[i].cloneNode(true);
+                    oUl.appendChild(oLi);
+                    initWid();
+                }
+                startMove(oUl,{
+                    left: -iWid * 4
+                },function(){
+                    for(var i = 0;i < 4;i ++){
+                        oUl.removeChild(aLi[0]);
+                        oUl.style.left = 0;
+                        initWid();
+                    }
+                    oBar = true;
+                });
+            }
+        };
+    }
+    return {
+        init: init
+    }
+})();
+move.init();
+</script>
+</body>
+</html>
