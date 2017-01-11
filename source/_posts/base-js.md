@@ -1102,6 +1102,7 @@ var timer = setInterval(function(){
     utils.css(oDiv,"left",oDivLeft);
 },10);
 ```
+临界点判断
 ``` javascript
 var oDiv = document.getElementById("box");
 var maxLeft = utils.win("clientWidth") - oDiv.offsetWidth;// 目标值
@@ -1118,6 +1119,26 @@ var timer = setInterval(function(){
     curLeft += step;// 也可以直接写上面这样边界判断的时候就不用加步长了
     utils.css(oDiv,"left",curLeft);
 },10);
+```
+setTimeout 递归模拟
+``` javascript
+var oDiv = document.getElementById("box");
+var maxLeft = utils.win("clientWidth") - oDiv.offsetWidth;// 目标值
+var step = 5;
+var timer = null;
+function move(){
+    clearTimeout(timer);// 定时器清除后timer的值是什么呢？
+    var curLeft = utils.css(oDiv,"left");
+    if(curLeft + step >= maxLeft){
+        utils.css(oDiv,"left",maxLeft);
+        return;
+    }
+    curLeft += step;
+    utils.css(oDiv,"left",curLeft);
+    timer = setTimeout(move,10);
+    console.log(timer);// 还是不同的数字呢??
+}
+move();
 ```
 #### 限制时间
 ``` javascript
@@ -1145,7 +1166,130 @@ var timer = setInterval(function(){
     utils.css(oDiv,"left",curPos);
 },10);
 ```
-#### 不限制时间
+#### 解决作用域累计的问题
+``` javascript
+var oDiv = document.getElementById("box");
+var minLeft = 0;
+var maxLeft = utils.win("clientWidth") - oDiv.offsetWidth;
+var timer = null;
+
+function move(target){
+    _move();
+    function _move(){
+        clearTimeout(timer);// !!!!!!!!!!!
+        var curLeft = utils.css(oDiv,"left");
+        if(curLeft < target){// 向右
+            if(curLeft + 5 >= target){// 边界判断要加目标值
+                utils.css(oDiv,"left",target);
+                return;
+            }
+            curLeft += 5;
+            utils.css(oDiv,"left",curLeft);
+        }
+        else if(curLeft > target){// 向左
+            if(curLeft - 5 <= target){
+                utils.css(oDiv,"left",target);
+                return;
+            }
+            curLeft -= 5;
+            utils.css(oDiv,"left",curLeft);
+        }
+        else{
+            return;
+        }
+        // timer = setTimeout(function(){// 每次都需要先执行匿名函数，形成一个私有作用域，这样写性能不好
+        //     move(target);
+        // },10);
+        // timer = setTimeout(move(),10);// 这样写是返回结果，也不对
+        timer = setTimeout(_move,10)
+    }
+}
+document.getElementById("left").onclick = function(){
+    move(minLeft)
+};
+document.getElementById("right").onclick = function(){
+    move(maxLeft)
+};
+```
+#### 自定义timer
+``` javascript
+// 边界判断
+// 清除没有用的定时器
+// _move避免作用域的累积
+// 把定时器的返回值放在自定义属性上，防止全局和一个元素做多个事情
+var oDiv = document.getElementById("box");
+var minLeft = 0;
+var maxLeft = utils.win("clientWidth") - oDiv.offsetWidth;
+//var timer = null; // 放在全局下用的都是同一个timer，但放在全局下又不好，解决之道是自定义属性
+function move(target){
+    //var timer = null;// 放在这里，当向一边还没走完时向右走哆嗦，又向左右向右
+    _move();
+    function _move(){
+        clearTimeout(oDiv.timer);// !!!!!!!!!!!
+        var curLeft = utils.css(oDiv,"left");
+        if(curLeft < target){// 向右
+            if(curLeft + 5 >= target){// 边界判断要加目标值
+                utils.css(oDiv,"left",target);
+                return;
+            }
+            curLeft += 5;
+            utils.css(oDiv,"left",curLeft);
+        }
+        else if(curLeft > target){// 向左
+            if(curLeft - 5 <= target){
+                utils.css(oDiv,"left",target);
+                return;
+            }
+            curLeft -= 5;
+            utils.css(oDiv,"left",curLeft);
+        }
+        else{
+            return;
+        }
+        oDiv.timer = setTimeout(_move,10)
+    }
+}
+document.getElementById("left").onclick = function(){
+    move(minLeft)
+};
+document.getElementById("right").onclick = function(){
+    move(maxLeft)
+};
+```
+#### 水平垂直都动
+``` javascript
+var oDiv = document.getElementById("box");
+var beginLeft = utils.css(oDiv,"left");
+var beginTop = utils.css(oDiv,"top");
+var targetLeft = 1000;
+var targetTop = 500;
+var changeLeft = targetLeft - beginLeft;
+var changeTop = targetTop - beginTop;
+var duration = 1000;
+var time = 0;// 走了多长时间了
+
+oDiv.timer = setInterval(function(){
+    time += 10;
+    if(time >= duration){
+        utils.css(oDiv,{
+            left: targetLeft,
+            top: targetTop
+        });
+        clearInterval(oDiv.timer);
+        return;
+    }
+    var curLeft = Linear(time,beginLeft,changeLeft,duration);
+    var curTop = Linear(time,beginTop,changeTop,duration);
+    utils.css(oDiv,{
+        left: curLeft,
+        top: curTop
+    });
+},10);
+
+function Linear(t,b,c,d){
+    return c * t / d + b;
+}
+```
 
 ### 图片懒加载
 #### 首屏
