@@ -1290,7 +1290,112 @@ function Linear(t,b,c,d){
     return c * t / d + b;
 }
 ```
+#### 封装
+``` javascript
+// 使用
+var oDiv = document.getElementById("box");
+run(oDiv,{
+    left: 300
+},1000,["Bounce","easeIn"],function(){
+    this.style.backgroundColor = "pink";
+});
+```
+``` javascript
+// 方法
+~function(){
+    var move = {
+        Linear: function(t,b,c,d){// 此种动画形式的彻底研究
+            return t * c / d + b;
+        },
+        Quad: {//二次方的缓动（t^2）；
+            easeIn: function(t,b,c,d){
+                return c*(t/=d)*t + b;
+            }
+        },
+        Cubic: {//三次方的缓动（t^3）
+            easeIn: function(t,b,c,d){
+                return c*(t/=d)*t*t + b;
+            }
+        },
+        Bounce: {//指数衰减的反弹缓动。
+            easeIn: function(t,b,c,d){
+                return c - move.Bounce.easeOut(d-t, 0, c, d) + b;
+            },
+            easeOut: function(t,b,c,d){
+                if ((t/=d) < (1/2.75)) {
+                    return c*(7.5625*t*t) + b;
+                } else if (t < (2/2.75)) {
+                    return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+                } else if (t < (2.5/2.75)) {
+                    return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+                } else {
+                    return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+                }
+            },
+            easeInOut: function(t,b,c,d){
+                if (t < d/2) return move.Bounce.easeIn(t*2, 0, c, d) * .5 + b;
+                else return move.Bounce.easeOut(t*2-d, 0, c, d) * .5 + c*.5 + b;
+            }
+        }
+    };
+    move.Linear();
+    // 多方向的运动
+    function run(curEle,target,duration,effect,callBack){
+        // 数字
+        // 数组
+        // 不传
+        var tempEffect = move.Linear;
+        if(typeof effect === "number"){
+            switch(effect){
+                case 0:
+                    tempEffect = move.Quad.easeIn;
+                    break;
+                case 1:
+                    tempEffect = move.Cubic.easeIn;
+                    break;
+                case 2:
+                    tempEffect = move.Bounce.easeIn;
+                    // ...
+            }
+        }
+        else if(effect instanceof Array){// ["Bounce","easeIn"]
+            tempEffect = effect.length >= 2 ? move[effect[0]][effect[1]] : move[effect[0]].easeIn;// 默认...
+        }
+        else if(effect === "function"){// 相当于effect没传
+            callBack = effect;// tempEffect还是默认的
+        }
 
+        clearInterval(curEle,curEle.timer);
+        var begin = {};
+        var change = {};
+        for(var key in target){
+            if(target.hasOwnProperty(key)){// 私有，非原型
+                begin[key] = utils.css(curEle,key);
+                change[key] = target[key] - begin[key];
+            }
+        }
+        // 运动...
+        var time = 0;
+        curEle.timer = setInterval(function(){
+            time += 10;
+            if(time >= duration){
+                utils.css(curEle,target);// 批量设置目标值
+                clearInterval(curEle.timer);
+                typeof callBack === "function" ? callBack.call(curEle) : null;
+                //callBack && callBack();
+                return;
+            }
+            for(var key in target){
+                if(target.hasOwnProperty(key)){
+                    var curPos = tempEffect(time,begin[key],change[key],duration);// !!!
+                    utils.css(curEle,key,curPos);
+                }
+            }
+        },10);
+    }
+    window.run = run;
+}();
+```
 ### 图片懒加载
 #### 首屏
 给对应区域一张尽量小默认图，当真实内容加载陈功时再加载真实图片
