@@ -2,21 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/2016/12/27/crm/</loc>
+    <loc>http://wwww.yesokiloveyou.com/2017/01/01/20170101/</loc>
     
-    <lastmod>2017-01-01T06:50:15.000Z</lastmod>
+    <lastmod>2017-01-11T14:03:17.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wwww.yesokiloveyou.com/2016/12/04/base-js/</loc>
+    
+    <lastmod>2017-01-11T14:03:17.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://wwww.yesokiloveyou.com/2016/12/28/function/</loc>
     
-    <lastmod>2017-01-01T06:50:15.000Z</lastmod>
+    <lastmod>2017-01-10T13:09:48.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/2017/01/01/20170101/</loc>
+    <loc>http://wwww.yesokiloveyou.com/2016/11/23/note-react/</loc>
+    
+    <lastmod>2017-01-10T13:09:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wwww.yesokiloveyou.com/2016/12/27/crm/</loc>
     
     <lastmod>2017-01-01T06:50:15.000Z</lastmod>
     
@@ -30,21 +44,7 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/js/jquery-1.11.0.min.js</loc>
-    
-    <lastmod>2016-12-30T06:03:13.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo12/index.html</loc>
-    
-    <lastmod>2016-12-30T06:03:13.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo11/js/jquery.min.js</loc>
     
     <lastmod>2016-12-30T06:03:13.000Z</lastmod>
     
@@ -58,7 +58,7 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo11/index.html</loc>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo11/js/jquery.min.js</loc>
     
     <lastmod>2016-12-30T06:03:13.000Z</lastmod>
     
@@ -79,7 +79,14 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/2016/12/04/base-js/</loc>
+    <loc>http://wwww.yesokiloveyou.com/resources/js/jquery-1.11.0.min.js</loc>
+    
+    <lastmod>2016-12-30T06:03:13.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo11/index.html</loc>
     
     <lastmod>2016-12-30T06:03:13.000Z</lastmod>
     
@@ -100,20 +107,6 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo17/js/jquery-3.1.1.min.js</loc>
-    
-    <lastmod>2016-12-27T13:53:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo16/index.html</loc>
-    
-    <lastmod>2016-12-27T13:53:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo17/index.html</loc>
     
     <lastmod>2016-12-27T13:53:45.000Z</lastmod>
@@ -128,14 +121,28 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo15/js/main.js</loc>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo17/js/jquery-3.1.1.min.js</loc>
+    
+    <lastmod>2016-12-27T13:53:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo16/index.html</loc>
+    
+    <lastmod>2016-12-27T13:53:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo15/js/utils.js</loc>
     
     <lastmod>2016-12-18T16:19:46.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo15/js/utils.js</loc>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo15/js/main.js</loc>
     
     <lastmod>2016-12-18T16:19:46.000Z</lastmod>
     
@@ -163,7 +170,7 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo14/js/tab.js</loc>
+    <loc>http://wwww.yesokiloveyou.com/2016/12/11/js-object/</loc>
     
     <lastmod>2016-12-17T08:01:26.000Z</lastmod>
     
@@ -177,7 +184,7 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/2016/12/11/js-object/</loc>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo14/js/tab.js</loc>
     
     <lastmod>2016-12-17T08:01:26.000Z</lastmod>
     
@@ -191,7 +198,7 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo9/index.html</loc>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo10/index.html</loc>
     
     <lastmod>2016-12-10T10:04:19.000Z</lastmod>
     
@@ -205,7 +212,7 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo6/index.html</loc>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo9/index.html</loc>
     
     <lastmod>2016-12-10T10:04:19.000Z</lastmod>
     
@@ -213,13 +220,6 @@
   
   <url>
     <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo2/index.html</loc>
-    
-    <lastmod>2016-12-10T10:04:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo10/index.html</loc>
     
     <lastmod>2016-12-10T10:04:19.000Z</lastmod>
     
@@ -240,6 +240,13 @@
   </url>
   
   <url>
+    <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo6/index.html</loc>
+    
+    <lastmod>2016-12-10T10:04:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wwww.yesokiloveyou.com/resources/demo/exercise/demo4/index.html</loc>
     
     <lastmod>2016-12-10T10:04:19.000Z</lastmod>
@@ -250,13 +257,6 @@
     <loc>http://wwww.yesokiloveyou.com/2016/11/22/demo/</loc>
     
     <lastmod>2016-12-04T17:00:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wwww.yesokiloveyou.com/2016/11/23/note-react/</loc>
-    
-    <lastmod>2016-11-28T15:58:25.000Z</lastmod>
     
   </url>
   
@@ -282,7 +282,14 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/about/index.html</loc>
+    <loc>http://wwww.yesokiloveyou.com/tags/index.html</loc>
+    
+    <lastmod>2016-11-22T13:33:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wwww.yesokiloveyou.com/2016/11/15/git/</loc>
     
     <lastmod>2016-11-22T13:33:30.000Z</lastmod>
     
@@ -303,13 +310,6 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/2016/11/15/git/</loc>
-    
-    <lastmod>2016-11-22T13:33:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wwww.yesokiloveyou.com/resources/files/sass-result.css</loc>
     
     <lastmod>2016-11-22T13:33:30.000Z</lastmod>
@@ -317,7 +317,7 @@
   </url>
   
   <url>
-    <loc>http://wwww.yesokiloveyou.com/tags/index.html</loc>
+    <loc>http://wwww.yesokiloveyou.com/about/index.html</loc>
     
     <lastmod>2016-11-22T13:33:30.000Z</lastmod>
     
