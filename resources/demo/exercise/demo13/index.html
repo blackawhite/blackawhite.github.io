@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #div1{
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <script>
+    function Drag(id){
+        this.oDiv = document.getElementById(id);
+        this.disX = 0;
+        this.disY = 0;
+    }
+    Drag.prototype.init = function(){
+        var _this = this;
+        this.oDiv.onmousedown = function(ev){
+            var oEvent = ev || event;
+            _this.mouseDown(oEvent);
+        };
+    };
+    Drag.prototype.mouseDown = function(oEvent){
+        this.disX = oEvent.clientX - this.oDiv.offsetLeft;
+        this.disY = oEvent.clientY - this.oDiv.offsetTop;
+        var _this = this;
+        if(this.oDiv.setCapture){
+            this.oDiv.onmousemove = function(ev){
+                var oEvent = ev || event;
+                _this.mouseMove(oEvent);  
+            };
+            this.oDiv.onmouseup = this.mouseup;
+            this.oDiv.setCapture();
+        }
+        else{
+            document.onmousemove = function(ev){
+                var oEvent = ev || event;
+                _this.mouseMove(oEvent);
+            };
+            document.onmouseup = this.mouseUp;
+        }
+        return false;
+    };
+    Drag.prototype.mouseMove = function(oEvent){
+        this.oDiv.style.left = oEvent.clientX - this.disX + "px";
+        this.oDiv.style.top = oEvent.clientY - this.disY + "px";
+    };
+    Drag.prototype.mouseUp = function(){
+        // this:document/this.oDiv
+        this.onmousemove = this.onmouseup = null;
+        if(this.releaseCapture){
+            this.oDiv.releaseCapture();
+        }
+    };
+    var drag1 = new Drag("div1");
+    drag1.init();
+    </script>
+</body>
+</html>
