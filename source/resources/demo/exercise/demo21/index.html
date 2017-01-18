@@ -1,0 +1,119 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+    }
+    #ul1{
+        width: 800px;
+        height: 200px;
+        margin: 50px auto 0;
+    }
+    #ul1 li{
+        width: 100px;
+        height: 100px;
+        float: left;
+        border: 50px solid #fff;
+        position: relative;
+    }
+    #ul1 li:nth-of-type(1){
+        background-color: red;
+    }
+    #ul1 li:nth-of-type(2){
+        background-color: green;
+    }
+    #ul1 li:nth-of-type(3){
+        background-color: blue;
+    }
+    #ul1 li:nth-of-type(4){
+        background-color: #000;
+    }
+    </style>
+</head>
+<body>
+    <ul id="ul1">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+    function getStyle(obj,attr){
+        return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj,false)[attr];
+    }
+    var Go = (function(){
+        var oUl = document.querySelector("#ul1");
+        var aLi = oUl.getElementsByTagName("li");
+        var arr = [];
+        // 布局转换
+        function pos(){
+            for(var i = 0;i < aLi.length;i ++){
+                arr.push({
+                    top: aLi[i].offsetTop,
+                    left: aLi[i].offsetLeft
+                });
+            }
+            for(var i = 0;i < arr.length;i ++){
+                aLi[i].style.position = "absolute";
+                aLi[i].style.top = arr[i].top + "px";
+                aLi[i].style.left = arr[i].left + "px";
+            }
+        }
+
+        function shake(obj,attr,endFn){
+            if(obj.onOff){
+                return;
+            }
+            obj.onOff = true;
+            var pos = parseInt(getStyle(obj,attr));
+            var arr = [];
+            var num = 0;
+            var timer = null;
+            for(var i = 20;i > 0; i -= 2){
+                arr.push(i,-i);
+            }
+            arr.push(0);
+            clearInterval(obj.shake);
+            obj.shake = setInterval(function(){
+                obj.style[attr] = pos + arr[num] + "px";// 每次都是重新从pos加个值，不是累加！！
+                num ++;
+                if(num === arr.length){
+                    clearInterval(obj.shake);
+                    obj.onOff = false;// 注意顺序
+                    endFn && endFn();
+                }
+            },50);
+        }
+        function init(){
+            pos();
+            
+            for(var i = 0;i < aLi.length;i ++){
+                aLi[i].onOff = false;
+                aLi[i].onclick = function(){
+                    if(!this.onOff){
+                        var _this = this;
+                        shake(_this,"left",function(){
+                            shake(_this,"top");
+                        });
+                    }
+                };
+            }
+        }
+        return {
+            init: init
+        }
+    })();
+    Go.init();
+    </script>
+</body>
+</html>
