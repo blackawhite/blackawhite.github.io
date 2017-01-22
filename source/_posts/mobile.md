@@ -78,4 +78,234 @@ a,img{
 /* 官方解释：UC浏览器判断到页面上文字居多时，会自动放大字体优化移动用户体验。 */
 <meta name="wap-font-scale" content="no">
 ```
-### 待更新...
+#### body overflow:hidden失效
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    html {
+        height: 100%;
+        overflow: hidden;
+    }
+    body {
+        position: relative;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+    }
+    header {
+        position: absolute;
+        left: 0;
+        /* .wrap解决body overflow: hidden 失效的问题 */
+        width: 200%;
+        height: 40px;
+        line-height: 40px;
+        background-color: rgba(0, 0, 0, .4);
+        color: #fff;
+        text-align: center;
+    }
+    section {
+        padding-top: 40px;
+    }
+    #wrap {
+        height: 100%;
+        /* -webkit-overflow-scrolling: touch;会导致header相对于body的定位失效 */
+        overflow-y: scroll;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <header>我是头部</header>
+        <section>
+            1我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容1
+        </section>
+    </div>
+</body>
+
+</html>
+```
+### Fixed问题
+软键盘唤起后页面中的fixed元素失效或变成absolute的特性
+解决1：isScroll.js
+解决2：滚动页面中的main
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    header,footer,main {
+        display: block;
+    }
+    header {
+        /* 注意 */
+        width: 200%;
+        /* absolute 时 body overflow:hidden失效，外面可以包一层解决 */
+        position: fixed;
+        height: 50px;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-color: red;
+    }
+    footer {
+        position: fixed;
+        height: 34px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: pink;
+    }
+    main {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        bottom: 34px;
+        left: 0;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- fixed定位的头部 -->
+    <header> </header>
+    <!-- 可以滚动的区域 -->
+    <main>
+        <div class="container">
+            1我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容
+            <br>我是内容<br>我是内容<br>我是内容<br>我是内容1
+        </div>
+    </main>
+    <!-- fixed定位的底部 -->
+    <footer>
+        <input type="text" placeholder="Footer..." />
+        <button class="submit">提交</button>
+    </footer>
+</body>
+
+</html>
+```
+### 缩放适配
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"> -->
+    <title>Document</title>
+    <script>
+    (function(){
+        var w = window.screen.width;
+        // var w2 = document.documentElement.getBoundingClientRect().width;// 980
+        var targetW = 750;
+        var scale = w /  targetW;
+        var meta = document.createElement("meta");
+        meta.name = "viewport";
+        meta.content = "user-scalable=no, initial-scale="+ scale +", maximum-scale="+ scale +", minimum-scale="+ scale +"";
+        document.head.appendChild(meta);
+    })();
+    </script>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+    }
+    .wrap{
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+    .wrap ul{
+        margin-right: -7px;
+    }
+    .wrap li{
+        margin-top: 7px;
+        margin-right: 7px;
+        width: 176px;
+        height: 168px;
+        background-color: red;
+        float: left;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul>
+            <li>
+                <img src="aa.jpg" height="168" width="176" alt="">
+            </li>
+            <li>
+                <img src="aa.jpg" height="168" width="176" alt="">
+            </li>
+            <li>
+                <img src="aa.jpg" height="168" width="176" alt="">
+            </li>
+            <li>
+                <img src="aa.jpg" height="168" width="176" alt="">
+            </li>
+            <li>
+                <img src="aa.jpg" height="168" width="176" alt="">
+            </li>
+            <li>
+                <img src="aa.jpg" height="168" width="176" alt="">
+            </li>
+            <li>
+                <img src="aa.jpg" height="168" width="176" alt="">
+            </li>
+            <li>
+                <img src="aa.jpg" height="168" width="176" alt="">
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+```
