@@ -79,6 +79,7 @@ a,img{
 <meta name="wap-font-scale" content="no">
 ```
 #### body overflow:hidden失效
+html,body height 100%,overflow hidden,有相对定位加在body上
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -145,6 +146,52 @@ a,img{
     </div>
 </body>
 
+</html>
+```
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    html{
+        height: 100%;
+        overflow: hidden;
+        /* position: relative; */
+    }
+    body{
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        position: relative;
+    }
+    section{
+        padding-top: 40px;
+        height: 100%;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
+    }
+    header{
+        position: absolute;
+        left: 0;
+        width: 200%;/* 左右滚动条 */
+        height: 40px;
+        line-height: 40px;
+        background-color: rgba(0,0,0,.4);
+        color: #fff;
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <header>我是头部</header>
+    <section>
+        1我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>2我是内容<br>
+    </section>
+</body>
 </html>
 ```
 ### Fixed问题
@@ -233,6 +280,7 @@ a,img{
 </html>
 ```
 ### 缩放适配
+统一限定一个目标宽，根据不同设备的screen.width去做缩放处理
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -305,6 +353,198 @@ a,img{
                 <img src="aa.jpg" height="168" width="176" alt="">
             </li>
         </ul>
+    </div>
+</body>
+</html>
+```
+### REM适配
+等分deviceWidth的结果设置为根节点的fontSize，用REM适配，和淘宝的flexible同理
+``` html
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<script>
+(function(){
+    var html = document.documentElement;
+    var hWidth = html.getBoundingClientRect().width;// device = device-width
+    html.style.fontSize = hWidth / 15 + "px";// 说明15rem怼满，750设计稿的话除以50
+})();
+</script>
+```
+### Flex
+#### 语法
+``` css
+/* 旧 */
+display: -webkit-box;
+-webkit-box-orient: horizontal;/* 设置主轴方向为水平方向(默认) */
+-webkit-box-direction: reverse;/* 只反序不靠右，一般需要配合-webkit-box-orient使用 */
+-webkit-box-pack: start;/* 管理富裕空间：元素在主轴开始位置，富裕空间在主轴结束位置，老版相对新版缺失justify属性 */
+-webkit-box-align: end;/* 侧轴富裕空间管理：主轴侧轴和-webkit-box-orient有关 */
+
+-webkit-box-flex: 1;
+-webkit-box-ordinal-group: 3;/* 老版，最小值是1，比1小的也会处理成1 */
+/* 新 */
+display: flex;
+flex-direction: row;/* 设置主轴方向为水平方向(默认) */
+flex-direction: row-reverse;/* 主轴元素排列方向(row-reverse:主轴为水平靠右并反序) */
+justify-content: flex-start;/* 管理富裕空间：元素在主轴开始位置，富裕空间在主轴结束位置 */
+align-items: flex-start;/* 侧轴富裕空间管理：主轴侧轴和flex-direction有关 */
+
+flex-grow: 1;
+order: 3;/* 序号越小越靠前，支持0和负值 */
+```
+#### 上下垂直居中
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #box{
+        height: 200px;
+        border: 1px solid #333;
+        /* 新版 */
+        display: flex;
+    }
+    #box div{
+        width: 50px;
+        height: 50px;
+        background-color: green;
+        margin: auto;/*配合父级display:flex;*/
+    }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>
+```
+#### 实战
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Document</title>
+    <script>
+    (function(){
+        var html = document.documentElement;
+        var hWidth = html.getBoundingClientRect().width;// device width
+        html.style.fontSize = hWidth / 15 + "px";// 15rem怼满，除以50，1rem=50px
+    })();
+    </script>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .rows{
+        display: -webkit-box;
+        display: flex;
+        padding: .4rem .5rem 0;
+    }
+    .rows div{
+        /* 受内容长度的影响，解决width:0; */
+        width: 0;
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+    }
+    .rows div a{
+        font-size: 0.44rem;
+        color: #666;
+        text-align: center;
+        text-decoration: none;
+        line-height: 1.04rem;
+        display: block;
+    }
+    .rows div a:before{
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 1.72rem;
+        height: 1.72rem;
+        background-color: #f00;
+        border-radius: 50%;
+        background: url(icon.png) no-repeat;
+        /* 整图的大小 */
+        background-size: 9rem 3.6rem;
+    }
+    .rows div:nth-of-type(1) a:before{
+        background-position: 0 0;
+    }
+    .rows div:nth-of-type(2) a:before{
+        background-position: -1.8rem 0;
+    }
+    .rows div:nth-of-type(3) a:before{
+        background-position: -3.6rem 0;
+    }
+    .rows div:nth-of-type(4) a:before{
+        background-position: -5.4rem 0;
+    }
+    .rows div:nth-of-type(5) a:before{
+        background-position: -7.2rem 0;
+    }
+    .rows:nth-of-type(2) div:nth-of-type(1) a:before{
+        background-position: 0 -1.8rem;
+    }
+    .rows:nth-of-type(2) div:nth-of-type(2) a:before{
+        background-position: -1.8rem -1.8rem;
+    }
+    .rows:nth-of-type(2) div:nth-of-type(3) a:before{
+        background-position: -3.6rem -1.8rem;
+    }
+    .rows:nth-of-type(2) div:nth-of-type(4) a:before{
+        background-position: -5.4rem -1.8rem;
+    }
+    .rows:nth-of-type(2) div:nth-of-type(5) a:before{
+        background-position: -7.2rem -1.8rem;
+    }
+    </style>
+</head>
+<body>
+    <div class="rows">
+        <div>
+            <a href="javascript:;">天猫</a>
+        </div>
+        <div>
+            <a href="javascript:;">聚划算</a>
+        </div>
+        <div>
+            <a href="javascript:;">天猫</a>
+        </div>
+        <div>
+            <a href="javascript:;">天猫</a>
+        </div>
+        <div>
+            <a href="javascript:;">天猫</a>
+        </div>
+    </div>
+    <div class="rows">
+        <div>
+            <a href="javascript:;">天猫</a>
+        </div>
+        <div>
+            <a href="javascript:;">聚划算</a>
+        </div>
+        <div>
+            <a href="javascript:;">天猫</a>
+        </div>
+        <div>
+            <a href="javascript:;">天猫</a>
+        </div>
+        <div>
+            <a href="javascript:;">天猫</a>
+        </div>
     </div>
 </body>
 </html>
