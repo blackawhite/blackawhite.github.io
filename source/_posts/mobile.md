@@ -369,7 +369,7 @@ html,body height 100%,overflow hidden,有相对定位加在body上
 })();
 </script>
 ```
-### Flex
+### Flex布局
 #### 语法
 ``` css
 /* 旧 */
