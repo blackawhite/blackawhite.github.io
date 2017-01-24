@@ -194,6 +194,15 @@ html,body height 100%,overflow hidden,有相对定位加在body上
 </body>
 </html>
 ```
+#### 事件绑定
+``` javascript
+oDiv.ontouchstart = function(){// 传统方式绑定，模拟不准
+    // ...  
+};
+oDiv.addEventListener("touchstart",function(){// 采用标准的绑定方式
+    // ...
+});
+```
 ### Fixed问题
 软键盘唤起后页面中的fixed元素失效或变成absolute的特性
 解决1：isScroll.js
@@ -548,4 +557,45 @@ order: 3;/* 序号越小越靠前，支持0和负值 */
     </div>
 </body>
 </html>
+```
+### 媒介查询
+``` css
+@media all and (min-width:500px){/* 大于等于 */
+    <!-- ... -->
+}
+```
+### ev.preventDefault()
+#### 点透问题
+移动端的点透：当上层元素发生点击行为，下层元素也有点击特性，在300ms之内，如果上层元素消失或者隐藏，目标点也会漂移到下层元素身上，就会触发点击行为。
+解决1：下层不要使用点击(焦点)特性的元素。
+解决2：阻止默认事件，a链接被阻止了，不能跳转，需要人工跳转，解决IOS10 Safari下禁止缩放失效。
+``` javascript
+document.addEventListener('touchstart',function(ev){
+    ev.preventDefault();
+});
+var oDiv = document.getElementById("div1");
+oDiv.addEventListener("touchend",function(){
+    this.style.display = "none";
+});
+var oA = document.getElementById("a");
+oA.addEventListener('touchend',function(){
+    window.location.href = "http://www.baidu.com";
+    // window.open
+});
+```
+#### 缩放问题
+``` javascript
+IOS10下禁止缩放失效
+```
+#### html overflow:hidden失效
+``` javascript
+IOS下body,html overflow:hidden失效
+```
+#### 上下橡皮筋回弹效果
+``` javascript
+禁止上下橡皮筋回弹效果
+```
+#### 系统默认行为
+``` javascript
+禁止长按选中文字，选中图片，系统默认菜单等
 ```
