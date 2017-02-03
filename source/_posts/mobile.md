@@ -196,7 +196,7 @@ html,body height 100%,overflow hidden,有相对定位加在body上
 ```
 #### 事件绑定
 ``` javascript
-oDiv.ontouchstart = function(){// 传统方式绑定，模拟不准
+oDiv.ontouchstart = function(){// 传统方式绑定，Chrome中模拟有时不灵
     // ...  
 };
 oDiv.addEventListener("touchstart",function(){// 采用标准的绑定方式
@@ -564,7 +564,7 @@ order: 3;/* 序号越小越靠前，支持0和负值 */
     <!-- ... -->
 }
 ```
-### ev.preventDefault()
+### 阻止默认(ev.preventDefault())
 #### 点透问题
 移动端的点透：当上层元素发生点击行为，下层元素也有点击特性，在300ms之内，如果上层元素消失或者隐藏，目标点也会漂移到下层元素身上，就会触发点击行为。
 解决1：下层不要使用点击(焦点)特性的元素。
@@ -598,4 +598,79 @@ IOS下body,html overflow:hidden失效
 #### 系统默认行为
 ``` javascript
 禁止长按选中文字，选中图片，系统默认菜单等
+```
+### Transform
+#### rotate()
+``` javascript
+document.addEventListener("touchstart",function(e){
+    e.preventDefault();
+});
+window.onload = function(){
+    var oDiv = document.querySelector("#div");
+    oDiv.addEventListener("touchend",function(){
+        oDiv.style.WebkitTransform = oDiv.style.transform = "rotate(90deg)";
+    });
+};
+```
+#### skew()
+``` javascript
+document.addEventListener("touchstart",function(e){
+    e.preventDefault();
+});
+window.onload = function(){
+    var oDiv = document.querySelector("#div");
+    oDiv.addEventListener("touchend",function(){
+        // 默认x轴
+        oDiv.style.WebkitTransform = oDiv.style.transform = "skew(40deg)";
+    });
+};
+```
+#### scale()
+``` javascript
+document.addEventListener("touchstart",function(e){
+    e.preventDefault();
+});
+window.onload = function(){
+    var oDiv = document.querySelector("#div");
+    oDiv.addEventListener("touchend",function(){
+        // 默认x和y都缩放
+        oDiv.style.WebkitTransform = div.style.transform = "scale(2)";
+    });
+};
+```
+#### translate()
+``` javascript
+document.addEventListener("touchstart",function(e){
+    e.preventDefault();
+});
+window.onload = function(){
+    var oDiv = document.querySelector("#div");
+    oDiv.addEventListener("touchend",function(){
+        // 只写一个参数x位移
+        oDiv.style.WebkitTransform = oDiv.style.transform = "translate(50px,50px)";
+        // 默认transform-origin: center center;
+    });
+};
+```
+#### translate执行顺序问题
+``` javascript
+var oDiv = document.querySelector("#div1");
+oDiv.style.cssText = "width: 100px;height: 100px;transition: 1s;background-color: red;";
+
+oDiv.addEventListener("touchend",function(){
+    // transform: translateX(500px) scale(.5);
+    // 先写后执行，下面这种写法scale也会把translateX也缩放了一半
+    oDiv.style.WebkitTransform = oDiv.style.transform = "scale(.5) translateX(500px)";
+});
+```
+#### translate模拟滑屏
+``` javascript
+var oDiv = document.querySelector("#div1");
+oDiv.style.cssText = "width: 100px;height: 100px;transition: 1s;background-color: red;";
+
+oDiv.addEventListener("touchend",function(){
+    // transform: translateX(500px) scale(.5);
+    // 先写后执行，下面这种写法scale也会把translateX也缩放了一半
+    oDiv.style.WebkitTransform = oDiv.style.transform = "scale(.5) translateX(500px)";
+});
 ```
