@@ -653,6 +653,7 @@ window.onload = function(){
 };
 ```
 #### translate执行顺序问题
+先写后执行
 ``` javascript
 var oDiv = document.querySelector("#div1");
 oDiv.style.cssText = "width: 100px;height: 100px;transition: 1s;background-color: red;";
@@ -663,14 +664,493 @@ oDiv.addEventListener("touchend",function(){
     oDiv.style.WebkitTransform = oDiv.style.transform = "scale(.5) translateX(500px)";
 });
 ```
+先位移/缩放在矩阵中的不同实现
+``` css
+div{
+    transform: scaleX(.5) translate(100px,50px);
+    transform: matrix(.5,0,0,1,50,50);
+    
+    transform: translate(100px,50px) scaleX(.5);
+    transform: matrix(.5,0,0,1,100,50);
+}
+```
 #### translate模拟滑屏
-``` javascript
-var oDiv = document.querySelector("#div1");
-oDiv.style.cssText = "width: 100px;height: 100px;transition: 1s;background-color: red;";
+方法1：elTranslateY = offsetTop + disPoint;
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    body{
+        margin: 0;
+    }
+    html,body{
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+    header{
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        background-color: #ccc;
+    }
+    #wrap{
+        position: absolute;
+        top: 40px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+    }
+    #list{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    #list li{
+        height: 30px;
+        line-height: 30px;
+        border-bottom: 1px solid #000;
+        text-indent: 20px;
+    }
+    </style>
+    <script>
+    document.addEventListener("touchstart",function(e){
+        e.preventDefault();
+    });
+    function setListInner(){
+        var list = document.querySelector("#list");
+        var inner = "";
+        for(var i = 0;i < 100;i ++){
+            inner += "<li>"+ i +"</li>";
+        }
+        list.innerHTML = inner;
+    }
+    window.onload = function(){
+        setListInner();
+        
+        var oWrap = document.querySelector("#wrap");
+        var oList = document.querySelector("#list");
 
-oDiv.addEventListener("touchend",function(){
-    // transform: translateX(500px) scale(.5);
-    // 先写后执行，下面这种写法scale也会把translateX也缩放了一半
-    oDiv.style.WebkitTransform = oDiv.style.transform = "scale(.5) translateX(500px)";
+        oList.addEventListener("touchstart",start);
+        oList.addEventListener("touchmove",move);
+
+        var startPoint = 0;
+        var movePoint = 0;
+        var disPoint = 0;
+
+        var offsetTop = 0;
+        var elTranslateY = 0;
+
+        function start(e){
+            startPoint = e.changedTouches[0].pageY;
+
+            offsetTop = elTranslateY;
+        }
+        function move(e){
+            movePoint = e.changedTouches[0].pageY;
+            disPoint = movePoint - startPoint;
+
+            elTranslateY = offsetTop + disPoint;// mark
+
+            oList.style.WebkitTransform = oList.style.transform = "translateY("+ elTranslateY +"px)";
+        }
+    };
+    </script>
+</head>
+<body>
+    <header>滑屏</header>
+    <div id="wrap">
+        <ul id="list">
+            
+        </ul>
+    </div>
+</body>
+</html>
+```
+方法2：startPoint = ev.changedTouches[0].pageY - offsetTop;
+``` javascript
+document.addEventListener("touchstart",function(e){
+    e.preventDefault();
 });
+function setListInner(){
+    var list = document.querySelector("#list");
+    var inner = "";
+    for(var i = 0;i < 100;i ++){
+        inner += "<li>"+ i +"</li>";
+    }
+    list.innerHTML = inner;
+}
+window.onload = function(){
+    setListInner();
+    
+    var oWrap = document.querySelector("#wrap");
+    var oList = document.querySelector("#list");
+
+    oList.addEventListener("touchstart",start);
+    oList.addEventListener("touchmove",move);
+
+    var startPoint = 0;
+    var movePoint = 0;
+    var offsetTop = 0;
+    var disY = 0;
+
+    function start(ev){
+        startPoint = ev.changedTouches[0].pageY - offsetTop;
+    }
+    function move(ev){
+        movePoint = ev.changedTouches[0].pageY;
+        disY = movePoint - startPoint;
+        offsetTop = disY;
+        oList.style.transform = "translateY("+ disY +"px)";
+    }
+};
+```
+#### 获取transform
+``` javascript
+oDiv.style.WebkitTransform = oDiv.style.transform = "scale(.5) translateX(100px)";
+console.log(getComputedStyle(oDiv)["transform"]);// 矩阵：matrix(0.5, 0, 0, 0.5, 50, 0)
+console.log(oDiv.style.transform);// 字符串：scale(0.5) translateX(100px)
+```
+#### 关于矩阵
+matrix(a,b,c,d,e,f)，默认是matrix(1,0,0,1,0,0)
+``` html
+位移：
+    x轴：
+        e + x
+    y轴：
+        f + y
+
+缩放：
+    x轴：
+        a = a * x(倍数)
+        c = c * x
+        e = e * x
+    y轴：
+        b = b * x
+        d = d * x
+        f = f * x
+
+斜切：
+    x轴：
+        c = Math.tan(deg * Math.PI / 180)// 接收的参数是弧度
+    y轴：
+        b = Math.tan(deg * Math.PI / 180)
+
+旋转：
+    a = Math.cos(deg * Math.PI / 180)
+    b = Math.sin(deg * Math.PI / 180)
+    c = - Math.sin(deg * Math.PI / 180)
+    d = Math.cos(deg * Math.PI / 180)
+```
+举例
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    div{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+    }
+    </style>
+    <script>
+    document.addEventListener("touchstart",function(e){
+        e.preventDefault();
+    });
+    window.onload = function(){
+        var a = 1;
+        var b = 0;
+        var c = 0;
+        var d = 1;
+
+        var oDiv = document.getElementById("div1");
+        deg = 45;
+
+        // c = Math.tan(deg * Math.PI / 180)
+        // oDiv.style.WebkitTransform = oDiv.style.transform = "skewX(45deg)";
+        // oDiv.style.WebkitTransform = oDiv.style.transform = "matrix("+ a +","+ b +","+ c +","+ d +",0,0)";
+
+        a = Math.cos(deg * Math.PI / 180);
+        b = Math.sin(deg * Math.PI / 180);
+        c = - Math.sin(deg * Math.PI / 180);
+        d = Math.cos(deg * Math.PI / 180);
+        // oDiv.style.WebkitTransform = oDiv.style.transform = "rotate(45deg)";
+        oDiv.style.WebkitTransform = oDiv.style.transform = "matrix("+ a +","+ b +","+ c +","+ d +",0,0)";
+    };
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>
+```
+#### perspective
+一般加在父级上，例如rotateX，rotateY需要加上景深才能看到效果
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    #wrap{
+        width: 100px;
+        height: 100px;
+        padding: 50px;
+        /* 景深 */
+        -webkit-perspective: 200px;
+        border: 1px solid #ccc;
+    }
+    #div1{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        transition: 1s;
+    }
+    </style>
+    <script>
+    document.addEventListener("touchstart",function(e){
+        e.preventDefault();
+    });
+    window.onload = function(){
+        // rotate3d()
+        // translate3d()
+        var oDiv = document.getElementById("div1");
+        var oWrap = document.getElementById("wrap");
+        oWrap.addEventListener("touchend",function(){
+            // rotateX和rotateY要加景深才能看到效果
+            oDiv.style.WebkitTransform = oDiv.style.transform = "rotateY(60deg)";
+        });
+    };
+    </script>
+</head>
+<body>
+    <div id="wrap">
+        <div id="div1"></div>
+    </div>
+</body>
+</html>
+```
+#### transform-style
+![](/resources/images/transform-style.png)
+元素在做3d变换时，是否保留子元素的3d变换
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    #wrap{
+        width: 100px;
+        height: 100px;
+        padding: 50px;
+        /* 景深 */
+        -webkit-perspective: 200px;        
+        border: 1px solid #ccc;
+    }
+    #div1{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        transition: 3s;
+        /* transform-style: flat; */
+        transform-style: preserve-3d;
+    }
+    #div1 span{
+        width: 100px;
+        height: 100px;
+        background-color: yellow;
+        display: block;
+        transform: rotateX(60deg);
+    }
+    </style>
+    <script>
+    document.addEventListener("touchstart",function(e){
+        e.preventDefault();
+    });
+    window.onload = function(){
+        var oDiv = document.getElementById("div1");
+        var oWrap = document.getElementById("wrap");
+        oWrap.addEventListener("touchend",function(){
+            oDiv.style.WebkitTransform = oDiv.style.transform = "rotateY(360deg)";
+        });
+    };
+    </script>
+</head>
+<body>
+    <div id="wrap">
+        <div id="div1">
+            <span></span>
+        </div>
+    </div>
+</body>
+</html>
+```
+#### perspective-origin
+视角方向，默认perspective-origin: center center;从中间看
+#### transform-origin
+变换基准点
+#### backface-visibility
+隐藏背面：和父级角度相对的元素就是背面，例如一个元素transform: rotateY(180deg);
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    #wrap{
+        width: 100px;
+        height: 100px;
+        padding: 50px;
+        -webkit-perspective: 200px;
+        perspective: 200px;
+        border: 1px solid #ccc;
+    }
+    #div1{
+        width: 100px;
+        height: 100px;
+        transition: 3s;
+        /* transform-style: flat; */
+        transform-style: preserve-3d;
+        position: relative;
+    }
+    #div1 span{
+        position: absolute;
+        font-size: 50px;
+        text-align: center;
+        color: #fff;
+        /* 同时隐藏了两个span旋转180deg时的情况 */
+        backface-visibility: hidden;
+    }
+    #div1 span:nth-of-type(1){
+        top: 25px;
+        left: 25px;
+        width: 50px;
+        height: 50px;
+        background-color: red;
+    }
+    #div1 span:nth-of-type(2){
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        line-height: 100px;
+        background-color: green;
+        transform: rotateY(180deg);
+    }
+    </style>
+    <script>
+    document.addEventListener("touchstart",function(e){
+        e.preventDefault();
+    });
+    window.onload = function(){
+        
+        var oDiv = document.getElementById("div1");
+        var oWrap = document.getElementById("wrap");
+        oWrap.addEventListener("touchend",function(){
+            oDiv.style.WebkitTransform = oDiv.style.transform = "rotateY(360deg)";
+        });
+    };
+    </script>
+</head>
+<body>
+    <div id="wrap">
+        <div id="div1">
+            <span>正</span>
+            <span>反</span> 
+        </div>
+    </div>
+</body>
+</html>
+```
+#### 旋转小Demo
+![](/resources/images/rotate.png)
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #wrap{
+        margin: 50px auto;
+        width: 100px;
+        height: 100px;
+        padding: 50px;
+        border: 1px solid #333;
+        perspective: 200px;
+    }
+    #box{
+        width: 100px;
+        height: 100px;
+        position: relative;
+        transition: 10s;
+        /* 元素在做3d变换时，保留子元素的3d变换 */
+        transform-style: preserve-3d;
+    }
+    #box span{
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        line-height: 100px;
+        text-align: center;
+        font-size: 50px;
+        color: #fff;
+        backface-visibility: hidden;
+        /* 元素在做3d变换时，保留子元素的3d变换 */
+        transform-style: preserve-3d;
+    }
+    #box span:nth-of-type(1){
+        background-color: green;
+    }
+    #box span:nth-of-type(2){
+        background-color: red;
+        transform: rotateY(180deg);
+    }
+    #box em{
+        display: block;/* 必须 */
+        font-style: normal;
+        /* 往前走 */
+        transform: translateZ(20px);
+    }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="box">
+            <span><em>正</em></span>
+            <span><em>反</em></span>
+        </div>
+    </div>
+    <script>
+    var oWrap = document.querySelector("#wrap");
+    var oBox = document.querySelector("#box");
+    oWrap.addEventListener("touchend",function(){
+        oBox.style.WebkitTransform = oBox.style.transform = "rotateY(720deg)";
+    });
+    </script>
+</body>
+</html>
 ```
