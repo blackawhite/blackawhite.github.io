@@ -813,10 +813,76 @@ window.onload = function(){
 };
 ```
 #### 获取transform
+##### 问题
 ``` javascript
 oDiv.style.WebkitTransform = oDiv.style.transform = "scale(.5) translateX(100px)";
 console.log(getComputedStyle(oDiv)["transform"]);// 矩阵：matrix(0.5, 0, 0, 0.5, 50, 0)
 console.log(oDiv.style.transform);// 字符串：scale(0.5) translateX(100px)
+```
+##### 解决
+由于没有办法根据获取的matrix反推出角度，可以通过JS设置/获取
+``` javascript
+function cssTransform(element,attr,val){
+    if(!element.transform){// 不存在
+        element.transform = {};
+    }
+    // {translateX: 100, translateY: 50}
+    // 获取
+    if(typeof val == "undefined"){
+        var val = element.transform[attr];
+        if(!element.transform[attr]){// undefined的话，代表没有设置
+            switch(attr){
+                case "scale":
+                case "scaleX":
+                case "scaleY":
+                case "scaleZ":
+                    element.transform[attr] = 100;
+                break;
+                default:// 旋转，位移，斜切
+                    element.transform[attr] = 0;
+            }
+        }
+        return element.transform[attr];// 只能获取JS设置的，css中直接设置的获取不到，统一通过该方法设置和获取
+    }
+    // 设置
+    else{
+        element.transform[attr] = val;
+        // element.style.WebkitTransform = element.style.transform = attr + "("+ val +"deg)";
+        var transformVal = "";
+        for(var s in element.transform){
+            // console.log(s);
+            switch(s){
+                case "scale":
+                case "scaleX":
+                case "scaleY":
+                case "scaleZ":
+                    transformVal += " " + s + "("+ element.transform[s] / 100 +")";// 高级浏览器会自动加空格，这里不能再用val了
+                    break;
+                case "rotate":
+                case "rotateX":
+                case "rotateY":
+                case "rotateZ":
+                case "skewX":
+                case "skewY":
+                    transformVal += " " + s + "("+ element.transform[s] +"deg)";
+                    break;
+                default:// 位移
+                    transformVal += " " + s + "("+ element.transform[s] +"px)";
+            }
+        }
+        element.style.WebkitTransform = element.style.transform = transformVal;
+    }
+}
+```
+##### 使用
+现炒现卖：实现每次点击旋转30deg
+``` javascript
+var oDiv = document.querySelector("#div");
+oDiv.addEventListener("touchend",function(e){
+    var deg = cssTransform(this,"rotate");
+    deg += 30;
+    cssTransform(this,"rotate",deg);
+});
 ```
 #### 关于矩阵
 matrix(a,b,c,d,e,f)，默认是matrix(1,0,0,1,0,0)
@@ -1150,6 +1216,155 @@ matrix(a,b,c,d,e,f)，默认是matrix(1,0,0,1,0,0)
     oWrap.addEventListener("touchend",function(){
         oBox.style.WebkitTransform = oBox.style.transform = "rotateY(720deg)";
     });
+    </script>
+</body>
+</html>
+```
+#### MTween的使用
+回调
+``` javascript
+var oDiv = document.getElementById("box");
+fn1();
+function fn1(){
+    MTween({
+        el: oDiv,
+        target: {
+            scale: 0,// 先旋转再缩放
+            rotate: 720
+        },
+        time: 2000,
+        type: "easeOut",
+        callBack: fn2
+    });
+}
+function fn2(){
+    MTween({
+        el: oDiv,
+        target: {
+            scale: 100,
+            rotate: 0
+        },
+        time: 2000,
+        type: "easeOut",
+        callBack: fn1
+    });
+}
+```
+综合运用
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    html,body{
+        height: 100%;
+    }
+    #wrap{
+        height: 100%;
+        position: relative;
+        perspective: 200px;
+    }
+    #wrap div{
+        /* 元素3d变换时子元素也拥有 */
+        transform-style: preserve-3d;
+        position: absolute;
+        width: 40%;
+        top: 40%;
+        left: 30%;
+        display: none;
+        /* 不能加在这里，因为后面这里用到transform:translateZ，和css中的冲突 */
+        /* animation: rotate 2s linear infinite; */
+    }
+    #wrap img{
+        width: 100%;
+        position: absolute;
+        animation: move 1.5s linear infinite;
+    }
+    @keyframes move{
+        0%{
+            transform: rotateY(0);
+        }
+        100%{
+            transform: rotateY(360deg);
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="img1">
+            <img src="./logo2.png" alt="">
+        </div>
+        <div id="img2">
+            <img src="./logo3.png" alt="">
+        </div>
+    </div>
+    <script src="m.Tween2.js"></script>
+    <script>
+    var oImg1 = document.querySelector("#img1");
+    var oImg2 = document.querySelector("#img2");
+    css(oImg1,"translateZ",-1000);// -1000是number类型的而非字符串
+    css(oImg2,"translateZ",-1000);
+    fn1();
+    function fn1(){
+        oImg2.style.display = "none";
+        oImg1.style.display = "block";
+        MTween({
+            el: oImg1,
+            target: {
+                translateZ: 0
+            },
+            time: 240,
+            type: "easeIn",
+            callBack: fn2
+        });
+    }
+    function fn2(){// 收
+        setTimeout(function(){
+            MTween({
+                el: oImg1,
+                target: {
+                    translateZ: -1000
+                },
+                time: 1500,
+                type: "easeOut",
+                callBack: fn3
+            });
+        },2000);
+    }
+    function fn3(){
+        oImg1.style.display = "none";
+        oImg2.style.display = "block";
+        MTween({
+            el: oImg2,
+            target: {
+                translateZ: 0
+            },
+            time: 240,
+            type: "easeIn",
+            callBack: fn4
+        });
+    }
+    function fn4(){// 收
+        setTimeout(function(){
+            MTween({
+                el: oImg2,
+                target: {
+                    translateZ: -1000
+                },
+                time: 1500,
+                type: "easeOut",
+                callBack: fn1
+            });
+        },2000);
+    }
     </script>
 </body>
 </html>
