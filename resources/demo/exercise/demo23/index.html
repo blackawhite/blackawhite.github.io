@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>移动端滑动</title>
+    <script>
+    var html = document.documentElement;
+    html.style.fontSize = html.clientWidth / 15 + "px";
+    // 阻止默认行为
+    document.addEventListener("touchstart",function(ev){
+        ev.preventDefault();
+    });
+    </script>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+    }
+    .wrap{
+        position: relative;
+        width: 15rem;
+        height: 150px;
+        margin-right: auto;
+        margin-left: auto;
+        overflow: hidden;
+    }
+    #ul1{
+        height: 150px;
+        line-height: 150px;
+        text-align: center;
+        color: #fff;
+        background-color: #000;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    #ul1 li{
+        float: left;
+        width: 15rem;
+    }
+    #ul1 li:nth-of-type(1),#ul1 li:nth-of-type(5){
+        background-color: black;
+    }
+    #ul1 li:nth-of-type(2),#ul1 li:nth-of-type(6){
+        background-color: red;
+    }
+    #ul1 li:nth-of-type(3),#ul1 li:nth-of-type(7){
+        background-color: green;
+    }
+    #ul1 li:nth-of-type(4),#ul1 li:nth-of-type(8){
+        background-color: blue;
+    }
+    #ol1{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    #ol1 li{
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin: 10px;
+        float: left;
+        background-color: pink;
+    }
+    #ol1 .active{
+        background-color: white;
+    }
+    </style>
+</head>
+<body>
+    <section class="wrap" id="wrap">
+        <ul id="ul1">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <ol id="ol1">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </section>
+    <script>
+    var oWrap = document.querySelector("#wrap");
+    var oUl = document.getElementById("ul1");
+    var oOl = document.getElementById("ol1");
+    var aOlLi = oOl.getElementsByTagName("li");
+    var iW = oWrap.offsetWidth;
+    var disX1 = 0;
+    var disX2 = 0;
+    var disL = 0;
+    var num = 0;
+    var iNow = 0;
+
+    oUl.innerHTML += oUl.innerHTML;
+    var aUlLi = oUl.getElementsByTagName("li");
+    oUl.style.width = aUlLi.length * iW + "px";
+
+    oUl.addEventListener("touchstart",start);
+    oUl.addEventListener("touchmove",move);
+    oUl.addEventListener("touchend",end);
+    function start(ev){
+        // 开始时去掉transitiono防止move时也带有transition
+        oUl.style.transition = "none";
+        disX1 = ev.changedTouches[0].pageX;
+
+        num = Math.round(oUl.offsetLeft / iW);
+
+        if(num === 0){
+            num = aUlLi.length / 2;
+            oUl.style.left = - num * iW + "px";
+        }
+        if(- num === aUlLi.length - 1){
+            num = aUlLi.length / 2 - 1;// 3，正
+            oUl.style.left = - num * iW + "px";
+        }
+        // 注意注意
+        disL = oUl.offsetLeft;
+    }
+    function move(ev){
+        disX2 = ev.changedTouches[0].pageX;
+        // console.log(disX2,disX1);
+
+        oUl.style.left = disX2 - disX1 + disL + "px"; 
+    }
+    function end(){
+        // end时才需要加上
+        oUl.style.transition = ".5s";
+        num = Math.round(oUl.offsetLeft / iW);
+        oUl.style.left = num * iW + "px";
+
+        aOlLi[iNow].className = "";
+        aOlLi[- num % 4].className = "active";
+        // 众神归位
+        iNow = - num % 4;
+    }
+    </script>
+</body>
+</html>
