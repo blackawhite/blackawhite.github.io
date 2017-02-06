@@ -2087,3 +2087,279 @@ list.addEventListener("touchend",function(e){
 </body>
 </html>
 ```
+### 陀螺仪
+#### devicemotion
+``` html
+window.addEventListener("devicemotion",function(e){
+    var motion = e.accelerationIncludingGravity;
+    // iOS 负 Andriod 正
+    var x = Math.round(motion.x);
+    var y = Math.round(motion.y);
+    var z = Math.round(motion.z);
+});
+```
+#### iOS or Android
+``` javascript
+var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; 
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+console.log(isiOS);
+```
+#### 统一motion
+``` javascript
+window.addEventListener("devicemotion",function(e){
+    var motion = e.accelerationIncludingGravity;
+    var x = Math.round(motion.x);
+    var y = Math.round(motion.y);
+    var z = Math.round(motion.z);// ios 负,安卓正
+    if(getAdr()){
+        x = - x;
+        y = - y;
+        z = - x;
+    }
+});
+function getAdr(){
+    var u = navigator.userAgent;
+    return u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; 
+}
+```
+#### 根据motion控制盒子位置
+``` javascript
+var box = document.querySelector("#box");
+css(box,"translateX",0);
+window.addEventListener("devicemotion",function(e){
+    var motion = e.accelerationIncludingGravity;
+    var x = Math.round(motion.x);
+    var tX = css(box,"translateX");
+    if(getAdr()){
+        x = - x;
+    }
+    css(box,"translateX",tX + x);
+});
+function getAdr(){
+    var u = navigator.userAgent;
+    return u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; 
+}
+```
+#### 摇一摇
+``` javascript
+var lastX;
+var lastY;
+var lastZ;
+var maxRang = 80;
+var minRang = 10;
+var isShake = false;
+// 记录上一次的加速度和当前次的加速度相减，差值大于一定幅度的时候就可以认定用户在进行摇一摇
+
+window.addEventListener("devicemotion",function(e){
+    var motion = e.accelerationIncludingGravity;
+    var x = Math.round(motion.x);
+    var y = Math.round(motion.y);
+    var z = Math.round(motion.z);
+    if(typeof lastX == "undefined"){
+        lastX = x;// 上一次等于当前
+        lastY = y;
+        lastZ = z;
+        return;
+    }
+
+    var dis = Math.abs(x - lastX) + Math.abs(y - lastY) + Math.abs(z - lastZ);
+    
+    if(dis > maxRang){// 有过大的摇动
+        isShake = true;
+    }
+    if(dis < minRang && isShake){// 停下来了
+        isShake = false;
+        // 执行摇一摇之后要操作的内容
+        alert("你摇一摇了");
+    }
+    
+    lastX = x;
+    lastY = y;
+    lastZ = z;
+});
+```
+#### 横竖屏检测
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+    html,body{
+        margin: 0;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    #box{
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        position: relative;
+    }
+    #div{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+    }
+    #pop{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        color: #fff;
+        line-height: 200px;
+        text-align: center;
+        font-size: 30px;
+    }
+    </style>
+</head>
+<body>
+    <div id="box">请保持竖屏观看
+        <div id="div"></div>
+    </div>
+    <div id="pop">请不要横屏浏览页面</div>
+    <script type="text/javascript">
+    setChange();// 一上来就是横屏
+    window.addEventListener("orientationchange",function(e){
+        // window.orientation
+        // 横屏：90 -90
+        // 竖屏：0 180
+        setChange();
+    });
+    function setChange(){
+        var pop = document.querySelector("#pop");
+        if(window.orientation == 90 || window.orientation == -90){
+            pop.style.display = "block";
+        }
+        else{
+            pop.style.display = "none";
+        }
+    }
+    </script>
+</body>
+</html>
+```
+#### 检测手机角度
+``` javascript
+var box = document.querySelector("#box");
+window.addEventListener("deviceorientation",function(e){
+    var motion = e.accelerationIncludingGravity;
+    var x = Math.round(e.beta);
+    var y = Math.round(e.gamma);
+    var z = Math.round(e.alpha);
+});
+```
+#### 手机旋转场景切换
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    html,body{
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    #view{
+        height: 100%;
+        overflow: hidden;
+        perspective: 300px;
+    }
+    #box{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1024px;
+        height: 768px;
+        margin-top: -384px;
+        margin-left: -512px;
+        transform-style: preserve-3d;
+        transition: .3s;/* 防卡的感觉 */
+    }
+    #box div{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: center center no-repeat;
+        background-size: cover;
+    }
+    #box div:nth-of-type(1){
+        background-image: url(img/img.jpg);
+    }
+    #box div:nth-of-type(2){
+        background-image: url(img/img2.jpg);
+    }
+    #box div:nth-of-type(3){
+        background-image: url(img/img3.jpg);
+    }
+    #box div:nth-of-type(4){
+        background-image: url(img/img4.jpg);
+    }
+    </style>
+</head>
+<body>
+    <div id="view">
+        <div id="box">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <script src="m.Tween2.js"></script>
+    <script>
+    // 3d盒子练习
+    (function(){
+        var box = document.querySelector("#box");
+        var divs = box.querySelectorAll("div");
+        var start;
+        var last;
+        // css(box,"translateZ",-2000);// 往后移
+        css(box,"rotateY",0);
+        for(var i = 0;i < divs.length;i ++){
+            css(divs[i],"rotateY",i * 90);
+            css(divs[i],"translateZ",-512);
+        }
+        // MTween({
+        //     el: box,
+        //     target: {
+        //         rotateY: 360
+        //     },
+        //     time: 2000,
+        //     type: "linear"
+        // });
+        window.addEventListener("deviceorientation",function(e){
+            var motion = e.accelerationIncludingGravity;
+            var y = Math.round(e.gamma);
+            if(typeof start == "undefined"){// 第一次进入画面
+                start = y;
+                last = start;
+                return;
+            }
+            y = y - start;// 一上来就是0，手机一打开不能保证就是正的，让画面一开始是正的
+            if(Math.abs(y - last) > 5){// 解决轻微的晃动
+                css(box,"rotateY",y);
+                last = y;
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
+```
