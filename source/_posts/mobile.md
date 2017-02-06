@@ -1369,3 +1369,721 @@ function fn2(){
 </body>
 </html>
 ```
+### 模拟滑屏
+#### 布局
+上中下分别绝对定位
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body,html{
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+    header{
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        background-color: #000;
+    }
+    footer{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 40px;
+        line-height: 40px;
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        font-size: 20px;
+    }
+    #wrap{
+        position: absolute;
+        top: 40px;
+        right: 0;
+        bottom: 40px;
+        left: 0;
+    }
+    #list{
+        list-style: none;
+    }
+    #list li{
+        height: 30px;
+        line-height: 30px;
+        text-indent: 30px;
+        font-size: 16px;
+        border-bottom: 1px solid #333;
+    }
+    </style>
+</head>
+<body>
+    <header id="header">好好学习</header>
+    <section id="wrap">
+        <ul id="list">
+        </ul>
+    </section>
+    <footer id="footer">天天向上</footer>
+    <script>
+    function createList(){
+        var list = document.querySelector("#list");
+        var inner = "";
+        for(var i = 0;i < 100;i ++){
+            inner += "<li>这是第"+ i +"个</li>";
+        }
+        list.innerHTML = inner;
+    }
+    createList();
+    </script>
+</body>
+</html>
+```
+#### 动起来
+``` javascript
+var list = document.querySelector("#list");
+
+var startPoint = 0;
+var startEl = 0;// 元素按下时的坐标，即offsetTop
+
+css(list,"translateZ",0.01);// 开启硬件加速
+
+list.addEventListener("touchstart",function(e){
+    startPoint = e.changedTouches[0].pageY;
+    startEl = css(list,"translateY");// 元素的初始位置，相当于pc端拖拽时获取的offsetTop
+});
+list.addEventListener("touchmove",function(e){
+    var nowPoint = e.changedTouches[0].pageY;
+    var dis = nowPoint - startPoint;
+    var translateY = startEl + dis;// 元素初始值加差值是移动距离
+    css(list,"translateY",translateY);
+});
+```
+#### 滑屏缓冲
+``` javascript
+var list = document.querySelector("#list");
+
+var startPoint = 0;
+var startEl = 0;// 元素按下时的坐标，即offsetTop
+
+var lastDis = 0;
+var lastY = 0;
+var lastTime = 0;// 上一次时间
+var lastTimeDis = 0;// 时间差
+
+css(list,"translateZ",0.01);// 开启硬件加速
+
+list.addEventListener("touchstart",function(e){
+    startPoint = e.changedTouches[0].pageY;
+    startEl = css(list,"translateY");
+
+    lastY = startEl;
+    lastTime = new Date().getTime();
+    lastDis = 0;
+    lastTimeDis = 0;
+});
+list.addEventListener("touchmove",function(e){
+    var nowTime = new Date().getTime();
+
+    var nowPoint = e.changedTouches[0].pageY;
+    var dis = nowPoint - startPoint;
+    var translateY = startEl + dis;// 元素初始值减差值是移动距离
+    css(list,"translateY",translateY);
+
+    lastDis = translateY - lastY;// 距离
+    lastY = translateY;
+    lastTimeDis = nowTime - lastTime;// 时间
+    lastTime = nowTime;
+});
+list.addEventListener("touchend",function(e){
+    // console.log(lastDis,lastTimeDis);
+    // 速度 = 距离 / 时间
+    var speed = Math.round(lastDis / lastTimeDis * 10);// 乘以10可以放到下面直接乘300吗
+    var target = Math.round(speed * 30 + css(list,"translateY"));
+    // console.log(target);
+    MTween({
+        el: list,
+        target: {
+            translateY: target
+        },
+        time: Math.abs(parseInt(target * 1.5)),
+        type: "easeOut"
+    });
+});
+```
+#### 解决按下再抬起不动
+``` javascript
+var list = document.querySelector("#list");
+
+var startPoint = 0;
+var startEl = 0;// 元素按下时的坐标，即offsetTop
+var lastDis = 0;
+var lastY = 0;
+var lastTime = 0;// 上一次时间
+var lastTimeDis = 0;// 时间差
+
+css(list,"translateZ",0.01);// 开启硬件加速
+
+list.addEventListener("touchstart",function(e){
+    startPoint = e.changedTouches[0].pageY;
+    startEl = css(list,"translateY");// 元素的初始位置，相当于pc端拖拽时获取的offsetTop
+
+    lastY = startEl;
+    lastTime = new Date().getTime();
+    lastDis = 0;
+    lastTimeDis = 0;
+});
+list.addEventListener("touchmove",function(e){
+    var nowTime = new Date().getTime();
+
+    var nowPoint = e.changedTouches[0].pageY;
+    var dis = nowPoint - startPoint;
+    var translateY = startEl + dis;// 元素初始值减差值是移动距离
+    css(list,"translateY",translateY);
+
+    lastDis = translateY - lastY;// 距离
+    lastY = translateY;
+    lastTimeDis = nowTime - lastTime;// 时间
+    lastTime = nowTime;
+});
+list.addEventListener("touchend",function(e){
+    // console.log(lastDis,lastTimeDis);
+    // 速度 = 距离 / 时间
+    var speed = Math.round(lastDis / lastTimeDis * 10);// 乘以10可以放到下面直接乘300吗
+    speed = lastTimeDis <= 0 ? 0 : speed;// 负的时间差
+    
+    var target = Math.round(speed * 30 + css(list,"translateY"));
+    console.log(target);// 按下再抬起时这里是NaN，一个数除以了0，0/0是NaN，1/0是无限制
+    console.log(target);// 所以按下再抬起时这里也是NaN
+    MTween({
+        el: list,
+        target: {
+            translateY: target
+        },
+        time: Math.abs(parseInt(target * 1.5)),
+        type: "easeOut"
+    });
+});
+```
+#### 限制范围
+``` javascript
+var wrap = document.querySelector("#wrap");
+var list = document.querySelector("#list");
+
+var startPoint = 0;
+var startEl = 0;// 元素按下时的坐标，即offsetTop
+var lastDis = 0;
+var lastY = 0;
+var lastTime = 0;// 上一次时间
+var lastTimeDis = 0;// 时间差
+var maxTranslate = wrap.clientHeight - list.offsetHeight;
+css(list,"translateZ",0.01);// 开启硬件加速
+
+list.addEventListener("touchstart",function(e){
+    maxTranslate = wrap.clientHeight - list.offsetHeight;// start时可能添加内容进去，重新来一次
+    clearInterval(list.timer);
+
+    startPoint = e.changedTouches[0].pageY;
+    startEl = css(list,"translateY");// 元素的初始位置，相当于pc端拖拽时获取的offsetTop
+
+    lastY = startEl;
+    lastTime = new Date().getTime();
+    lastDis = 0;
+    lastTimeDis = 0;
+});
+list.addEventListener("touchmove",function(e){
+    var nowTime = new Date().getTime();
+
+    var nowPoint = e.changedTouches[0].pageY;
+    var dis = nowPoint - startPoint;
+    var translateY = startEl + dis;// 元素初始值减差值是移动距离
+    css(list,"translateY",translateY);
+
+    lastDis = translateY - lastY;// 距离
+    lastY = translateY;
+    lastTimeDis = nowTime - lastTime;// 时间
+    lastTime = nowTime;
+});
+list.addEventListener("touchend",function(e){
+    var type = "easeOut";
+    // console.log(lastDis,lastTimeDis);
+    // 速度 = 距离 / 时间
+    var speed = Math.round(lastDis / lastTimeDis * 10);// 乘以10可以放到下面直接乘300吗
+    speed = lastTimeDis <= 0 ? 0 : speed;// 负的时间差
+    
+    var target = Math.round(speed * 30 + css(list,"translateY"));
+    console.log(target);// 按下再抬起时这里是NaN，一个数除以了0，0/0是NaN，1/0是无限制
+    console.log(target);// 所以按下再抬起时这里也是NaN
+    if(target > 0){// 超出了
+        target = 0;
+        type = "backOut";// 回弹
+    }
+    else if(target < maxTranslate){
+        target = maxTranslate;
+        type = "backOut";
+    }
+    MTween({
+        el: list,
+        target: {
+            translateY: target
+        },
+        time: Math.round(Math.abs(target - css(list,"translateY")) * 1.5),//
+        type: type
+    });
+});
+```
+#### 添加滚动条
+``` javascript
+var wrap = document.querySelector("#wrap");
+var list = document.querySelector("#list");
+
+var scrollBar = document.createElement("div");
+var startPoint = 0;
+var startEl = 0;// 元素按下时的坐标，即offsetTop
+var lastDis = 0;
+var lastY = 0;
+var lastTime = 0;// 上一次时间
+var lastTimeDis = 0;// 时间差
+var maxTranslate = wrap.clientHeight - list.offsetHeight;
+scrollBar.style.cssText = "width:6px;background:rgba(0,0,0,.5);position:absolute;top:0;right:0;border-radius:3px;height:100px;opacity:0;transition:.3s opacity;";
+wrap.appendChild(scrollBar);
+
+css(list,"translateZ",0.01);// 开启硬件加速
+
+list.addEventListener("touchstart",function(e){
+    maxTranslate = wrap.clientHeight - list.offsetHeight;// start时可能添加内容进去，重新来一次
+    clearInterval(list.timer);
+
+    startPoint = e.changedTouches[0].pageY;
+    startEl = css(list,"translateY");// 元素的初始位置，相当于pc端拖拽时获取的offsetTop
+
+    lastY = startEl;
+    lastTime = new Date().getTime();
+    lastDis = 0;
+    lastTimeDis = 0;
+
+    scrollBar.style.opacity = 1;
+});
+list.addEventListener("touchmove",function(e){
+    var nowTime = new Date().getTime();
+
+    var nowPoint = e.changedTouches[0].pageY;
+    var dis = nowPoint - startPoint;
+    var translateY = startEl + dis;// 元素初始值减差值是移动距离
+    css(list,"translateY",translateY);
+
+    lastDis = translateY - lastY;// 距离
+    lastY = translateY;
+    lastTimeDis = nowTime - lastTime;// 时间
+    lastTime = nowTime;
+});
+list.addEventListener("touchend",function(e){
+    var type = "easeOut";
+    // console.log(lastDis,lastTimeDis);
+    // 速度 = 距离 / 时间
+    var speed = Math.round(lastDis / lastTimeDis * 10);// 乘以10可以放到下面直接乘300吗
+    speed = lastTimeDis <= 0 ? 0 : speed;// 负的时间差
+    
+    var target = Math.round(speed * 30 + css(list,"translateY"));
+    console.log(target);// 按下再抬起时这里是NaN，一个数除以了0，0/0是NaN，1/0是无限制
+    console.log(target);// 所以按下再抬起时这里也是NaN
+    if(target > 0){// 超出了
+        target = 0;
+        type = "backOut";// 回弹
+    }
+    else if(target < maxTranslate){
+        target = maxTranslate;
+        type = "backOut";
+    }
+    MTween({
+        el: list,
+        target: {
+            translateY: target
+        },
+        time: Math.round(Math.abs(target - css(list,"translateY")) * 1.5),//
+        type: type,
+        callBack: function(){
+            scrollBar.style.opacity = 0;
+        }
+    });
+});
+```
+#### 运动滚动条
+``` javascript
+var wrap = document.querySelector("#wrap");
+var list = document.querySelector("#list");
+
+var scrollBar = document.createElement("div");
+var startPoint = 0;
+var startEl = 0;// 元素按下时的坐标，即offsetTop
+var lastDis = 0;
+var lastY = 0;
+var lastTime = 0;// 上一次时间
+var lastTimeDis = 0;// 时间差
+var maxTranslate = wrap.clientHeight - list.offsetHeight;
+var scale = wrap.clientHeight / list.offsetHeight;
+
+scrollBar.style.cssText = "width:6px;background:rgba(0,0,0,.5);position:absolute;top:0;right:0;border-radius:3px;opacity:0;transition:.3s opacity;";
+wrap.appendChild(scrollBar);
+
+css(list,"translateZ",0.01);// 开启硬件加速
+
+list.addEventListener("touchstart",function(e){
+    maxTranslate = wrap.clientHeight - list.offsetHeight;// start时可能添加内容进去，重新来一次
+    scale = wrap.clientHeight / list.offsetHeight;// 会变化重新取一下
+    scrollBar.style.height = wrap.clientHeight * scale + "px";
+
+    clearInterval(list.timer);
+
+    startPoint = e.changedTouches[0].pageY;
+    startEl = css(list,"translateY");// 元素的初始位置，相当于pc端拖拽时获取的offsetTop
+
+    lastY = startEl;
+    lastTime = new Date().getTime();
+    lastDis = 0;
+    lastTimeDis = 0;
+
+    scrollBar.style.opacity = 1;
+});
+list.addEventListener("touchmove",function(e){
+    var nowTime = new Date().getTime();
+
+    var nowPoint = e.changedTouches[0].pageY;
+    var dis = nowPoint - startPoint;
+    var translateY = startEl + dis;// 元素初始值减差值是移动距离
+    css(list,"translateY",translateY);
+    css(scrollBar,"translateY",- translateY * scale);
+
+    lastDis = translateY - lastY;// 距离
+    lastY = translateY;
+    lastTimeDis = nowTime - lastTime;// 时间
+    lastTime = nowTime;
+});
+list.addEventListener("touchend",function(e){
+    var type = "easeOut";
+    // console.log(lastDis,lastTimeDis);
+    // 速度 = 距离 / 时间
+    var speed = Math.round(lastDis / lastTimeDis * 10);// 乘以10可以放到下面直接乘300吗
+    speed = lastTimeDis <= 0 ? 0 : speed;// 负的时间差
+    
+    var target = Math.round(speed * 30 + css(list,"translateY"));
+    console.log(target);// 按下再抬起时这里是NaN，一个数除以了0，0/0是NaN，1/0是无限制
+    console.log(target);// 所以按下再抬起时这里也是NaN
+    if(target > 0){// 超出了
+        target = 0;
+        type = "backOut";// 回弹
+    }
+    else if(target < maxTranslate){
+        target = maxTranslate;
+        type = "backOut";
+    }
+    MTween({
+        el: list,
+        target: {
+            translateY: target
+        },
+        time: Math.round(Math.abs(target - css(list,"translateY")) * 1.5),//
+        type: type,
+        callBack: function(){
+            scrollBar.style.opacity = 0;
+        },
+        callIn: function(){
+            var translateY = css(list,"translateY");
+            css(scrollBar,"translateY",- translateY * scale);
+        }
+    });
+});
+```
+#### 解决内容不满一屏时的问题
+``` javascript
+var wrap = document.querySelector("#wrap");
+var list = document.querySelector("#list");
+
+var scrollBar = document.createElement("div");
+var startPoint = 0;
+var startEl = 0;// 元素按下时的坐标，即offsetTop
+var lastDis = 0;
+var lastY = 0;
+var lastTime = 0;// 上一次时间
+var lastTimeDis = 0;// 时间差
+var maxTranslate = wrap.clientHeight - list.offsetHeight;
+var scale = wrap.clientHeight / list.offsetHeight;
+list.style.minHeight = "100%";
+
+scrollBar.style.cssText = "width:6px;background:rgba(0,0,0,.5);position:absolute;top:0;right:0;border-radius:3px;opacity:0;transition:.3s opacity;";
+wrap.appendChild(scrollBar);
+
+css(list,"translateZ",0.01);// 开启硬件加速
+
+list.addEventListener("touchstart",function(e){
+    maxTranslate = wrap.clientHeight - list.offsetHeight;// start时可能添加内容进去，重新来一次
+    if(maxTranslate >= 0){
+        scrollBar.style.display = "none";
+    }
+    else{
+        scrollBar.style.display = "block";
+    }
+    scale = wrap.clientHeight / list.offsetHeight;// 会变化重新取一下
+    scrollBar.style.height = wrap.clientHeight * scale + "px";
+
+    clearInterval(list.timer);
+
+    startPoint = e.changedTouches[0].pageY;
+    startEl = css(list,"translateY");// 元素的初始位置，相当于pc端拖拽时获取的offsetTop
+
+    lastY = startEl;
+    lastTime = new Date().getTime();
+    lastDis = 0;
+    lastTimeDis = 0;
+
+    scrollBar.style.opacity = 1;
+});
+list.addEventListener("touchmove",function(e){
+    var nowTime = new Date().getTime();
+
+    var nowPoint = e.changedTouches[0].pageY;
+    var dis = nowPoint - startPoint;
+    var translateY = startEl + dis;// 元素初始值减差值是移动距离
+    css(list,"translateY",translateY);
+    css(scrollBar,"translateY",- translateY * scale);
+
+    lastDis = translateY - lastY;// 距离
+    lastY = translateY;
+    lastTimeDis = nowTime - lastTime;// 时间
+    lastTime = nowTime;
+});
+list.addEventListener("touchend",function(e){
+    var type = "easeOut";
+    // console.log(lastDis,lastTimeDis);
+    // 速度 = 距离 / 时间
+    var speed = Math.round(lastDis / lastTimeDis * 10);// 乘以10可以放到下面直接乘300吗
+    speed = lastTimeDis <= 0 ? 0 : speed;// 负的时间差
+    
+    var target = Math.round(speed * 30 + css(list,"translateY"));
+    console.log(target);// 按下再抬起时这里是NaN，一个数除以了0，0/0是NaN，1/0是无限制
+    console.log(target);// 所以按下再抬起时这里也是NaN
+    if(target > 0){// 超出了
+        target = 0;
+        type = "backOut";// 回弹
+    }
+    else if(target < maxTranslate){
+        target = maxTranslate;
+        type = "backOut";
+    }
+    MTween({
+        el: list,
+        target: {
+            translateY: target
+        },
+        time: Math.round(Math.abs(target - css(list,"translateY")) * 1.5),//
+        type: type,
+        callBack: function(){
+            scrollBar.style.opacity = 0;
+        },
+        callIn: function(){
+            var translateY = css(list,"translateY");
+            css(scrollBar,"translateY",- translateY * scale);
+        }
+    });
+});
+```
+#### 封装
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body,html{
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+    header{
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        background-color: #000;
+    }
+    footer{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 40px;
+        line-height: 40px;
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        font-size: 20px;
+    }
+    #wrap{
+        position: absolute;
+        top: 40px;
+        right: 0;
+        bottom: 40px;
+        left: 0;
+        overflow: hidden;
+    }
+    #list{
+        list-style: none;
+    }
+    #list li{
+        height: 30px;
+        line-height: 30px;
+        text-indent: 30px;
+        font-size: 16px;
+        border-bottom: 1px solid #333;
+    }
+    </style>
+</head>
+<body>
+    <header id="header">好好学习</header>
+    <section id="wrap">
+        <ul id="list">
+        </ul>
+    </section>
+    <footer id="footer">天天向上</footer>
+    <script src="m.Tween2.js"></script>
+    <script>
+    document.addEventListener("touchstart",function(e){
+        e.preventDefault();
+    });
+    function createList(){
+        var list = document.querySelector("#list");
+        var inner = "";
+        for(var i = 0;i < 30;i ++){
+            inner += "<li>这是第"+ i +"个</li>";
+        }
+        list.innerHTML = inner;
+    }
+    createList();
+    var wrap = document.querySelector("#wrap");
+    mScroll({
+        el: wrap,
+        offBar: true
+    });
+
+    function mScroll(init){
+        if(!init.el){
+            return;
+        }
+        var wrap = init.el;
+        var inner = init.el.children[0];
+        // css(inner,"translateY",100);//cssTransform()
+        // console.log(css(inner,"translateY"));
+        
+        var scrollBar = document.createElement("div");
+        var startPoint = 0;
+        var startEl = 0;// 元素按下时的坐标，即offsetTop
+        var lastDis = 0;
+        var lastY = 0;
+        var lastTime = 0;// 上一次时间
+        var lastTimeDis = 0;// 时间差
+        var maxTranslate = wrap.clientHeight - inner.offsetHeight;
+        if(!init.offBar){
+            var scale = wrap.clientHeight / inner.offsetHeight;
+            inner.style.minHeight = "100%";
+
+            scrollBar.style.cssText = "width:6px;background:rgba(0,0,0,.5);position:absolute;top:0;right:0;border-radius:3px;opacity:0;transition:.3s opacity;";
+            wrap.appendChild(scrollBar);
+        }
+
+        css(inner,"translateZ",0.01);// 开启硬件加速
+
+        inner.addEventListener("touchstart",function(e){
+            maxTranslate = wrap.clientHeight - inner.offsetHeight;// start时可能添加内容进去，重新来一次
+            if(!init.offBar){
+                if(maxTranslate >= 0){
+                    scrollBar.style.display = "none";
+                }
+                else{
+                    scrollBar.style.display = "block";
+                }
+                scale = wrap.clientHeight / inner.offsetHeight;// 会变化重新取一下
+                scrollBar.style.height = wrap.clientHeight * scale + "px";
+            }
+
+            clearInterval(inner.timer);
+
+            startPoint = e.changedTouches[0].pageY;
+            startEl = css(inner,"translateY");// 元素的初始位置，相当于pc端拖拽时获取的offsetTop
+
+            lastY = startEl;
+            lastTime = new Date().getTime();
+            lastDis = 0;
+            lastTimeDis = 0;
+
+            (init.offBar) || (scrollBar.style.opacity = 1);// false时执行，true && ..
+        });
+        inner.addEventListener("touchmove",function(e){
+            var nowTime = new Date().getTime();
+
+            var nowPoint = e.changedTouches[0].pageY;
+            var dis = nowPoint - startPoint;
+            var translateY = startEl + dis;// 元素初始值减差值是移动距离
+            css(inner,"translateY",translateY);
+            init.offBar || css(scrollBar,"translateY",- translateY * scale);
+
+            lastDis = translateY - lastY;// 距离
+            lastY = translateY;
+            lastTimeDis = nowTime - lastTime;// 时间
+            lastTime = nowTime;
+        });
+        inner.addEventListener("touchend",function(e){
+            var type = "easeOut";
+            // console.log(lastDis,lastTimeDis);
+            // 速度 = 距离 / 时间
+            var speed = Math.round(lastDis / lastTimeDis * 10);// 乘以10可以放到下面直接乘300吗
+            speed = lastTimeDis <= 0 ? 0 : speed;// 负的时间差
+            
+            var target = Math.round(speed * 30 + css(inner,"translateY"));
+            console.log(target);// 按下再抬起时这里是NaN，一个数除以了0，0/0是NaN，1/0是无限制
+            console.log(target);// 所以按下再抬起时这里也是NaN
+            if(target > 0){// 超出了
+                target = 0;
+                type = "backOut";// 回弹
+            }
+            else if(target < maxTranslate){
+                target = maxTranslate;
+                type = "backOut";
+            }
+            MTween({
+                el: inner,
+                target: {
+                    translateY: target
+                },
+                time: Math.round(Math.abs(target - css(inner,"translateY")) * 1.5),//
+                type: type,
+                callBack: function(){
+                    (init.offBar) || (scrollBar.style.opacity = 0);
+                },
+                callIn: function(){
+                    var translateY = css(inner,"translateY");
+                    init.offBar || css(scrollBar,"translateY",- translateY * scale);// 函数执行不必()
+                }
+            });
+        });
+    }
+    </script>
+</body>
+</html>
+```
