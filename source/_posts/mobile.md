@@ -98,7 +98,6 @@ a,img{
     header {
         position: absolute;
         left: 0;
-        /* .wrap解决body overflow: hidden 失效的问题 */
         width: 200%;
         height: 40px;
         line-height: 40px;
