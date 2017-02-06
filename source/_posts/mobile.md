@@ -4,9 +4,14 @@ date: 2017-01-20 01:06:43
 tags: 移动端
 categories: HTML/CSS
 ---
-写移动端好久了，也是时候来个总结了...
-<!-- more -->
 ### 关于重置/坑/技巧
+#### UC的字体渲染问题
+此Bug出现极其诡异，那段时间真是怕了UC，因为指不定什么时候就会放大页面，有可能是加一个字，有可能是浮动了一个元素，也有可能是增加一个div...解决如下：
+``` html
+/* 官方解释：UC浏览器判断到页面上文字居多时，会自动放大字体优化移动用户体验。 */
+<meta name="wap-font-scale" content="no">
+```
+<!-- more -->
 #### 闪屏
 消除transition闪屏的两种方法，注意是给运动的元素增加
 ``` css
@@ -72,14 +77,8 @@ a,img{
     -webkit-touch-callout: none;
 }
 ```
-#### UC的字体渲染问题
-此Bug出现极其诡异，那段时间真是怕了UC，因为指不定什么时候就会放大页面，有可能是加一个字，有可能是浮动了一个元素，也有可能是增加一个div...解决如下：
-``` html
-/* 官方解释：UC浏览器判断到页面上文字居多时，会自动放大字体优化移动用户体验。 */
-<meta name="wap-font-scale" content="no">
-```
 #### body overflow:hidden失效
-html,body height 100%,overflow hidden,有相对定位加在body上
+解决：给body加相对定位
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -88,15 +87,13 @@ html,body height 100%,overflow hidden,有相对定位加在body上
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Document</title>
     <style>
-    html {
+    html,body {
         height: 100%;
         overflow: hidden;
     }
     body {
-        position: relative;
-        height: 100%;
         margin: 0;
-        overflow: hidden;
+        position: relative;
     }
     header {
         position: absolute;
