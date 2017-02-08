@@ -1396,6 +1396,474 @@ run(oDiv,{
     window.run = run;
 }();
 ```
+### 简版运动演化
+#### 动起来
+``` javascript
+var oBtn = document.getElementById("btn1");
+var oDiv = document.getElementById("div1");
+var timer = null;
+oBtn.onclick = function(){
+    startMove();
+};
+
+function startMove(){
+    clearInterval(timer);
+    timer = setInterval(function(){
+        var speed = 7;
+        if(oDiv.offsetLeft >= 300){
+            clearInterval(timer);
+        }
+        else{
+            oDiv.style.left = oDiv.offsetLeft + speed + "px";
+        }
+    },30);
+}
+```
+#### 透明度
+``` javascript
+var oDiv = document.getElementById("div1");
+var timer = null;
+var alpha = 30;
+
+function startMove(iTarget){
+    clearInterval(timer);
+    timer = setInterval(function(){
+        if(alpha > iTarget){
+            speed = -10;
+        }
+        else{
+            speed = 10;
+        }
+        if(alpha == iTarget){
+            clearInterval(timer);
+        }
+        else{
+            alpha += speed;
+            oDiv.style.filter = 'alpha(opacity:'+alpha+')';
+            oDiv.style.opacity = alpha/100;
+        }
+    },30);
+}
+oDiv.onmouseover = function(){
+    startMove(100);
+};
+oDiv.onmouseout = function(){
+    startMove(30);
+};
+```
+#### 缓冲
+``` javascript
+//像素是屏幕显示的最小单位 290.9 >> 290 并不是四舍五入   >>  速度取整
+var oBtn = document.getElementById("btn1");
+var oDiv = document.getElementById("div1");
+var timer = null;
+
+oBtn.onclick = function(){
+    startMove();
+};
+function startMove(){
+    clearInterval(timer);
+    timer = setInterval(function(){
+        var speed = (300 - oDiv.offsetLeft) / 10;//距离和速度成正比
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);//速度取整，-1.5 > -2
+        if(oDiv.offsetLeft == 300){
+            clearInterval(timer);
+        }
+        else{
+            oDiv.style.left = oDiv.offsetLeft + speed + "px";
+        }
+    },30);
+}
+```
+#### 缓冲（固定底部）
+``` javascript
+window.onscroll = function(){
+    var oDiv = document.getElementById("div1");
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var mubiao = document.documentElement.clientHeight - oDiv.offsetHeight + scrollTop;
+    startMove(oDiv,mubiao);
+};
+//注意timer不能放在window.onscroll中！！
+var timer = null;
+function startMove(obj,iTarget){
+    clearInterval(timer);
+    timer = setInterval(function(){
+        var speed = (iTarget-obj.offsetTop) / 7;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+        console.log(1);
+        if(obj.offsetTop == iTarget){
+            clearInterval(timer);
+        }
+        else{
+            obj.style.top = obj.offsetTop + speed + "px";
+        }
+    },30);
+}
+```
+#### 缓冲（固定中间）
+``` javascript
+window.onscroll = function(){
+    var oDiv = document.getElementById("div1");
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var mubiao = parseInt((document.documentElement.clientHeight - oDiv.offsetHeight)/2) + scrollTop;//有除有可能有小数，有小数有可能出问题
+    startMove(oDiv,mubiao);
+};
+//注意timer不能放在window.onscroll中
+var timer = null;
+function startMove(obj,iTarget){
+    clearInterval(timer);
+    timer = setInterval(function(){
+        var speed = (iTarget-obj.offsetTop) / 7;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+        if(obj.offsetTop == iTarget){
+            clearInterval(timer);
+        }
+        else{
+            obj.style.top = obj.offsetTop + speed + "px";
+        }
+    },30);
+}
+```
+#### 匀速运动的停止条件
+``` javascript
+var oDiv = document.getElementById("div1");
+var timer = null;
+
+oDiv.onmouseover = function(){
+    startMove(0);
+};
+oDiv.onmouseout = function(){
+    startMove(-100);
+};
+
+function startMove(iTarget){
+    clearInterval(timer);
+    timer = setInterval(function(){
+        if(oDiv.offsetLeft > iTarget){//offsetLeft > 目标点 速度负
+            speed = -7;
+        }
+        else{
+            speed = 7;
+        }
+        if(Math.abs(iTarget - oDiv.offsetLeft) <= 7){//匀速运动的停止条件。缓冲运动则不需这样的条件因为其速度越来越小，最后一点一点的也会撑到目标点
+            clearInterval(timer);
+            oDiv.style.left = iTarget + "px";
+        }
+        else{
+            oDiv.style.left = oDiv.offsetLeft + speed + "px";
+        }
+    },30);
+}
+```
+#### 多物体
+``` javascript
+//多个定时器互不影响
+var aDiv = document.getElementsByTagName("div");
+for(var i = 0; i < aDiv.length; i++){
+    aDiv[i].timer = null;
+    aDiv[i].onmouseover = function(){
+        startMove(this,300);
+    };
+    aDiv[i].onmouseout = function(){
+        startMove(this,100);
+    };
+}
+
+function startMove(obj,iTarget){
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function(){
+        var speed = (iTarget - obj.offsetWidth) / 7;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+        if(obj.offsetWidth == iTarget){
+            clearInterval(obj.timer);
+        }
+        else{
+            obj.style.width = obj.offsetWidth + speed +"px";
+        }
+    },30);
+}
+```
+#### 多物体透明度
+``` javascript
+//多物体运动时多有的东西都不能共用包括alpha
+
+var aDiv = document.getElementsByTagName("div");
+for(var i = 0;i< aDiv.length;i++){
+    aDiv[i].timer = null;
+    aDiv[i].alpha = 30;
+    aDiv[i].onmouseover = function(){
+        startMove(this,100);
+    };
+    aDiv[i].onmouseout = function(){
+        startMove(this,30);
+    };
+}
+function startMove(obj,iTarget){
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function(){
+        var speed = (iTarget - obj.alpha)/6;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+        if(obj.alpha == iTarget){
+            clearInterval(obj.timer);
+        }
+        else{
+            obj.alpha += speed;
+            obj.style.filter = 'alpha(opacity:'+ obj.alpha +')';
+            obj.style.opacity = obj.alpha / 100;
+        }
+    },30);
+}
+```
+#### 多物体任意值
+``` javascript
+function getStyle(obj,name){
+    if(obj.currentStyle){
+        return obj.currentStyle[name];
+    }
+    else{
+        return getComputedStyle(obj,false)[name];
+    }
+}
+
+var aDiv = document.getElementsByTagName("div");
+
+aDiv[0].onmouseover = function(){
+    startMove(this,"width","300");
+};
+aDiv[0].onmouseout = function(){
+    startMove(this,"width","100");
+};
+aDiv[1].onmouseover = function(){
+    startMove(this,"height",300);
+};
+aDiv[1].onmouseout = function(){
+    startMove(this,"height",100);
+};
+aDiv[2].onmouseover = function(){
+    startMove(this,"borderWidth","10");
+};
+aDiv[2].onmouseout = function(){
+    startMove(this,"borderWidth","1");
+};
+
+
+function startMove(obj,name,iTarget){
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function(){
+        var cur = parseInt( getStyle(obj,name) );//getStyle获取的值是带单位的
+        var speed = (iTarget - cur) / 6;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+        if(cur == iTarget){
+            clearInterval(obj.timer);
+        }
+        else{
+            obj.style[name] = cur + speed + "px";
+        }
+    },30);
+}
+```
+#### 多物体任意值（考虑透明度）
+``` javascript
+//透明度获取和设置时候的问题
+function getStyle(obj,name){
+    if(obj.currentStyle){
+        return obj.currentStyle[name];
+    }
+    else{
+        return getComputedStyle(obj,false)[name];
+    }
+}
+
+var oDiv = document.getElementById("div1");
+
+oDiv.onmouseover = function(){
+    startMove(this,"opacity",100);
+};
+oDiv.onmouseout = function(){
+    startMove(this,"opacity",30);
+};
+
+function startMove(obj,attr,iTarget){
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function(){
+        var cur = 0;
+        if(attr == "opacity"){
+            cur = Math.round(parseFloat(getStyle(obj,attr))*100);//透明度parseInt有问题，Math.round()去掉小数解决ie7透明度跳动的问题
+        }
+        else{
+            cur = parseInt(getStyle(obj,attr));
+        }
+        var speed = (iTarget - cur) / 7;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+        if(cur == iTarget){
+            clearInterval(obj.timer);
+        }
+        else{
+            if(attr == "opacity"){
+                obj.style.filter = 'alpha(opacity:'+(cur + speed)+')';
+                obj.style.opacity = (cur + speed) / 100;
+                document.title = obj.style.opacity;//ie7这个opacity值一直会跳动 例如0.07 * 100
+            }
+            else{
+                obj.style[attr] = cur + speed + "px";
+            }
+        }
+    },30);
+}
+```
+#### 完美
+``` javascript
+function getStyle(obj,attr){
+    if(obj.currentStyle){
+        return obj.currentStyle[attr];
+    }
+    else{
+        return getComputedStyle(obj,false)[attr];
+    }
+}
+function startMove(obj,json,fnEnd){
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function(){
+        var oStop = true;
+        for( var attr in json){
+            var cur = 0;
+            if(attr == "opacity"){
+                cur = Math.round( parseFloat( getStyle(obj,attr) ) * 100 );
+            }
+            else{
+                cur = parseInt( getStyle(obj,attr) );
+            }
+
+            var speed = (json[attr] - cur) / 7;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+            if(cur != json[attr]){
+                oStop = false;
+            }
+            if(attr == "opacity"){
+                obj.style.filter = 'alpha(opacity:'+(cur+speed)+')';
+                obj.style.opacity = (cur + speed) / 100;
+            }
+            else{
+                obj.style[attr] = cur + speed + "px";
+            }
+        }
+        if(oStop){
+            clearInterval(obj.timer);
+            fnEnd&&fnEnd();
+        }
+    },30);
+}
+
+var oDiv = document.getElementById("div1");
+oDiv.onclick = function(){
+    startMove(oDiv,{"width":"110","height":"300","opacity":100,"borderWidth":"30"},function(){
+        alert(1);
+    });
+};
+```
+#### 几种运动形式总结
+##### 匀速
+``` javascript
+function StartMove1(id,iTarget){
+    this.oDiv = document.getElementById(id);
+    this.speed = 0;
+    this.timer = null;        
+    clearInterval(this.timer);
+    if(iTarget > this.oDiv.offsetLeft){
+        this.speed = 7;
+    }
+    else{
+        this.speed = -7;
+    }
+    var This = this;
+    this.timer = setInterval(function(){
+        if(Math.abs(iTarget - This.oDiv.offsetLeft) < 7){
+            clearInterval(This.timer);
+            This.oDiv.style.left = iTarget + "px";
+        }
+        else{
+            This.oDiv.style.left = This.oDiv.offsetLeft + This.speed + "px";
+        }
+    },30);
+}
+new StartMove1("div1",500);
+```
+##### 弹性
+``` javascript
+function StartMove2(id,iTarget){
+    this.timer = null;
+    this.speed = 0;
+    this.oDiv = document.getElementById(id);
+    clearInterval(this.timer);
+    var This = this;
+    this.timer = setInterval(function(){
+        This.speed += (iTarget - This.oDiv.offsetLeft) / 5;//step1
+        This.speed *= 0.7;//step2
+        if(Math.abs(This.speed) < 1 && Math.abs(iTarget-This.oDiv.offsetLeft) < 1){//step3
+            clearInterval(This.timer);
+            This.speed = 0;
+        }
+        else{
+            This.oDiv.style.left = This.oDiv.offsetLeft + This.speed + "px";
+        }
+    },30);
+}
+new StartMove2("div1",500);
+```
+##### 重力
+``` javascript
+function StartMove3(){
+    this.oDiv = document.getElementById("div1");
+    this.oWinHeight = document.documentElement.clientHeight - this.oDiv.offsetHeight;
+    this.oT = 0;
+    this.timer = null;
+    this.speed = 0;
+    this.iNum = 0;//计数判断何时清除定时器
+    clearInterval(this.timer);
+    var This = this;
+    this.timer = setInterval(function(){
+        This.speed += 3;//step1：加速度
+        This.oT = This.oDiv.offsetTop + This.speed;
+        if(This.oT > This.oWinHeight){
+            This.iNum ++;
+            if(This.iNum == 6){
+                clearInterval(This.timer);
+            }
+            This.oT = This.oWinHeight;
+            This.speed *= -1;//step2：变方向
+            This.speed *= 0.75;//step3：摩擦力
+            console.log(This.speed);
+        }
+        This.oDiv.style.top = This.oT + "px";
+    },30);
+}
+new StartMove3();
+```
+##### 缓冲
+``` javascript
+function StartMove4(iTarget){
+    this.oDiv = document.getElementById("div1");
+    this.timer = null;
+    var This = this;
+    clearInterval(this.timer);
+    this.timer = setInterval(function(){
+        var speed = (iTarget - This.oDiv.offsetLeft) / 7;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+        if(Math.abs(speed) < 1){
+            clearInterval(This.timer);
+        }
+        else{
+            This.oDiv.style.left = This.oDiv.offsetLeft + speed + "px";
+        }
+    },30);
+}
+new StartMove4(500);
+```
 ### 图片懒加载
 #### 首屏
 给对应区域一张尽量小默认图，当真实内容加载陈功时再加载真实图片

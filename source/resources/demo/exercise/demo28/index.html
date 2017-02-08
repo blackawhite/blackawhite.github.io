@@ -1,0 +1,93 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #opera{
+        margin: 50px auto 20px;
+        text-align: center;
+    }
+    table{
+        margin: 0 auto;
+    }
+    </style>
+</head>
+<body>
+    <div id="opera">
+        姓名：<input type="text" id="txt1">
+        <input type="button" value="搜索" id="btn1">
+    </div>
+    <table id="tab1" border="1" width="500">
+        <thead>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>blue</td>
+                <td>22</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>red</td>
+                <td>33</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>black</td>
+                <td>37</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>green</td>
+                <td>58</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>pink</td>
+                <td>28</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        String.prototype.trim=function() {
+            return this.replace(/(^\s*)|(\s*$)/g,'');
+        }
+        var oTab = document.getElementById("tab1");
+        var aTrs = oTab.tBodies[0].rows;
+        var oTxt = document.getElementById("txt1");
+        var oBtn = document.getElementById("btn1");
+        var sValue1 = "";
+        var sValue2 = "";
+        var arr = [];
+        oBtn.onclick = function(){
+            sValue1 = oTxt.value.toLowerCase().trim();// 忽略大小写并去除前后空格
+            // arr = sValue1.split(" ");// 拆分是为了多关键词搜索
+            arr = sValue1.split(/\s+/g);// 1个或多个空格拆分
+            console.log(arr);
+            for(var i = 0;i < aTrs.length;i ++){
+                sValue2 = aTrs[i].cells[1].innerHTML.toLowerCase();
+
+                // aTrs[i].style.backgroundColor = "#fff";
+                aTrs[i].style.display = "none";
+                for(var j = 0;j < arr.length;j ++){
+                    if(sValue2.search(arr[j]) != -1){// 模糊搜索
+                        // aTrs[i].style.backgroundColor = "red";
+                        aTrs[i].style.display = "";// 筛选
+                    }
+                    // else{// 第二次空格后面的搜索内容会把前面的搜索结果覆盖
+                    //     aTrs[i].style.backgroundColor = "#fff";
+                    // }
+                }
+            }
+        };
+    </script>
+</body>
+</html>
