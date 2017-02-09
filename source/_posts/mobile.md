@@ -5,13 +5,21 @@ tags: 移动端
 categories: HTML/CSS
 ---
 ### 关于重置/坑/技巧
-#### UC的字体渲染问题
+#### UC下字体渲染问题
 此Bug出现极其诡异，那段时间真是怕了UC，因为指不定什么时候就会放大页面，有可能是加一个字，有可能是浮动了一个元素，也有可能是增加一个div...解决如下：
 ``` html
 /* 官方解释：UC浏览器判断到页面上文字居多时，会自动放大字体优化移动用户体验。 */
 <meta name="wap-font-scale" content="no">
 ```
 <!-- more -->
+#### UC下图片不显示
+``` css
+/* UC手机浏览器会过滤包含ad字符的图片路径，禁止其显示，所以给图片命名或存放图片路径时 尽量不要含有ad字符，也可以关闭UC浏览器的广告过滤功能 */
+```
+#### Chrome模拟器自动注入Icon
+``` css
+/* 部分浏览器会给camara类名下的a自动注入相机图标，因此最好不要使用类似的关键字 */
+```
 #### 闪屏
 消除transition闪屏的两种方法，注意是给运动的元素增加
 ``` css
@@ -37,7 +45,7 @@ a,input,button{
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 ```
-#### 去除IOS默认样式
+#### 去除iOS默认样式
 ``` css
 input,button{
     outline-style: none;
@@ -2356,6 +2364,390 @@ window.addEventListener("deviceorientation",function(e){
         });
     })();
     </script>
+</body>
+</html>
+```
+### 多指操作
+#### 多指事件
+``` javascript
+document.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+});
+var box = document.querySelector('#box');
+/*
+    当手指触摸元素，当前屏幕上有两根或者两根以上的手指执行
+*/
+box.addEventListener('gesturestart', function(e) {
+    this.style.background = "blue";
+});
+/*
+    当我们触发了 gesturestart时，手指位置发生变化时执行
+*/
+box.addEventListener('gesturechange', function(e) {
+    this.style.background = "green";
+});
+/*
+    当我们触发了 gesturestart时，然后抬起手指，这时屏幕上的手指个少于2个时触发
+*/
+box.addEventListener('gestureend', function(e) {
+    this.style.background = "red";
+});
+```
+#### 缩放比
+``` javascript
+document.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+});
+var box = document.querySelector('#box');
+
+box.addEventListener('gesturestart', function(e) {
+    this.style.background = "blue";
+});
+
+box.addEventListener('gesturechange', function(e) {
+    //e.scale; 缩放比：change时两根手指之间距离 和 start时两根手指之间的距离比值
+    this.innerHTML = e.scale; 
+});
+box.addEventListener('gestureend', function(e) {
+    this.style.background = "red";
+});
+```
+#### 旋转差
+``` javascript
+document.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+});
+var box = document.querySelector('#box');
+
+box.addEventListener('gesturestart', function(e) {
+    this.style.background = "blue";
+});
+
+box.addEventListener('gesturechange', function(e) {
+    //e.rotation 旋转差: change时两根手指形成的直线和start时两根手指形成的直线，中间形成夹角
+    this.innerHTML = e.rotation;
+});
+
+box.addEventListener('gestureend', function(e) {
+    this.style.background = "red";
+});
+```
+#### 旋转缩放图片
+``` javascript
+document.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+});
+var box = document.querySelector('#box');
+var startRotate = 0;
+var startScale = 0;
+//gesture 相关的事件，只有ios下有，安卓没有这个事件
+box.addEventListener('gesturestart', function(e) {
+    startScale = css(box,"scale");
+    startRotate = css(box,"rotate");
+});
+box.addEventListener('gesturechange', function(e) {
+    css(box,"scale",e.scale*startScale);
+    css(box,"rotate",e.rotation + startRotate);
+});
+```
+#### 封装多指事件
+##### 模拟gesture系列
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<style type="text/css">
+#box {
+    margin: 100px auto;
+    width: 200px;
+    height: 200px;
+    background: red;
+    color: #fff;
+    font-size: 30px;
+}   
+</style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="m.Tween.js"></script>
+<script type="text/javascript">
+document.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+});
+window.onload = function(){
+    var box = document.querySelector('#box');
+    var startRotate = 0;
+    var startScale = 0;
+    setGesture({
+        el: box,
+        start: function(e){
+            this.style.background = "blue";
+        },
+        change:function(e){
+        },
+        end: function(e){
+            this.style.background = "red";
+        }
+    })
+};
+/*
+    init:{
+        el: element,// 元素(必填)
+        start: fn,// gesturestart要做的操作
+        change: fn,// gesturechange要做的操作
+        end: fn// gestureend要做的操作
+    }
+*/
+function setGesture(init){
+    var el = init.el;
+    var isGestrue = false; 
+    if(!el){
+        return;
+    }
+    el.addEventListener('touchstart', function(e) {
+        if(e.touches.length >= 2){
+            isGestrue = true; // 记录当前用户触发了gesture
+            init.start && init.start.call(el,e);
+        }
+    });
+    el.addEventListener('touchmove', function(e) {
+        if(isGestrue && e.touches.length >= 2){
+
+        }
+    });
+    el.addEventListener('touchend', function(e) {
+        if(isGestrue){
+            if(e.touches.length < 2 || e.targetTouches.length < 1){
+                isGestrue = false;
+                init.end && init.end.call(el,e);
+            }
+        }
+    });
+}
+</script>
+</body>
+</html>
+```
+##### 模拟scale
+原理：touchmove时两指的距离 / touchstart时两指的距离
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<style type="text/css">
+#box {
+    margin: 100px auto;
+    width: 200px;
+    height: 200px;
+    background: red;
+    color: #fff;
+    font-size: 30px;
+}   
+</style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="m.Tween.js"></script>
+<script type="text/javascript">
+document.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+});
+window.onload = function(){
+    var box = document.querySelector('#box');
+    var startRotate = 0;
+    var startScale = 0;
+    setGesture({
+        el: box,
+        start: function(e){
+            this.style.background = "blue";
+        },
+        change:function(e){
+            this.innerHTML = e.scale;
+        },
+        end: function(e){
+            this.style.background = "red";
+        }
+    })
+};
+
+function getDis(point1,point2){// 勾股定理
+    var x = point2.x - point1.x;
+    var y = point2.y - point1.y;
+    return Math.sqrt(x * x + y * y);
+}
+
+function setGesture(init){
+    var el = init.el;
+    var isGestrue = false; 
+    var startPoint = [];
+    var nowPoint = [];
+    var startDis = 0;
+    var nowDis = 0;
+    if(!el){
+        return;
+    }
+    el.addEventListener('touchstart', function(e) {
+        if(e.touches.length >= 2){
+            isGestrue = true; // 记录当前用户触发了gesture
+            startPoint[0] = {
+                x: e.touches[0].pageX,
+                y: e.touches[0].pageY
+            };
+            startPoint[1] = {
+                x: e.touches[1].pageX,
+                y: e.touches[1].pageY
+            };
+            init.start && init.start.call(el,e);
+        }
+    });
+    el.addEventListener('touchmove', function(e) {
+        if(isGestrue && e.touches.length >= 2){
+            nowPoint[0] = {
+                x: e.touches[0].pageX,
+                y: e.touches[0].pageY
+            };
+            nowPoint[1] = {
+                x: e.touches[1].pageX,
+                y: e.touches[1].pageY
+            };
+            startDis = getDis(startPoint[0],startPoint[1]);
+            nowDis = getDis(nowPoint[0],nowPoint[1]);
+            e.scale = nowDis / startDis;
+            init.change && init.change.call(el,e);
+        }
+    });
+    el.addEventListener('touchend', function(e) {
+        if(isGestrue){
+            if(e.touches.length < 2 || e.targetTouches.length < 1){
+                isGestrue = false;
+                init.end && init.end.call(el,e);
+            }
+        }
+    });
+}
+</script>
+</body>
+</html>
+```
+##### 模拟rotate
+原理：Math.atan2(y,x)
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<style type="text/css">
+#box {
+    margin: 100px auto;
+    width: 200px;
+    height: 200px;
+    background: url(1.jpg) no-repeat;
+    background-size: cover;
+}   
+</style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="m.Tween.js"></script>
+<script type="text/javascript">
+document.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+});
+window.onload = function(){
+    var box = document.querySelector('#box');
+    var startRotate = 0;
+    var startScale = 0;
+    css(box,"translateZ",0.01);
+    setGesture({
+        el: box,
+        start: function(e){
+            startRotate = css(this,"rotate");
+            startScale = css(this,"scale");
+        },
+        change:function(e){
+            css(this,"rotate",startRotate + e.rotation);
+            css(this,"scale",startScale * e.scale);
+        }
+    });
+};
+function getDis(point1,point2){
+    var x = point2.x - point1.x;
+    var y = point2.y - point1.y;
+    return Math.sqrt(x * x + y * y);
+}
+/*
+    Math.atan2(y,x) 斜率 由一条直线与X轴正方向所成角的正切 返回值弧度
+    角度转弧度: deg * Math.PI / 180
+    弧度转角度: rad * 180 / Math.PI
+*/
+function getDeg(point1,point2){
+    var x = point2.x - point1.x;
+    var y = point2.y - point1.y;
+    return Math.atan2(y,x) * 180 / Math.PI; 
+}
+function setGesture(init){
+    var el = init.el;
+    var isGestrue = false; 
+    var startPoint = [];
+    var nowPoint = [];
+    var startDis = 0;
+    var nowDis = 0;
+    var startDeg = 0;
+    var nowDeg = 0;
+    if(!el){
+        return;
+    }
+    el.addEventListener('touchstart', function(e) {
+        if(e.touches.length >= 2){
+            isGestrue = true; // 记录当前用户触发了gesture
+            startPoint[0] = {
+                x: e.touches[0].pageX,
+                y: e.touches[0].pageY
+            };
+            startPoint[1] = {
+                x: e.touches[1].pageX,
+                y: e.touches[1].pageY
+            };
+            init.start && init.start.call(el,e);
+        }
+    });
+    el.addEventListener('touchmove', function(e) {
+        if(isGestrue && e.touches.length >= 2){
+            nowPoint[0] = {
+                x: e.touches[0].pageX,
+                y: e.touches[0].pageY
+            };
+            nowPoint[1] = {
+                x: e.touches[1].pageX,
+                y: e.touches[1].pageY
+            };
+            startDis = getDis(startPoint[0],startPoint[1]);
+            nowDis = getDis(nowPoint[0],nowPoint[1]);
+            startDeg = getDeg(startPoint[0],startPoint[1]);
+            nowDeg = getDeg(nowPoint[0],nowPoint[1]);
+            e.scale = nowDis / startDis;
+            e.rotation = nowDeg - startDeg;
+            init.change && init.change.call(el,e);
+        }
+    });
+    el.addEventListener('touchend', function(e) {
+        if(isGestrue){
+            if(e.touches.length < 2 || e.targetTouches.length < 1){
+                isGestrue = false;
+                init.end && init.end.call(el,e);
+            }
+        }
+    });
+}
+</script>
 </body>
 </html>
 ```
