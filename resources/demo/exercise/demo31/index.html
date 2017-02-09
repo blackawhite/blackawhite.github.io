@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #wrap{
+        margin: 50px auto 0;
+        width: 500px;
+        height: 500px;
+        background-color: #fff;
+    }
+    #left{
+        position: relative;
+        width: 440px;
+        height: 500px;
+        padding-right: 15px;
+        padding-left: 15px;
+        height: 500px;
+        float: left;
+        overflow: hidden;
+        color: #333;
+        box-shadow: 0 0 10px #333;
+    }
+    #left-con{
+        position: absolute;
+        font-size: 14px;
+        line-height: 2;
+    }
+    #left-con p:not(:first-of-type){
+        margin-top: 16px;
+    }
+    #right{
+        width: 20px;
+        height: 500px;
+        float: right;
+        box-shadow: 0 0 10px #333;
+        position: relative;
+    }
+    #right-con{
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: #333;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="left">
+            <div id="left-con">
+            <p>先帝创业还没有完成一半，就中途去世了。如今天下分为三国，我们蜀汉国立困弊，这真是危急存亡的时刻啊。然而侍卫臣僚在内勤劳不懈，忠心的将士在外舍身忘死，这是因为他们追念先帝的特殊恩遇。想在您的身上进行报答。您应该广泛听取臣下的意见，以发扬光大先帝遗留下的美德。激发志士的勇气，不应当妄自菲薄。援引不恰当的譬喻，以堵塞忠言进谏的道路。</p>
+            <p>宫禁中的侍卫、各府署的臣僚都是一个整体，赏罚褒贬，不应有所不同。如有作恶违法的人，或行为忠善的人，都应该交给主管官吏评定对他们的惩奖，以显示陛下处理国事的公正严明。不应该有所偏爱，使宫内宫外执法不同。</p>
+            <p>侍中郭攸之、费祎、董允等人，都是善良诚实、心志忠贞纯洁的人，因此先帝选拔他们留给陛下。我认为宫中之事，无论大小，都去咨询他们，然后施行，必能弥补缺失，集思广益。</p>
+            <p>将军向宠，心性品德善良平和，又通晓军事。过去经过试用，先帝称赞他很有才能，因此众人商议推举他做中部督。我认为禁军营中的事都去咨问于他，必能使军队和睦，不同才能的人各得其所。</p>
+            <p>亲近贤臣，疏远小人，这是前汉所以兴盛的原因；亲近小人，疏远贤臣。这是后汉之所以衰败的原因。先帝在世时，每次与臣谈论这事，未尝不叹息而痛恨桓帝、灵帝时期的腐败。侍中、尚书、长史、参军，这些人都是忠贞善良、守节不逾的大臣。希望陛下亲近他们，信任他们，那么汉朝的复兴，就会指日可待了。</p>
+            <p>我原本一个平民，在南阳亲自耕田。只想在乱世里苟全性命，不求在诸侯间扬名显身。先帝不因为我卑微鄙陋，而委屈自己，三次到草庐中来拜访我。向我询问天下大事，由此使我感动奋发，而同意为先帝奔走效力。后来遭遇失败，我在军事失利之际接受任命。形势危急之时奉命出使，从这以来二十一年了。</p>
+            <p>先帝知道我做事谨慎，所以临终把国家大事托付给我。接受遗命以来，我日夜忧虑叹息。惟恐托付的事不能完成，有损于先帝的英明。因此五月渡泸南征，深入不毛之地。现在南方已经平定，兵甲已经充足，我应当勉励统率三军，北定中原，以便竭尽我拙劣的能力。扫除奸邪、兴复汉室、返还旧都。这是我用以报答先帝尽忠陛下的职责，至于处置日常之事，决定取舍损益，毫无保留地贡献忠言，那是郭攸之、费祎、董允的责任。</p>
+            <p>希望陛下把讨伐汉贼、兴复汉室的任务交给我去完成；若不能完成，就治我的罪，以告于先帝的英灵。如果不能进献增进圣德的忠言，那就责备郭攸之、费祎、董允的怠慢。已表明他们的过失。陛下也应当谋求自强，征询臣下的意见，考察并采纳正确的言论，深思先帝的遗诏。臣蒙受大恩，不甚感激。</p>
+            <p>现在即将远离，一边写表，一边流泪，真不知该说些什么。</p>
+            </div>
+        </div>
+        <div id="right">
+            <div id="right-con"></div>
+        </div>
+    </div>
+    <script>
+    var oLeft = document.querySelector("#left");
+    var oLeftCon = document.querySelector("#left-con");
+    var oRight = document.querySelector("#right");
+    var oRightCon = document.querySelector("#right-con");
+    var oLeftNum = oLeftCon.offsetHeight - 500;
+    var disY = 0;
+    var y = 0;
+    var scale = 1;
+    oRightCon.onmousedown = function(ev){
+        var oEvent = ev || event;
+        disY = oEvent.clientY - this.offsetTop;
+        document.onmousemove = function(ev){
+            var oEvent = ev || event;
+            y = oEvent.clientY - disY;
+            if(y > 480){
+                y = 480;
+            }
+            else if(y < 0){
+                y = 0;
+            }
+            else{
+                oRightCon.style.top = y + "px";
+            }
+
+            var scale = y / 480;// 480喔
+
+            oLeftCon.style.top = - oLeftNum * scale + "px";
+        };
+        document.onmouseup = function(){
+            this.onmousemove = this.onmouseup = null;
+        };
+        return false;
+    };
+    </script>
+</body>
+</html>

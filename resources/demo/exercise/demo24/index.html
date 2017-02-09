@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    img{
+        vertical-align: middle;
+    }
+    body{
+        background-color: #333;
+    }
+    #wrap{
+        margin-top: 20px;
+        text-align: center;
+        height: 50px;
+        color: #fff;
+        font-size: 50px;
+    }
+    #wrap span{
+        display: inline-block;
+    }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <img src="images/0.png" alt="">
+        <img src="images/0.png" alt="">
+        <span>:</span>
+        <img src="images/0.png" alt="">
+        <img src="images/0.png" alt="">
+        <span>:</span>
+        <img src="images/0.png" alt="">
+        <img src="images/0.png" alt="">
+    </div>
+    <script>
+
+    function toSecondNum(num){
+        if(num < 10){
+            return "0" + num;
+        }
+        return num;
+    }
+    var Clock = (function(){
+        var oWrap = document.querySelector("#wrap");
+        var aImg = oWrap.querySelectorAll("img");
+        change();
+        function change(){
+            var oDate = new Date();
+            var oHours = oDate.getHours();
+            var oMinutes = oDate.getMinutes();
+            var oSeconds = oDate.getSeconds();
+
+            var strTime = "" + toSecondNum(oHours) + toSecondNum(oMinutes) + toSecondNum(oSeconds);
+
+            for(var i = 0;i < aImg.length;i ++){
+                aImg[i].src = "images/" + strTime.charAt(i) + ".png";// str[i]低版本ie不兼容
+            }
+        }
+        function gogogo(){
+            setInterval(change,1000);
+        }
+        function init(){
+            gogogo();
+        }
+        
+        return {
+            init: init
+        };
+    })();
+    Clock.init();
+    </script>
+</body>
+</html>

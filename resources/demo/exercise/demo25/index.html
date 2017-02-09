@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+    }
+    #all-wrap{
+        margin: 50px auto 0;
+        width: 400px;
+        height: 100px;
+        position: relative;
+    }
+    #wrap{
+        width: 400px;
+        height: 100px;
+        overflow: hidden;
+        position: relative;
+    }
+    #all-wrap span{
+        position: absolute;
+        top: 50%;
+        margin-top: -25px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 50%;
+        text-align: center;
+        background-color: #ccc;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    #left{
+        left: -70px;
+    }
+    #right{
+        right: -70px;
+    }
+    #list{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+    }
+    #list li{
+        width: 100px;
+        height: 100px;
+        float: left;
+        font-size: 50px;
+        color: #fff;
+        font-weight: bold;
+    }
+    #list li:nth-of-type(1),#list li:nth-of-type(5){
+        background-color: red;
+    }
+    #list li:nth-of-type(2),#list li:nth-of-type(6){
+        background-color: green;
+    }
+    #list li:nth-of-type(3),#list li:nth-of-type(7){
+        background-color: blue;
+    }
+    #list li:nth-of-type(4),#list li:nth-of-type(8){
+        background-color: #000;
+    }
+    </style>
+</head>
+<body>
+    <div id="all-wrap">
+        <div id="wrap">
+            <ul id="list">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </div>
+        <span id="left">L</span>
+        <span id="right">R</span>
+    </div>
+    <script>
+    var oWrap = document.querySelector("#wrap");
+    var oList = document.querySelector("#list");
+    var aLi = oList.getElementsByTagName("li");
+    var oLeft = document.querySelector("#left");
+    var oRight = document.querySelector("#right");
+
+    oList.innerHTML += oList.innerHTML;
+    oList.style.width = aLi[0].offsetWidth * aLi.length + "px";
+
+    var speed = 3;
+    function move(speed){
+        if(oList.offsetLeft > 0){
+            oList.style.left = - oList.offsetWidth / 2 + "px";
+        }
+        else if(oList.offsetLeft < - oList.offsetWidth / 2){
+            oList.style.left = 0;
+        }
+        oList.style.left = oList.offsetLeft + speed + "px";
+    }
+    setInterval(function(){
+        move(speed);
+    },30);
+
+    oLeft.onclick = function(){
+        speed = speed > 0 ? speed *= -1 : speed;
+        console.log(speed);
+    };
+    oRight.onclick = function(){
+        speed = speed < 0 ? speed *= -1 : speed;
+        console.log(speed);
+    };
+    </script>
+</body>
+</html>

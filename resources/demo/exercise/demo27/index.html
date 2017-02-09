@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #opera{
+        margin: 50px auto 0;
+        width: 600px;
+        text-align: center;
+    }
+    table{
+        margin: 20px auto 0;
+    }
+    </style>
+</head>
+<body>
+    <div id="opera">
+        姓名：<input type="text" id="input-name">
+        年领：<input type="text" id="input-age">
+        <input type="button" value="添加" id="add-btn">
+    </div>
+    <table id="tab1" border="1" width="500">
+        <thead>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>blue</td>
+                <td>22</td>
+                <td><a href="javascript:;" id="remove-btn" target="_blank" rel="external">删除</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>red</td>
+                <td>33</td>
+                <td><a href="javascript:;" id="remove-btn" target="_blank" rel="external">删除</a></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>black</td>
+                <td>37</td>
+                <td><a href="javascript:;" id="remove-btn" target="_blank" rel="external">删除</a></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>green</td>
+                <td>58</td>
+                <td><a href="javascript:;" id="remove-btn" target="_blank" rel="external">删除</a></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>pink</td>
+                <td>28</td>
+                <td><a href="javascript:;" id="remove-btn" target="_blank" rel="external">删除</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+    var oTable = document.getElementById("tab1");
+    var aTrs = oTable.tBodies[0].rows;
+    
+    changeColor();
+    function changeColor(){
+        aTrs = oTable.tBodies[0].rows;
+        for(var i = 0;i < aTrs.length;i ++){// 隔行变色
+            i % 2 ? aTrs[i].style.backgroundColor = "pink" : aTrs[i].style.backgroundColor = "#fff";
+
+            // var oldColor = "";
+            // aTrs[i].onmouseover = function(){
+            //     oldColor = this.style.backgroundColor;
+            //     this.style.backgroundColor = "green";
+            // };
+            // aTrs[i].onmouseout = function(){
+            //     this.style.backgroundColor = oldColor;
+            // };
+        }
+    }
+    var oldColor = "";
+    oTable.tBodies[0].onmouseover = function(ev){
+        var oEvent = ev || event;
+        var oTarget = oEvent.target || oEvent.srcElement;
+        if(oTarget.tagName.toLowerCase() == "td"){// 注意还有一种滑动到删除按钮上的情况
+            oldColor = oTarget.parentNode.style.backgroundColor;
+            oTarget.parentNode.style.backgroundColor = "green";
+        }
+    };
+    oTable.tBodies[0].onmouseout = function(ev){
+        var oEvent = ev || event;
+        var oTarget = oEvent.target || oEvent.srcElement;
+        if(oTarget.tagName.toLowerCase() == "td"){
+            oTarget.parentNode.style.backgroundColor = oldColor;
+        }
+    };
+
+    var oAdd = document.getElementById("add-btn");
+    var oName = document.getElementById("input-name");
+    var oAge = document.getElementById("input-age");
+    var sName = "";
+    var sAge = "";
+    var iLen = aTrs.length;
+    oAdd.onclick = function(){// 添加
+        sName = oName.value;
+        sAge = oAge.value;
+
+        var oTr = document.createElement("tr");
+        var oTd = document.createElement("td");
+        oTd.innerHTML = ++ iLen;
+        oTr.appendChild(oTd);
+
+        var oTd = document.createElement("td");
+        oTd.innerHTML = sName;
+        oTr.appendChild(oTd);
+
+        var oTd = document.createElement("td");
+        oTd.innerHTML = sAge;
+        oTr.appendChild(oTd);
+
+        var oTd = document.createElement("td");
+        oTd.innerHTML = '<a href="javascript:;" id="remove-btn">删除</a>';
+        oTr.appendChild(oTd);
+
+        oTable.tBodies[0].appendChild(oTr);
+
+        changeColor();
+    };
+    oTable.onclick = function(ev){// 删除
+        var oEvent = ev || event;
+        var oTarget = oEvent.target || oEvent.srcElement;
+        if(oTarget.tagName.toLowerCase() == "a" && oTarget.id == "remove-btn"){
+            oTable.tBodies[0].removeChild(oTarget.parentNode.parentNode);
+        }
+        changeColor();
+    };
+    </script>
+</body>
+</html>
