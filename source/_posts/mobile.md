@@ -4,7 +4,7 @@ date: 2017-01-20 01:06:43
 tags: 移动端
 categories: HTML/CSS
 ---
-### 关于重置/坑/技巧
+### 新手上路
 #### UC下字体渲染问题
 此Bug出现极其诡异，那段时间真是怕了UC，因为指不定什么时候就会放大页面，有可能是加一个字，有可能是浮动了一个元素，也有可能是增加一个div...解决如下：
 ``` html
@@ -39,27 +39,6 @@ html{
     -webkit-text-size-adjust: 100%;
 }
 ```
-#### 去除点击高亮
-``` css
-a,input,button{
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-```
-#### 去除iOS默认样式
-``` css
-input,button{
-    outline-style: none;
-    -webkit-appearance: none;
-    border-radius: 0;
-}
-```
-#### 禁止选中文本
-``` css
-html,body{
-    -webkit-user-select: none;
-    user-select: none;
-}
-```
 #### 怪异盒模型
 ``` css
 /* 适用于使用怪异盒模型较多的情况，较少时还是单独设置最好，下面这样使用的好处是能实现继承 */
@@ -77,12 +56,6 @@ html{
     transform: translateZ(0);
     /* 或... */
     transform: translate3d(0,0,0);
-}
-```
-#### 禁止长按弹出菜单
-``` css
-a,img{
-    -webkit-touch-callout: none;
 }
 ```
 #### body overflow:hidden失效
