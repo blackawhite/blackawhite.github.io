@@ -158,4 +158,209 @@ require('http').createServer(function(req,res){
     }
 }).listen(3000)
 ```
-## 待续...
+## req.url
+``` javascript
+const http = require('http');
+
+var server = http.createServer(function(req,res){
+    switch(req.url){
+        case '/1.html':
+            res.write('1.html');
+        break;
+        case '/2.html':
+            res.write('2.html');
+        break;
+        default:
+            res.write('404');
+        break;
+    }
+    res.end();
+});
+
+server.listen(8088);
+```
+## fs.readFile
+``` javascript
+var fs = require('fs');
+
+fs.readFile('hello.txt',function(arr,data){
+    if(arr){
+        console.log("读取失败");
+    }
+    else{
+        console.log(data.toString());// 二进制转字符串
+    }
+});
+```
+## fs.writeFile
+``` javascript
+var fs = require('fs');
+
+fs.writeFile('aaa.txt','20170216',function(err){// 这里不加./也没事
+    if(err){
+        console.log('写入失败');
+    }
+});
+```
+## fs.readFile & fs.write
+``` javascript
+const http = require('http');
+const fs = require('fs');
+
+var server = http.createServer(function(req,res){
+    var _url = './www' + req.url;
+    console.log(_url);//    >>    ./www/index.html
+    fs.readFile(_url,function(err,data){// 这里必须要用./
+        if(err){
+            res.write('404');
+        } 
+        else{
+            res.write(data);
+        }
+        res.end();
+    });
+    
+});
+
+server.listen(8088);
+```
+## split
+``` javascript
+const http = require('http');
+
+var server = http.createServer(function(req,res){
+    var _json = {};
+
+    if(req.url.indexOf("?") != -1){
+        var arr1 = req.url.split("?");
+
+        var url = arr1[0];// 接口
+        var arr1Right = arr1[1];
+
+        var arr2 = arr1Right.split("&");
+        for(var i = 0;i < arr2.length;i ++){
+            var arr3 = arr2[i].split("=");
+
+            _json[arr3[0]] = arr3[1];
+        }
+    }
+    else{
+        url = req.url;
+    }
+    console.log(url,_json);
+    res.write('aaa');
+    res.end();
+});
+
+server.listen(8088);
+```
+## querystring.parse
+``` javascript
+var querystring = require('querystring');
+
+var str = "name=yangk&age=25&sex=man";
+
+var json = querystring.parse(str);
+
+for(var attr in json){
+    console.log(attr + ":" + json[attr]);
+}
+```
+## url.parse(req.url,true)
+``` javascript
+const http = require('http');
+const urlLib = require('url');
+
+var server = http.createServer(function(req,res){
+    var obj = urlLib.parse(req.url,true);
+
+    var url = obj.pathname;// 接口
+    var get = obj.query;
+
+    console.log(url,get);
+
+    res.write("aaa");
+    res.end();
+});
+
+server.listen(8088);
+```
+## req.on('data')
+``` javascript
+// POST数据接收
+
+var http = require('http');
+
+var querystring = require('querystring');// 主要用来解析POST数据
+
+http.createServer(function(req,res){
+    // POST > req
+    var str = '';
+    var i = 0;
+    req.on('data',function(data){// 有一段数据到达的时候就发生一次
+        console.log(`第${i++}次收到数据`);// ES6语法
+        str += data;
+    });
+    req.on('end',function(){// 数据全部到达的时候发生一次
+        // console.log(str);
+        var POST = querystring.parse(str);// readFile的数据可以toString
+        console.log(POST);
+    });
+}).listen(8088);
+```
+## req,res,readFile
+``` javascript
+const http = require('http');
+const urlLib = require('url');// 解析req
+const querystring = require('querystring');// 解析res
+const fs = require('fs');
+
+var server = http.createServer(function(req,res){
+    var obj = urlLib.parse(req.url,true);
+    var url = obj.pathname;
+    const GET = obj.query;// GET
+    console.log('GET:',GET);
+
+    var str = '';
+    req.on('data',function(data){
+        str += data;
+    });
+    req.on('end',function(){
+        const POST = querystring.parse(str);
+        console.log('POST:',POST);// POST
+    });
+
+    // 文件请求
+    var urlStr = './www' + url;
+    fs.readFile(urlStr,function(err,data){
+        if(err){
+            res.write('404')
+        }
+        else{
+            res.write(data);
+        }
+        res.end();// 由于readFile是异步的，此end要写在里面
+    });
+});
+server.listen(8088);
+```
+html
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="http://localhost:8088/index.html" method="post">
+        用户名：<input type="text" name="user"><br>
+        密码：<input type="password" name="pass"><br>
+        <input type="submit" value="提交">
+    </form>
+</body>
+
+</html>
+```
