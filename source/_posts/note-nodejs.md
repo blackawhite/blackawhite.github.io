@@ -364,3 +364,225 @@ html
 
 </html>
 ```
+## 用户登录注册
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    用户名：<input type="text" id="user"><br>
+    密码：<input type="password" id="pass"><br>
+    <input type="button" value="注册" id="reg">
+    <input type="button" value="登录" id="login">
+    <script src="ajax.js"></script>
+    <script>
+    var oUser = document.querySelector("#user");
+    var oPass = document.querySelector("#pass");
+    var oReg = document.querySelector("#reg");
+    var oLogin = document.querySelector("#login");
+
+    oReg.onclick = function(){
+        ajax({
+            url: '/user',
+            type: 'get',
+            data: {
+                act: 'reg',
+                user: oUser.value,
+                pass: oPass.value
+            },
+            success: function(str){
+                var _json=eval('('+str+')');
+                alert(_json.msg);
+            },
+            error: function(){
+                alert("通信失败！");
+            }
+        });
+    };
+
+    oLogin.onclick = function(){
+        ajax({
+            url: '/user',
+            type: 'get',
+            data: {
+                act: 'login',
+                user: oUser.value,
+                pass: oPass.value
+            },
+            success: function(str){
+                var _json=eval('('+str+')');
+                alert(_json.msg);
+            },
+            error: function(){
+                alert("通信失败！");
+            }
+        });
+    };
+
+    </script>
+</body>
+</html>
+```
+``` javascript
+const http = require('http');
+const fs = require('fs');
+const urlLib = require('url');
+const querystring = require('querystring');
+
+var users = {};// 位置
+
+var server = http.createServer(function(req,res){
+    var str = '';
+    req.on('data',function(data){
+        str += data;
+    });
+    req.on('end',function(){
+        var obj = urlLib.parse(req.url,true);
+        var url = obj.pathname;
+        var GET = obj.query;// GET
+        var POST = querystring.parse(str);// POST
+        if(url == "/user"){// 接口
+
+            switch(GET.act){
+                case 'reg':
+                    if(users[GET.user]){
+                        res.write('{ok:true,msg:"用户名已存在！"}');// res.write返回客户端
+                    }
+                    else{
+                        users[GET.user] = GET.pass;
+                        res.write('{ok:true,msg:"注册成功！"}');
+                    }
+                break;
+                case 'login':
+                    if(users[GET.user]==null){
+                        res.write('{ok:false,msg:"此用户不存在"}');
+                    }
+                    else if(users[GET.user] != GET.pass){
+                        res.write('{ok:false,msg:"密码错误！"}');
+                    }
+                    else{
+                        res.write('{ok:true,msg:"登录成功！"}');
+                    }
+                break;
+                default:
+                    res.write('{ok:false,msg:"无此接口！"}');
+            }
+            res.end();
+        }
+        else{// 文件
+            var fileName = './www' + url;
+            fs.readFile(fileName,function(err,data){
+                if(err){
+                    res.write('读取文件失败');
+                }
+                else{
+                    res.write(data);
+                }
+                res.end();
+            });
+        }
+
+    });
+});
+
+server.listen(8088);
+```
+## express
+express保留了原生的功能，增强了一些新的功能
+``` javascript
+const express = require('express');
+
+var server = express();
+
+server.use('/a.html',function(req,res){
+    res.send({a: 12,b: 5});// 支持json
+    res.end();
+});
+
+server.use('/b.html',function(req,res){
+    res.send('123');// res.write
+    res.end();
+});
+
+server.listen(8088);
+
+// server.get()
+// server.post()
+// server.use()
+```
+## express-static
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    用户名：<input type="text" id="user"><br>
+    密码：<input type="password" id="pass"><br>
+    <input type="button" value="登录" id="login">
+    <script src="ajax.js"></script>
+    <script>
+    var oUser = document.querySelector("#user");
+    var oPass = document.querySelector("#pass");
+    var oLogin = document.querySelector("#login");
+
+    oLogin.onclick = function(){
+        ajax({
+            url: '/login',
+            type: 'get',
+            data: {
+                user: oUser.value,
+                pass: oPass.value
+            },
+            success: function(str){
+                var _json=eval('('+str+')');
+                alert(_json.msg);
+            },
+            error: function(){
+                alert("通信失败！");
+            }
+        });
+    };
+
+    </script>
+</body>
+</html>
+```
+``` javascript
+const express = require('express');
+const expressStatic = require('express-static');// 中间件
+
+var server = express();
+server.listen(8088);
+
+// /login?user=xxx&padd=xxx
+// =>{ok:true/false,msg:'原因'}
+
+var users = {
+    'yangk': 123,
+    'sherry': 321
+};
+
+server.get('/login',function(req,res){
+    var user = req.query['user'];// {user: 'yangk',pass: '123'}
+    var pass = req.query['pass'];
+    if(users[user] == null){
+        res.send({ok: false,msg:'此用户不存在'});
+    }
+    else if(users[user] != pass){
+        res.send({ok: false,msg:'密码不正确'});   
+    }
+    else{
+        res.send({ok: true,msg:'登录成功'});
+    }
+});
+
+server.use(expressStatic('./www'));// 读取对应目录下的文件
+
+// 测试接口：http://localhost:8088/login?user=yangk&pass=123
+```
