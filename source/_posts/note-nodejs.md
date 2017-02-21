@@ -1131,6 +1131,111 @@ include
 </body>
 </html>
 ```
+## 上传文件
+``` javascript
+const express = require('express');
+const bodyParser = require('body-parser');// 上传文件时只能处理enctype="application/x-www-form-urlencoded"，表单默认
+const multer = require('multer');
+const pathLib = require('path');
+const fs = require('fs');
 
+// base 文件名+扩展名
+// ext 扩展名
+// dir 路径
+// name 文件名
+
+var objMulter = multer({
+    dest: './www/upload/'// 存
+});
+
+var server = express();
+
+// server.use(objMulter.single('f1'));// 指定
+server.use(objMulter.any());// any
+
+server.use(bodyParser.urlencoded({
+    extended: false
+}));
+
+server.post('/',function(req,res){
+    // console.log(req.body);
+    // console.log(req.files[0].originalname);
+
+    var newName = req.files[0].path + pathLib.parse(req.files[0].originalname).ext;
+    fs.rename(req.files[0].path,newName,function(err){
+        if(err){
+            res.end("上传失败");
+        }
+        else{
+            res.end("上传成功");
+        }
+    });
+});
+
+server.listen(8088);
+
+// 'www/upload/d3e3ae68670bfe6197a51352e65ef87b'
+// 'www/upload/d3e3ae68670bfe6197a51352e65ef87b.png'
+```
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://localhost:8088/" method="post" enctype="multipart/form-data">
+        <input type="file" name="f1"><br>
+        <input type="submit" value="上传">
+    </form>
+</body>
+</html>
+```
+## 一套流程
+``` javascript
+const express = require('express');
+const static = require('express-static');
+const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
+const ejs = require('ejs');
+const jade = require('jade');
+
+var server = express();
+
+server.listen(8088);
+
+// 解析cookie
+
+server.use(cookieParser('fdfdsfkjffd'));
+// 使用session
+
+var arr = [];
+for(var i = 0;i < 10000;i ++){
+    arr.push('keys_' + Math.random());
+}
+server.use(cookieSession({
+    name: 'sess_id',
+    keys: arr,
+    maxAge: 20 * 3600 * 1000// 20分钟
+}));
+// post数据
+
+server.use(bodyParser.urlencoded({
+    extended: false
+}));
+
+// 用户请求
+
+server.use('/',function(req,res,next){
+
+    console.log(req.query,req.body,req.cookies,req.session);
+});
+
+// static数据
+
+server.use(static('./www'));
+```
 
 
