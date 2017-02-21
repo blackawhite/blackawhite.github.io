@@ -743,3 +743,394 @@ module.exports = {
     }
 }
 ```
+## cookie/session
+``` text
+cookie:保存在客户端，不安全；大小有限(4K)
+session:保存在服务器端，相对安全；大小无限
+session是基于cookie来实现的，简单说cookie中会有一个sessionId，服务器利用sessionId找到session文件、读取、写入
+
+cookie
+    读取：cookie-parser
+    发送：
+session
+    cookie-session
+```
+写入cookie
+``` javascript
+const express = require('express');
+
+var server = express();
+
+// 写入/发送cookie
+server.use('/aaa/a.html',function(req,res){
+    res.cookie('user','yangk',{// 写入cookie
+        path: '/aaa',// 指定只有aaa路径下可以访问
+        maxAge: 30 * 24 * 3600 * 1000// 30天后过期
+    });// 放在send之前
+    res.send('ok');
+});
+
+server.listen(8088);
+```
+读取cookie
+``` javascript
+const express = require('express');
+const cookieParser = require('cookie-parser');
+
+var server = express();
+
+server.use(cookieParser());// 解析
+
+server.use('/aaa/a.html',function(req,res){
+    console.log(req.cookies);// 读取cookie
+    res.send('ok');
+});
+
+server.listen(8088);
+
+// cookie: 父级可以访问子级的,例如当在('/aaa/a.html')中设置的cookie，use('/')这样指定时是可以访问
+```
+加密/签名cookie
+``` javascript
+const express = require('express');
+const cookieParser = require('cookie-parser');
+
+var server = express();
+
+server.use(cookieParser('wfdfdkfdsf'));// 传参能解析签过名的cookie
+
+// cookie
+server.use('/aaa/a.html',function(req,res){
+    req.secret = 'wfdfdkfdsf';// 加密,密钥,签名,上面有了这里可以不写会自动加
+
+    res.cookie('user','blue',{// 写入cookie
+        signed: true,// 签名
+        path: '/aaa',// 只有aaa路径下可以访问
+        maxAge: 30 * 24 * 3600 * 1000// 30天后过期
+    });// 放在send之前
+
+    // 加密的/签名过的cookie
+    console.log(req.signedCookies);
+    // 无加密的/没签名的cookie
+    // console.log(req.cookies);
+    res.send('ok');
+});
+
+server.listen(8088);
+
+// decodeURIComponent('加密的值')，还是能看见内容，只能知道是否被篡改
+// cookie-encrypter加密cookie
+```
+删除cookie
+``` javascript
+const express = require('express');
+const cookieParser = require('cookie-parser');
+
+var server = express();
+
+server.use(cookieParser());
+
+server.use('/',function(req,res){
+    res.clearCookie('user');
+
+    res.send('ok');
+});
+
+server.listen(8088);
+```
+session
+``` javascript
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+
+var server = express();
+
+server.use(cookieParser());// 先解析
+server.use(cookieSession({
+    name: 'sess',// 修改session的名字
+    keys: ['aaa','bbb','ccc'],
+    maxAge: 2 * 3600 * 1000// session的有效期2小时
+}));
+
+server.use('/',function(req,res){
+    if(req.session['count'] == null){
+        req.session['count'] = 1;
+    }
+    else{
+        req.session['count'] ++;
+    }
+    console.log(req.session['count']);
+
+    res.send('ok');
+});
+
+server.listen(8088);
+
+// 删除session:delete req.session
+```
+## jade
+最基本渲染
+``` javascript
+const jade = require('jade');
+
+var str = jade.render('html');
+
+console.log(str);
+```
+jade
+``` javascript
+const jade = require('jade');
+
+var str = jade.renderFile('./views/1.jade',{// 同步的,调试阶段要加
+    pretty: true
+});
+
+console.log(str);
+```
+1.jade
+``` jade
+html
+    head
+        style
+        script
+    body
+        div
+        ul
+            li
+        div
+```
+ejs
+``` javascript
+const ejs = require('ejs');
+
+ejs.renderFile('./views/1.ejs',{
+    name: 'yangk'
+},function(err,data){
+    if(err){
+        console.log('编译失败');
+    }
+    else{
+        console.log(data);
+    }
+});
+```
+1.ejs
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <%= name %>
+</body>
+</html>
+```
+写入对应文件
+``` javascript
+const jade = require('jade');
+const fs = require('fs');
+
+var str = jade.renderFile('./views/1.jade',{
+    pretty: true,
+    name: "aaa",
+    a: 6,
+    b: 7,
+    arr: ["a","b","c"],
+    content: "<h2>hello world</h2>"
+});
+
+fs.writeFile('./build/1.html',str,function(err){
+    if(err){
+        console.log('写入失败');
+    }
+    else{
+        console.log('写入成功');
+    }
+});
+
+console.log(str);
+```
+属性
+``` jade
+div#div1
+script(src="a.js")
+link(href="a.css",rel="stylesheet")
+input(type="text",id="input1",value="222")
+```
+内容
+``` jade
+a(href="http://www.baidu.com") 百度
+
+单行内容原样输出
+a
+    |abc
+
+里面下一级所有内容原样输出
+script.
+    window.onload = function(){
+        alert(1);
+    }
+
+下面这种形式也是直接怼进去
+script
+    include a.js
+```
+div里有内容和标签，标签里面又有内容
+``` jade
+div aaa
+    span bbb
+```
+style/class
+``` jade
+ul(class="a b c")
+
+ul(class=['a','b','c'])
+
+div(style="width:100px;height:100px;background:red;")
+
+div(style={width: '200px',height: '200px',background: 'red'})
+```
+普通标签也想用json的形式
+``` jade
+div&attributes({title: 'aaa',id: "div1"})
+```
+变量
+``` jade
+div 我的名字：#{name}
+
+div sum:#{a+b} // 运算
+
+div(style=json) // 直接变量，不需要花括号
+div(class=arr)
+
+div(class=arr class="active") // 自动融入自己的
+```
+代码的标识
+``` jade
+-var a = 12;
+-var b = 5;
+div 结果是：#{a+b}
+```
+=
+``` jade
+span #{a}
+span #{b}
+
+span=a
+span=b
+```
+遍历数组中的内容都对应到每一个标签中
+``` jade
+-for(var i = 0;i < arr.length;i ++)
+    div=arr[i]
+```
+转义
+``` jade
+div=content // 转义content
+div!=content // 不转义
+```
+if
+``` jade
+-var a=12;
+-if(a%2==0)
+    div(style={background:'red'})
+-else
+    div(style={background:'green'})
+
+可以省略后面的横杠
+-var a=12;
+if(a%2==0)
+    div(style={background:'red'})
+else
+    div(style={background:'green'})
+
+```
+switch
+``` jade
+-var a=2;
+case a
+    when 0
+        div aaa
+    when 1
+        div bbb
+    default
+        |啥都不是
+```
+小例子
+``` jade
+doctype
+html
+    head
+        meta(charset="utf-8")
+        title jade测试页面
+        style.
+            div{width:100px;height:100px;background:red;float:left;margin-top:10px;}
+            div.last{clear:left;}
+    body
+        -var a=0;
+        while a<12
+            if a%4==0 && a!=0
+                div.last #{a++}
+            else
+                div #{a++}
+```
+## ejs
+基本
+``` ejs
+<%= name %>
+<%= json.arr[0].user %>
+```
+简单循环
+``` ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <% for(var i = 0;i < json.arr.length;i ++){ %>
+    <div>用户名:<%= json.arr[i].user %>密码:<%= json.arr[i].pass %></div>
+    <% } %>
+</body>
+</html>
+```
+避免转义输出
+``` ejs
+<%
+    var str = "<div></div>";
+%>
+<%- str %>
+```
+include
+``` ejs
+<% include a.txt %>
+
+<% for(var i = 0;i < 5;i ++){ %>
+<% include a.txt %>
+<% } %>
+```
+判断
+``` ejs
+// include后面不认变量，需要写死的，需要外面判断来展示不同的情况
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <% if(type=='admin'){ %>
+        <% include ../style/admin.css %>
+    <%} else{ %>
+        <% include ../style/user.css %>
+    <% } %>
+</body>
+</html>
+```
+
+
+
