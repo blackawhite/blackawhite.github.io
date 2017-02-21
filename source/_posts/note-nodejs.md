@@ -497,8 +497,10 @@ const express = require('express');
 
 var server = express();
 
+server.listen(8088);
+
 server.use('/a.html',function(req,res){
-    res.send({a: 12,b: 5});// 支持json
+    res.send({a: 12,b: 5});// send支持json
     res.end();
 });
 
@@ -507,13 +509,12 @@ server.use('/b.html',function(req,res){
     res.end();
 });
 
-server.listen(8088);
-
+// 监听用户的请求：
 // server.get()
 // server.post()
-// server.use()
+// server.use() => 通吃
 ```
-## express-static
+## express-static(读取静态文件)
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -555,7 +556,7 @@ server.listen(8088);
 ```
 ``` javascript
 const express = require('express');
-const expressStatic = require('express-static');// 中间件
+const expressStatic = require('express-static');// 中间件，用来读取静态文件
 
 var server = express();
 server.listen(8088);
@@ -585,4 +586,160 @@ server.get('/login',function(req,res){
 server.use(expressStatic('./www'));// 读取对应目录下的文件
 
 // 测试接口：http://localhost:8088/login?user=yangk&pass=123
+```
+## body-parser(取POST数据)
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://localhost:8088" method="post">
+        用户：<input type="text" name="user"><br>
+        密码：<input type="text" name="pass"><br>
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>
+```
+``` javascript
+const express = require('express');
+const expressStatic = require('express-static');// 中间件
+const bodyParser = require('body-parser');// 拿到POST数据
+
+var server = express();
+server.listen(8088);
+
+server.use(bodyParser.urlencoded({// 先加工一次，下面才能用req.body
+    extended: false,// 扩展模式,false代表普通模式
+    limit: 2 * 1024 * 1024// 限制数据的大小为2M
+}));
+
+server.use('/',function(req,res){
+    // console.log(req.query);// 拿到GET数据
+    console.log(req.body);// POST,需要body-parse中间件，先解析再用
+});
+````
+## server.use的链式操作
+``` javascript
+const express = require('express');
+const bodyParser = require('body-parser');
+
+var server = express();
+server.listen(8088);
+
+// 链式操作，监听的是同一个请求的地址
+server.use('/',function(req,res,next){
+    console.log('a');
+    next();
+});
+server.use('/',function(req,res){
+    console.log('b');
+});
+```
+## 自定义中间件
+预热
+``` javascript
+const express = require('express');
+const querystring = require('querystring');// 解析POST类型的数据
+const bodyParser = require('body-parser');
+
+var server = express();
+server.listen(8088);
+
+/*server.use(function(req,res,next){// 不写路径是针对所有路径有反应
+    // req.a = 12;
+    var str = '';
+    req.on('data',function(data){// 接收POST型的数据
+        str += data;
+    });
+    req.on('end',function(){
+        req.body = querystring.parse(str);// 解析POST类型的数据
+        next();// 数据接收完了再执行下一步
+    });
+});*/
+
+server.use(bodyParser.urlencoded());
+
+
+server.use('/',function(req,res){// 针对这个路径有反应
+    // console.log(req.a);// 底下可以访问上面的req.a
+    console.log(req.body);
+});
+```
+html
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://localhost:8088" method="post">
+        用户：<input type="text" name="user"><br>
+        密码：<input type="text" name="pass"><br>
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>
+```
+正式代码
+``` javascript
+const express = require('express');
+const bodyParser2 = require('./libs/my-body-parser');// my-body-parser输出什么这里是什么
+
+var server = express();
+server.listen(8088);
+
+// server.use(bodyParser2);
+// server.use(bodyParser2());
+server.use(bodyParser2.aaa());
+
+server.use('/',function(req,res){// 针对这个路径有反应
+    console.log(req.body);
+});
+```
+中间件
+``` javascript
+const querystring = require('querystring');// 解析POST类型的数据
+/*module.exports = function(req,res,next){
+    var str = '';
+    req.on('data',function(data){
+        str += data;
+    });
+    req.on('end',function(){
+        req.body = querystring.parse(str);
+        next();
+    });
+}*/
+
+/*module.exports = function(){
+    return function(req,res,next){
+        var str = '';
+        req.on('data',function(data){
+            str += data;
+        });
+        req.on('end',function(){
+            req.body = querystring.parse(str);
+            next();
+        });
+    }
+}*/
+module.exports = {
+    aaa: function(){
+        return function(req,res,next){
+            var str = '';
+            req.on('data',function(data){
+                str += data;
+            });
+            req.on('end',function(){
+                req.body = querystring.parse(str);// 解析成json
+                next();
+            });
+        }
+    }
+}
 ```
