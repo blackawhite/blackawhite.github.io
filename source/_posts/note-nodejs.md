@@ -638,6 +638,9 @@ server.use('/b.html',function(req,res){
     <input type="button" value="登录" id="login">
     <script src="ajax.js"></script>
     <script>
+    // 提交数据方式：
+    // 1、直接用ajax
+    // 2、form,submit
     var oUser = document.querySelector("#user");
     var oPass = document.querySelector("#pass");
     var oLogin = document.querySelector("#login");
@@ -731,7 +734,7 @@ server.use('/',function(req,res){
     // console.log(req.query);// 拿到GET数据
     console.log(req.body);// POST,需要body-parse中间件，先解析再用
 });
-````
+```
 ## server.use的链式操作
 ``` javascript
 const express = require('express');
@@ -840,20 +843,21 @@ const querystring = require('querystring');// 解析POST类型的数据
 }*/
 module.exports = {
     aaa: function(){
-        return function(req,res,next){
+        return function(req,res,next){// 注意传参的姿势
             var str = '';
             req.on('data',function(data){
                 str += data;
             });
             req.on('end',function(){
                 req.body = querystring.parse(str);// 解析成json
-                next();
+                next();// 注意next的位置
             });
         }
     }
 }
 ```
 ## cookie/session
+### 介绍
 ``` text
 cookie:保存在客户端，不安全；大小有限(4K)
 session:保存在服务器端，相对安全；大小无限
@@ -865,7 +869,7 @@ cookie
 session
     cookie-session
 ```
-写入cookie
+### 写
 ``` javascript
 const express = require('express');
 
@@ -882,7 +886,7 @@ server.use('/aaa/a.html',function(req,res){
 
 server.listen(8088);
 ```
-读取cookie
+### 读
 ``` javascript
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -900,7 +904,7 @@ server.listen(8088);
 
 // cookie: 父级可以访问子级的,例如当在('/aaa/a.html')中设置的cookie，use('/')这样指定时是可以访问
 ```
-加密/签名cookie
+### 加密/签名
 ``` javascript
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -931,7 +935,7 @@ server.listen(8088);
 // decodeURIComponent('加密的值')，还是能看见内容，只能知道是否被篡改
 // cookie-encrypter加密cookie
 ```
-删除cookie
+### 删
 ``` javascript
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -948,7 +952,7 @@ server.use('/',function(req,res){
 
 server.listen(8088);
 ```
-session
+### session
 ``` javascript
 const express = require('express');
 const cookieParser = require('cookie-parser');
