@@ -179,7 +179,8 @@ var server = http.createServer(function(req,res){
 
 server.listen(8088);
 ```
-## fs.readFile
+## 读写文件
+### fs.readFile
 ``` javascript
 var fs = require('fs');
 
@@ -192,7 +193,7 @@ fs.readFile('hello.txt',function(arr,data){
     }
 });
 ```
-## fs.writeFile
+### fs.writeFile
 ``` javascript
 var fs = require('fs');
 
@@ -202,7 +203,7 @@ fs.writeFile('aaa.txt','20170216',function(err){// 这里不加./也没事
     }
 });
 ```
-## fs.readFile & fs.write
+### fs.readFile & fs.write
 ``` javascript
 const http = require('http');
 const fs = require('fs');
@@ -225,7 +226,8 @@ var server = http.createServer(function(req,res){
 
 server.listen(8088);
 ```
-## split拆分接口和GET形式的数据
+## GET数据获取
+### split拆分接口和GET形式的数据
 ``` javascript
 const http = require('http');
 
@@ -256,7 +258,7 @@ var server = http.createServer(function(req,res){
 
 server.listen(8088);
 ```
-## querystring.parse
+### querystring.parse
 ``` javascript
 var querystring = require('querystring');
 
@@ -296,8 +298,8 @@ var server = http.createServer(function(req,res){
 
 server.listen(8088);
 ```
-## url.parse(req.url,true)
-再次简化
+### url.parse(req.url,true)
+再次简化，简直牛逼
 ``` javascript
 const http = require('http');
 const urlLib = require('url');
@@ -306,7 +308,7 @@ var server = http.createServer(function(req,res){
     var obj = urlLib.parse(req.url,true);
 
     var url = obj.pathname;// 接口
-    var get = obj.query;
+    var get = obj.query;// 解析GET数据，也可以querystring.parse("name=yangk&age=25")
 
     console.log(url,get);
 
@@ -316,65 +318,42 @@ var server = http.createServer(function(req,res){
 
 server.listen(8088);
 ```
-## req.on('data')
-``` javascript
-// POST数据接收
-
-var http = require('http');
-
-var querystring = require('querystring');// 主要用来解析POST数据
-
-http.createServer(function(req,res){
-    // POST > req
-    var str = '';
-    var i = 0;
-    req.on('data',function(data){// 有一段数据到达的时候就发生一次
-        console.log(`第${i++}次收到数据`);// ES6语法
-        str += data;
-    });
-    req.on('end',function(){// 数据全部到达的时候发生一次
-        // console.log(str);
-        var POST = querystring.parse(str);// readFile的数据可以toString
-        console.log(POST);
-    });
-}).listen(8088);
+## POST数据获取
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://localhost:8088" method="post">
+        <textarea name="con" id="" cols="30" rows="10"></textarea><br>
+        <button type="submit" value="提交">提交</button>
+    </form>
+</body>
+</html>
 ```
-## req,res,readFile
 ``` javascript
 const http = require('http');
-const urlLib = require('url');// 解析req
-const querystring = require('querystring');// 解析res
-const fs = require('fs');
+const querystring = require('querystring');// 除了用来转换GET类型的数据，还可以用来解析POST数据，不然得到的是数据流
 
 var server = http.createServer(function(req,res){
-    var obj = urlLib.parse(req.url,true);
-    var url = obj.pathname;
-    const GET = obj.query;// GET
-    console.log('GET:',GET);
-
     var str = '';
-    req.on('data',function(data){
-        str += data;
+    var i = 0;
+    req.on('data',function(chunk){// 有一段数据到达的时候就发生一次
+        console.log(`第${i++}次接收数据`);// ES6语法
+        str += chunk;
     });
-    req.on('end',function(){
-        const POST = querystring.parse(str);
-        console.log('POST:',POST);// POST
-    });
-
-    // 文件请求
-    var urlStr = './www' + url;
-    fs.readFile(urlStr,function(err,data){
-        if(err){
-            res.write('404')
-        }
-        else{
-            res.write(data);
-        }
-        res.end();// 由于readFile是异步的，此end要写在里面
+    req.on('end',function(){// 数据全部到达的时候发生一次
+        var POST = querystring.parse(str);// readFile的数据可以toString，而这里需要querystring.parse
+        console.log(POST);
     });
 });
+
 server.listen(8088);
 ```
+## req,res,readFile
 html
 ``` html
 <!DOCTYPE html>
@@ -395,7 +374,46 @@ html
 
 </html>
 ```
+``` javascript
+const http = require('http');
+const fs = require('fs');
+const querystring = require('querystring');// 解析POST数据
+const urlLib = require('url');// 解析GET数据
+
+var server = http.createServer(function(req,res){
+    // GET数据
+    var obj = urlLib.parse(req.url,true);// 注意true
+    var _url = obj.pathname;
+    const GET = obj.query;
+    console.log('GET:',GET);
+
+    // POST数据
+    var str = '';
+    req.on('data',function(chunk){
+        str += chunk;
+    });
+    req.on('end',function(){
+        const POST = querystring.parse(str);
+        console.log('POST:',POST);
+    });
+
+    // 读取文件
+    var _dir = './www' + req.url;
+    fs.readFile(_dir,function(err,data){
+        if(err){
+            res.write("404");
+        }
+        else{
+            res.write(data);
+        }
+        res.end();
+    });
+});
+
+server.listen(8088);
+```
 ## 用户登录注册
+### HTML/JS
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -457,6 +475,67 @@ html
 </body>
 </html>
 ```
+### 只要GET数据
+``` javascript
+const http = require('http');
+const fs = require('fs');
+const querystring = require('querystring');
+const urlLib = require('url');
+
+var users = {};// 数据库，注意位置
+
+http.createServer(function(req,res){
+
+    var obj = urlLib.parse(req.url,true);
+    var _url = obj.pathname;
+    const GET = obj.query;// 得到GET数据
+    // req.url会包括后面的GET数据
+    if(_url == '/user'){// 接口
+        switch (GET.act) {
+            case "login":
+                if(users[GET.user] == null){
+                    res.write('{ok: false,msg: "用户名不存在"}');
+                }
+                else if(users[GET.user] != GET.pass){
+                    res.write('{ok: false,msg: "密码错误"}');
+                }
+                else{
+                    res.write('{ok: true,msg: "登陆成功"}');
+                }
+                break;
+            case "reg":
+                if(!GET.user || !GET.pass){
+                    res.write('{ok: false,msg: "用户名或密码不能为空"}');
+                }
+                else if(users[GET.user]){
+                    res.write('{ok: false,msg: "用户名已存在"}');
+                }
+                else{
+                    users[GET.user] = GET.pass;
+                    res.write('{ok: true,msg: "注册成功"}');
+                    console.log(users);// 观察数据库
+                }
+                break;
+            default:
+                res.write('{ok: false,msg: "接口不存在"}');
+                break;
+        }
+        res.end();
+    }
+    else{// 文件
+        fs.readFile('./'+req.url,function(err,data){// 这里用相对路径
+            if(err){
+                res.write("读取失败");
+            }
+            else{
+                res.write(data);
+            }
+            res.end();
+        });
+    }
+}).listen(8088);
+```
+### 同时拿到POST数据的写法
 ``` javascript
 const http = require('http');
 const fs = require('fs');
