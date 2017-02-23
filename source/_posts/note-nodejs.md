@@ -166,14 +166,14 @@ var server = http.createServer(function(req,res){
     switch(req.url){
         case '/1.html':
             res.write('1.html');
-        break;
+            break;
         case '/2.html':
             res.write('2.html');
-        break;
+            break;
         default:
             res.write('404');
-        break;
     }
+    // 注意这里的end要和上面的write配套使用，不然会一直响应
     res.end();
 });
 
@@ -215,40 +215,42 @@ var server = http.createServer(function(req,res){
             res.write('404');
         } 
         else{
+            // 配合服务器实际上就是先读取对应路径内容然后再返回出去
             res.write(data);
         }
+        // 注意end要放在readFile里面，因为readFile是异步的
         res.end();
     });
-    
 });
 
 server.listen(8088);
 ```
-## split
+## split拆分接口和GET形式的数据
 ``` javascript
 const http = require('http');
 
 var server = http.createServer(function(req,res){
     var _json = {};
-
     if(req.url.indexOf("?") != -1){
-        var arr1 = req.url.split("?");
+        var arr1 = req.url.split("?");// one
 
-        var url = arr1[0];// 接口
+        var arr1Left = arr1[0];
         var arr1Right = arr1[1];
 
-        var arr2 = arr1Right.split("&");
-        for(var i = 0;i < arr2.length;i ++){
-            var arr3 = arr2[i].split("=");
+        var arr2 = arr1Right.split("&");// two
 
+        for(var i = 0;i < arr2.length;i ++){
+            var arr3 = arr2[i].split("=");// three
             _json[arr3[0]] = arr3[1];
         }
     }
     else{
-        url = req.url;
+        arr1Left = req.url;
     }
-    console.log(url,_json);
-    res.write('aaa');
+
+    console.log(arr1Left,_json);
+
+    res.write("唯熟能而");
     res.end();
 });
 
@@ -266,7 +268,36 @@ for(var attr in json){
     console.log(attr + ":" + json[attr]);
 }
 ```
+化简上面的two，three
+``` javascript
+const http = require('http');
+const querystring = require('querystring');
+
+var server = http.createServer(function(req,res){
+    var _json = {};
+    if(req.url.indexOf("?") != -1){
+        var arr1 = req.url.split("?");// one
+
+        var arr1Left = arr1[0];
+        var arr1Right = arr1[1];
+
+        // "name=yangk&age=25&sex=man"
+        _json = querystring.parse(arr1Right);
+    }
+    else{
+        arr1Left = req.url;
+    }
+
+    console.log(arr1Left,_json);
+
+    res.write("唯熟能而");
+    res.end();
+});
+
+server.listen(8088);
+```
 ## url.parse(req.url,true)
+再次简化
 ``` javascript
 const http = require('http');
 const urlLib = require('url');
