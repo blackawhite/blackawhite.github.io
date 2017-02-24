@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+    }
+    #wrap{
+        margin: 50px auto 0;
+        width: 500px;
+        height: 200px;
+        background-color: #ccc;
+        position: relative;
+        overflow: hidden;
+    }
+    #img-list{
+        position: absolute;
+    }
+    #img-list li{
+        width: 500px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        color: #fff;
+        font-size: 70px;
+        float: left;
+    }
+    .arrow{
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 50px;
+        margin-top: -25px;
+        background-color: red;
+        background-color: green;
+        cursor: pointer;
+    }
+    #right{
+        right: 0;
+    }
+    #left{
+        left: 0;
+    }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <ul id="img-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+        </ul>
+        <span id="left" class="arrow"></span>
+        <span id="right" class="arrow"></span>
+    </div>
+    <script>
+    /*运动的小框架(方法)*/
+    /*位置。opacity*/
+    function startMove(obj, json, fn) {
+        clearInterval(obj.iTimer);
+        var iCur = 0;
+        var iSpeed = 0;
+        obj.iTimer = setInterval(function() {
+            var iBtn = true;
+            for (var attr in json) {
+                var iTarget = json[attr];
+                if (attr == 'opacity') {
+                    iCur = Math.round(css(obj, 'opacity') * 100);
+                } else {
+                    iCur = parseInt(css(obj, attr));
+                }
+                iSpeed = (iTarget - iCur) / 8;
+                iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+                if (iCur != iTarget) {
+                    iBtn = false;
+                    if (attr == 'opacity') {
+                        obj.style.opacity = (iCur + iSpeed) / 100;
+                        obj.style.filter = 'alpha(opacity=' + (iCur + iSpeed) + ')';
+                    } else {
+                        obj.style[attr] = iCur + iSpeed + 'px';
+                    }
+                }
+            }
+            if (iBtn) {
+                clearInterval(obj.iTimer);
+                fn && fn.call(obj);
+            }
+        }, 30);
+    }
+    /*获取样式的方法*/
+    /*css(oDiv,"height")*/
+    function css(obj, attr) {
+        if (obj.currentStyle) {
+            //IE 678
+            return obj.currentStyle[attr];
+        } else {
+            /*标准，chrome*/
+            return getComputedStyle(obj, false)[attr];
+        }
+    }
+
+
+
+    var oUl = document.getElementById("img-list");
+    var oRight = document.getElementById("right");
+    var oLeft = document.getElementById("left");
+    
+    oUl.innerHTML += oUl.innerHTML;// 接
+    var aLi= oUl.getElementsByTagName("li");
+    var iW = aLi[0].offsetWidth;// 500
+
+    oUl.style.width = iW * aLi.length + "px";// 加宽
+
+    var iNum = 0;
+    oRight.addEventListener("click",function(){
+        iNum ++;
+        if(iNum === aLi.length){
+            oUl.style.left = - (aLi.length / 2 - 1) * iW + "px";
+            iNum = aLi.length / 2;
+        }
+        startMove(oUl,{
+            left: - iNum * iW
+        });
+
+    },false);
+    
+    oLeft.addEventListener("click",function(){+
+        iNum --;
+        if(iNum === -1){
+            oUl.style.left = - (aLi.length / 2) * iW + "px";
+            iNum = aLi.length / 2 - 1;
+        }
+        startMove(oUl,{
+            left: - iNum * iW
+        });
+    },false);
+    </script>
+</body>
+</html>
