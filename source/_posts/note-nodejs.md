@@ -983,7 +983,8 @@ server.listen(8088);
 
 // 删除session:delete req.session
 ```
-## jade
+## jade/ejs
+### jade
 最基本渲染
 ``` javascript
 const jade = require('jade');
@@ -1191,7 +1192,7 @@ html
             else
                 div #{a++}
 ```
-## ejs
+### ejs
 基本
 ``` ejs
 <%= name %>
@@ -1245,7 +1246,7 @@ include
 </body>
 </html>
 ```
-## 上传文件
+## multer
 ``` javascript
 const express = require('express');
 const bodyParser = require('body-parser');// 上传文件时只能处理enctype="application/x-www-form-urlencoded"，表单默认
@@ -1306,51 +1307,100 @@ server.listen(8088);
 </body>
 </html>
 ```
-## 一套流程
+## consolidate
 ``` javascript
-const express = require('express');
-const static = require('express-static');
-const cookieParser = require('cookie-parser');
-const cookieSession = require('cookie-session');
-const bodyParser = require('body-parser');
-const multer = rquire('multer');
-const ejs = require('ejs');
-const jade = require('jade');
+const express=require('express');
+const static=require('express-static');
+const cookieParser=require('cookie-parser');
+const cookieSession=require('cookie-session');
+const bodyParser=require('body-parser');
+const multer=require('multer');
+const consolidate=require('consolidate');
 
-var server = express();
+var server=express();
 
 server.listen(8088);
 
-// 1.解析cookie
-server.use(cookieParser('fdfdsfkjffd'));
+//1.解析cookie
+server.use(cookieParser('sdfasl43kjoifguokn4lkhoifo4k3'));
 
-// 2.使用session
-var arr = [];
-for(var i = 0;i < 10000;i ++){
-    arr.push('keys_' + Math.random());
+//2.使用session
+var arr=[];
+for(var i=0;i<100000;i++){
+  arr.push('keys_'+Math.random());
 }
-server.use(cookieSession({
-    name: 'sess_id',
-    keys: arr,
-    maxAge: 20 * 3600 * 1000// 20分钟
-}));
+server.use(cookieSession({name: 'zns_sess_id', keys: arr, maxAge: 20*3600*1000}));
 
-// 3.post数据
-server.use(bodyParser.urlencoded({
-    extended: false
-}));
-server.use(multer({
-    dest: './www/upload/'
-}).any());
+//3.post数据
+server.use(bodyParser.urlencoded({extended: false}));
+server.use(multer({dest: './www/upload'}).any());
 
-// 用户请求
+//4.配置模板引擎
+//输出什么东西
+server.set('view engine', 'html');
+//模板文件放在哪儿
+server.set('views', './views');
+//哪种模板引擎
+server.engine('html', consolidate.ejs);
 
-server.use('/',function(req,res,next){
-    console.log(req.query,req.body,req.files,req.cookies,req.session);
+//接收用户请求
+server.get('/index', function (req, res){
+  res.render('1.ejs', {name: '突然的自我'});
 });
 
-// 4.static数据
+//4.static数据
 server.use(static('./www'));
+
+// http://localhost:8088/index
 ```
+## express.Router
+``` javascript
+const express=require('express');
 
+var server=express();
 
+//目录1：/user/
+var routeUser=express.Router();
+
+routeUser.get('/1.html', function (req, res){   //http://xxx.com/user/1.html
+  res.send('user1');
+});
+routeUser.get('/2.html', function (req, res){   //http://xxx.com/user/2.html
+  res.send('user22222');
+});
+
+server.use('/user', routeUser);
+
+//目录2：/article/
+var articleRouter=express.Router();
+server.use('/article', articleRouter);
+
+articleRouter.get('/aaa.html', function (req, res){   //http://xxxx.com/article/10001.html
+  res.send('aaa');
+});
+
+server.listen(8088);
+```
+## mysql
+``` javascript
+const mysql=require('mysql');
+
+//1.连接
+//createConnection(哪台服务器, 用户名, 密码, 库)
+var db=mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '123456',
+    database: '20161222'
+});
+
+//2.查询
+//query(干啥, 回调)
+db.query("SELECT * FROM `user_table`;", (err, data)=>{
+  if(err)
+    console.log('出错了', err);
+  else
+    console.log('成功了');
+    console.log(JSON.stringify(data));
+});
+```
