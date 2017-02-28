@@ -2680,3 +2680,75 @@ for(var key in obj){
 ``` javascript
 false、null、undefined、0、""、NaN
 ```
+#### toString
+``` javascript
+// 最后一次返回temp的时候并没有调用，所以#1不会执行，toString是把对象转换为字符串
+var add = function(m) {
+    var temp = function(n) {// #1
+        return add(m + n);
+    }
+    temp.toString = function() {
+        return m.toString(2)
+    }
+    return temp;
+}
+console.info(add(3)(4)(5));// 1100
+```
+#### 排序
+设计一个列表，包含：地域、人数、百分比、时间并实现按照 人数 与 时间 的排序算法
+``` javascript
+var data = [
+    {
+        city: '深圳',
+        num: 24,
+        percent: 40,
+        time: 2
+    },
+    {
+        city: '北京',
+        num: 7,
+        percent: 40,
+        time: 28
+    },
+    {
+        city: '广州',
+        num: 62,
+        percent: 40,
+        time: 11
+    },
+    {
+        city: '上海',
+        num: 19,
+        percent: 40,
+        time: 9
+    }
+];
+/*
+* 根据指定的字段和规则排序数据
+* data Array 要排序的数据
+* field string 排序依据的字段
+* rule string 排序规则 DESC / ASC
+* throw 
+*       data is invalid : 要排序的数据不存在或类型不正确
+*       field is invalid : 排序参考字段不存在
+* return Array 排序后的数据
+*/
+function mySort(data, field, rule) {
+    if( !(data instanceof Array) ) {
+        throw new TypeError('data is invalid');
+    }
+    if( !(field in data[0]) ) {
+        throw new RangeError('field is invalid');
+    }
+    // ['DESC','ASC'].indexOf( (rule = rule.toString().toUpperCase()) )
+    if( !rule || ['DESC','ASC'].indexOf( rule.toString().toUpperCase() ) == -1 ) {
+        rule = 'DESC';// 降序
+    }
+    data.sort(function(a, b) {
+        var v = a[field] - b[field];// ASC
+        return rule == 'ASC' ? v : -v;
+    })
+}
+mySort(data, 'time','ASC');
+console.dir( data );
+```
