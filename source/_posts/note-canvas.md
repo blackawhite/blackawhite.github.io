@@ -189,3 +189,45 @@ setInterval(function() {
 </body>
 </html>
 ```
+### arc
+``` javascript
+var oC = document.getElementById('c1');
+var oGC = oC.getContext('2d');
+
+oGC.moveTo(200,200);
+
+// 弧度 = 角度*Math.PI/180
+oGC.arc(200,200,150,0,90*Math.PI/180,true);// true逆时针
+
+oGC.stroke();
+```
+<a href="/resources/demo/exercise/demo34/index.html" target="_blank">时钟</a>
+### arcTo
+<a href="http://www.365mini.com/page/html5-canvas-arcto.htm">参考原文</a>
+``` javascript
+var oC = document.getElementById('c1');
+var oGC = oC.getContext('2d');
+
+// 指定绘制路径的起始点
+oGC.moveTo(50, 50);
+// 绘制一条到坐标(150,50)的水平直线，此点就是绘制弧线时的当前端点
+oGC.lineTo(150, 50);
+
+// 端点1
+var p1 = {
+    x : 200,
+    y : 50
+};
+// 端点2
+var p2 = {
+    x : 200,
+    y : 100         
+};
+// 绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
+oGC.arcTo(p1.x, p1.y, p2.x, p2.y, 50);
+
+// 设置线条颜色为蓝色
+oGC.strokeStyle = "blue";
+// 按照上述绘制路径绘制弧线
+oGC.stroke();
+```
