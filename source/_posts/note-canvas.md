@@ -231,3 +231,278 @@ oGC.strokeStyle = "blue";
 // 按照上述绘制路径绘制弧线
 oGC.stroke();
 ```
+### 贝塞尔曲线
+``` javascript
+oGC.moveTo(100,200);// 起始点
+
+oGC.quadraticCurveTo(100,100,200,100);// 控制点，结束点
+
+oGC.stroke();
+```
+``` javascript
+oGC.moveTo(100,200);// 起始点
+
+oGC.bezierCurveTo(100,100,200,200,200,100);// 控制点1，控制点2，结束点
+
+oGC.stroke();
+```
+### 变换
+``` javascript
+oGC.translate(100,100);// 顺序
+
+// 下面两句的旋转会累加
+// oGC.rotate(20*Math.PI/180);
+// oGC.rotate(25*Math.PI/180);
+
+oGC.rotate(45*Math.PI/180);// 默认左上角为旋转点
+
+oGC.scale(0.5,0.5);
+
+oGC.fillRect(0,0,100,100);
+```
+选择缩放的矩形
+``` javascript
+var oC = document.querySelector("#c1");
+var oGC = oC.getContext('2d');
+
+var num = 0;
+var num2 = 0;
+var value = 1;
+oGC.translate(100,100);
+
+setInterval(function(){
+    num ++;
+    oGC.save();
+    oGC.clearRect(0,0,oC.width,oC.height);
+    if(num2 == 100){// 2倍
+        value = -1;
+    }
+    else if(num2 == 0){
+        value = 1;
+    }
+    num2 += value;
+    oGC.scale(num2 * 1 / 50,num2 * 1 / 50);
+
+    oGC.rotate(num * Math.PI / 180);
+
+    oGC.translate(-50,-50);
+
+    oGC.fillRect(0,0,100,100);
+
+    oGC.restore();
+},30);
+```
+### drawImg
+``` javascript
+var oC = document.querySelector("#c1");
+var oGC = oC.getContext('2d');
+
+var yImg = new Image();
+yImg.src = 'test.jpg';
+
+yImg.onload = function(){
+    draw(this);
+};
+function draw(obj){
+    oGC.drawImage(obj,0,0,200,200);// (图片对象，x轴位置，y轴位置，宽，高)
+}
+```
+图片旋转
+<img src="/resources/images/pages/canvas/rotate_img.jpg" alt="">
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    body{
+        background-color: #333;
+    }
+    canvas{
+        background-color: #ccc;
+    }
+    </style>
+</head>
+<body>
+    <input type="button" value="左">
+    <input type="button" value="右">
+    <div>
+        <img src="./test.jpg" alt="" id="img1">
+    </div>
+    <script>
+    var aInput = document.getElementsByTagName("input");
+    var oImg = document.getElementById("img1");
+
+    var yImg = new Image();
+    yImg.src = oImg.src;
+
+    yImg.onload = function(){
+        draw(oImg);
+        // draw(this);
+    };
+    var iNow = 0;
+    function draw(obj){
+        var oC = document.createElement('canvas');
+        var oGC = oC.getContext('2d');
+
+        oC.width = obj.width;
+        oC.height = obj.height;
+
+        obj.parentNode.replaceChild(oC,obj);
+
+        oGC.drawImage(obj,0,0);
+
+        aInput[0].onclick = function(){
+            if(iNow == 0){
+                iNow = 3;
+            }
+            else{
+                iNow --;
+            }
+            toChange();
+        };
+        aInput[1].onclick = function(){
+            if(iNow == 3){
+                iNow = 0;
+            }
+            else{
+                iNow ++;
+            }
+            toChange();
+        };
+        function toChange(){
+            switch(iNow){
+                case 1:
+                    oC.width = obj.height;
+                    oC.height = obj.width;
+                    oGC.rotate(90 * Math.PI / 180);
+                    // 旋转后跑出去了
+                    oGC.drawImage(obj,0,-obj.height);// 移动y轴(原始)方向距离
+                    break;
+                case 2:
+                    oC.width = obj.width;
+                    oC.height = obj.height;
+                    // 旋转后依然抛出去了，以左上点为基准的
+                    oGC.rotate(180 * Math.PI / 180);
+                    oGC.drawImage(obj,-obj.width,-obj.height);
+                    break;
+                case 3:
+                    oC.width = obj.height;
+                    oC.height = obj.width;
+                    oGC.rotate(270 * Math.PI / 180);
+                    // 旋转后跑出去了
+                    oGC.drawImage(obj,-obj.width,0);// 移动x轴方向距离
+                    break;
+                case 0:
+                    oC.width = obj.width;
+                    oC.height = obj.height;
+                    oGC.rotate(0);
+                    oGC.drawImage(obj,0,0);
+                    break;
+            }
+        }
+    }
+    </script>
+</body>
+</html>
+```
+### createPattern
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    body{
+        background-color: #333;
+    }
+    canvas{
+        background-color: #ccc;
+    }
+    </style>
+</head>
+<body>
+    <canvas id="c1" width="400" height="400"></canvas>
+    <script>
+    var oC = document.getElementById("c1");
+    var oGC = oC.getContext('2d');
+
+    var yImg = new Image();
+
+    yImg.src = 'test.jpg';
+    yImg.onload = function(){
+        draw(this);
+    };
+
+    function draw(obj){
+        var bg = oGC.createPattern(obj,'repeat');
+
+        // oGC.fillStyle = "red";
+        oGC.fillStyle = bg;
+        oGC.fillRect(0,0,300,300);
+    }
+    </script>
+</body>
+</html>
+```
+### 渐变
+createLinearGradient
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+var obj = oGC.createLinearGradient(100,100,100,200);// 起点，终点
+
+obj.addColorStop(0,'red');// 起点色
+obj.addColorStop(0.5,'yellow');// 中间色
+obj.addColorStop(1,'blue');// 终点色
+
+oGC.fillStyle = obj;
+oGC.fillRect(100,100,100,100);// x,y,w,h
+```
+createRadialGradient
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+var obj = oGC.createRadialGradient(200,200,100,200,200,150);// 第一个圆的坐标和半径，第二个圆的...
+
+obj.addColorStop(0,'red');// 起点色
+obj.addColorStop(0.5,'yellow');// 中间色
+obj.addColorStop(1,'blue');// 终点色
+
+oGC.fillStyle = obj;
+oGC.fillRect(0,0,oC.width,oC.height);
+```
+### 文本
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+oGC.font = '60px impact';
+
+oGC.textBaseline = 'top';// middle,bottom
+oGC.fillText('分期乐',0,0);
+
+oGC.strokeText('分期乐',0,200);// 空心字
+```
+居中文字（chrome中不行呢，canvas居中文字？）
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+oGC.font = '60px impact';
+
+oGC.textBaseline = 'top';// middle,bottom
+
+oGC.shadowOffsetX = 5;
+oGC.shadowOffsetY = 5;
+oGC.shadowColor = "yellow";
+oGC.shadowBlue = 5;
+
+var w = oGC.measureText('分期乐').width;
+
+oGC.fillText('分期乐',(oC.width-w)/2,(oC.height-60)/2);
+```

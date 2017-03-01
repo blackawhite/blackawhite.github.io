@@ -40,7 +40,7 @@ function draw(){
     oGC.beginPath();
     for(var i = 0;i < 60;i ++){
         oGC.moveTo(200,200);
-        oGC.arc(x, y, r, i*6*Math.PI/180, (i+1)*Math.PI/180,false);
+        oGC.arc(x, y, r, i*6*Math.PI/180, (i+1)*Math.PI/180,false);// 开始弧度，结束弧度
     }
     oGC.closePath();
     oGC.stroke();
@@ -71,6 +71,7 @@ function draw(){
     oGC.lineWidth = 5;
     oGC.beginPath();
     oGC.moveTo(x, y);
+    // 开始弧度和结束弧度一样就是一条线，直接画线的话需要旋转相应的度数
     oGC.arc(x, y, r*10/20, iHoursValue*Math.PI/180,iHoursValue*Math.PI/180,false);
     oGC.closePath();
     oGC.stroke();
