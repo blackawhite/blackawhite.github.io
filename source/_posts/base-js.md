@@ -2154,6 +2154,34 @@ sortArr(arr,1);
 
 console.log(arr);
 ```
+### 快速排序
+``` javascript
+//  在数据集之中，选择一个元素作为"基准"
+//  所有小于"基准"的元素，都移到"基准"的左边；所有大于"基准"的元素，都移到"基准"的右边
+//  对"基准"左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止
+var arr = [3, 1, 4, 6, 5, 7, 2];
+
+function quickSort(arr) {
+    if(arr.length == 0) {
+        return [];
+    }
+    var cIndex = Math.floor(arr.length / 2);
+    var c = arr.splice(cIndex, 1);// 从索引n开始删除m个元素，并返回删除的元素，原来数组改变
+    var l = [];
+    var r = [];
+    for (var i = 0; i < arr.length; i++) {
+        if(arr[i] < c) {
+            l.push(arr[i]);
+        }
+        else {
+            r.push(arr[i]);
+        }
+    }
+    return quickSort(l).concat(c, quickSort(r));
+}
+
+console.log(quickSort(arr));
+```
 ### 内容排序原理
 ``` javascript
 var oUl = document.querySelector("#ul1");
