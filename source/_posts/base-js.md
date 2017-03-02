@@ -720,6 +720,30 @@ console.log(Fn.aaa);// 1000
 ```
 
 ### 随机数
+#### floor和random
+``` javascript
+var num = Math.round(Math.random() * 100);// 有0有100
+
+var num = Math.floor(Math.random() * 100);// 有0无100
+```
+#### 从0到all - 1中随机出num个
+``` javascript
+function randomArr(all,num){
+    var arr = [];
+    var newArr = [];
+    for(var i = 0;i < all;i ++){
+        arr.push(i);
+    }
+    console.log(arr);
+    for(var i = 0;i < num;i ++){
+        // Math.floor(Math.random() * arr.length)// 0 ~ 99
+        newArr.push( arr.splice( Math.floor(Math.random() * arr.length),1) );
+    }
+    return newArr;
+}
+// 0 ~ 99 100个数中随机出10个
+var arr = randomArr(100,10);
+```
 #### 找n-m间不重复的随机数
 ``` javascript
 // 找10 - 100之间不重复的整数10个整数并排序

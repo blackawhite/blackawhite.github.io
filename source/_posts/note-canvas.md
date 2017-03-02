@@ -488,7 +488,7 @@ oGC.fillText('分期乐',0,0);
 
 oGC.strokeText('分期乐',0,200);// 空心字
 ```
-居中文字（chrome中不行呢，canvas居中文字？）
+居中文字
 ``` javascript
 var oC = document.getElementById("c1");
 var oGC = oC.getContext('2d');
@@ -505,4 +505,127 @@ oGC.shadowBlue = 5;
 var w = oGC.measureText('分期乐').width;
 
 oGC.fillText('分期乐',(oC.width-w)/2,(oC.height-60)/2);
+```
+居中文字的正确姿势
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+oGC.font = '60px Helvetica';
+
+oGC.textBaseline = 'middle'; //设置文本的垂直对齐方式
+oGC.textAlign = 'center'; //设置文本的水平对对齐方式
+
+oGC.fillText('分期乐',oC.width/2,oC.height/2);
+```
+### getImageData
+``` javascript
+var oC = document.getElementById('c1');
+var oGC = oC.getContext('2d');
+
+oGC.fillRect(0,0,100,100);
+
+var oImg = oGC.getImageData(0,0,100,100);//复制位置，复制宽高
+
+// alert( oImg.width );  // 一行的像素个数
+// alert( oImg.height );  // 一列的像素个数
+
+console.log(oImg.data.length);// 整体像素的数组集合
+
+// oImg.data[0] // 每一个像素的R，0 - 255 黑色到白色
+// oImg.data[1] // 每一个像素的G，0 - 255 黑色到白色 
+// oImg.data[2] // 每一个像素的B，0 - 255 黑色到白色 
+// oImg.data[3] // 每一个像素的A，0 - 255 透明到不透明
+for(var i = 0;i < oImg.width * oImg.height;i ++){
+    oImg.data[4 * i] = 255;
+    oImg.data[4 * i + 1] = 0;
+    oImg.data[4 * i + 2] = 0;
+    oImg.data[4 * i + 3] = 100;
+}
+
+oGC.putImageData(oImg,100,100);
+```
+### createImageData
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+var oImg = oGC.createImageData(100,100);
+
+for(var i = 0;i < oImg.width * oImg.height;i ++){
+    oImg.data[4 * i] = 255;
+    oImg.data[4 * i + 1] = 0;
+    oImg.data[4 * i + 2] = 0;
+    oImg.data[4 * i + 3] = 255;
+}
+oGC.putImageData(oImg,100,100);
+```
+### 像素字（有问题）
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    body{
+        background-color: #333;
+    }
+    canvas{
+        background-color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <canvas id="c1" width="400" height="400"></canvas>
+
+    <script>
+
+    var oC = document.getElementById("c1");
+    var oGC = oC.getContext('2d');
+
+    // var h = 60;
+    // var w = oGC.measureText('分期乐').width;// 放在这里和放在下面的值不一样呢
+
+    oGC.font = '60px Helvetica';
+    oGC.textBaseline = 'middle'; //设置文本的垂直对齐方式
+    oGC.textAlign = 'center'; //设置文本的水平对对齐方式
+    oGC.fillText('分期乐',oC.width/2,oC.height/2);
+    // oGC.fillText('分期乐',(oC.width-w)/2,(oC.height-h)/2);
+    
+    var h = 60;
+    var w = oGC.measureText('分期乐').width;
+
+    console.log(h,w);
+    var oImg = oGC.getImageData((oC.width-w)/2,(oC.height-h)/2,w,h);
+    oGC.clearRect(0,0,oC.width,oC.height);
+    
+    var arr = randomArr(w*h,w*h/5);
+    
+    var newImg = oGC.createImageData(w,h);
+    
+    for(var i=0;i<arr.length;i++){
+        newImg.data[4*arr[i]] = oImg.data[4*arr[i]];
+        newImg.data[4*arr[i]+1] = oImg.data[4*arr[i]+1];
+        newImg.data[4*arr[i]+2] = oImg.data[4*arr[i]+2];
+        newImg.data[4*arr[i]+3] = oImg.data[4*arr[i]+3];
+    }
+    
+    oGC.putImageData(newImg,(oC.width-w)/2,(oC.height-h)/2);
+
+
+    function randomArr(iAll,iNow){
+        var arr = [];
+        var newArr = [];
+        for(var i=0;i<iAll;i++){
+            arr.push(i);
+        }
+        
+        for(var i=0;i<iNow;i++){
+            newArr.push( arr.splice( Math.floor(Math.random()*arr.length) ,1) );
+        }
+        return newArr;
+    }
+    </script>
+</body>
+</html>
 ```
