@@ -1,0 +1,185 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+    }
+    #wrap{
+        margin: 50px auto 0;
+        width: 500px;
+        height: 200px;
+        background-color: #ccc;
+        position: relative;
+        overflow: hidden;
+    }
+    #img-list{
+        position: absolute;
+    }
+    #img-list li{
+        width: 500px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        color: #fff;
+        font-size: 70px;
+        float: left;
+    }
+    .arrow{
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 50px;
+        margin-top: -25px;
+        background-color: red;
+        background-color: green;
+        cursor: pointer;
+    }
+    #right{
+        right: 0;
+    }
+    #left{
+        left: 0;
+    }
+    #dot-list{
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+    }
+    #dot-list li{
+        float: left;
+        width: 15px;
+        height: 15px;
+        background-color: red;
+        margin: 10px;
+    }
+    #dot-list .active{
+        background-color: green;
+    }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <ul id="img-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+        </ul>
+        <ol id="dot-list">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+        <span id="left" class="arrow"></span>
+        <span id="right" class="arrow"></span>
+    </div>
+    <script src="../../../js/move.js"></script>
+    <script>
+    // 之前的方法是用定位的形式进行向右无缝滚动的状态，没有左箭头点击时一切正常，当有左箭头点击向左时，还需要加个和之前相反的逻辑判断，不能完全调用，逻辑是：
+    // #  向右无缝滚动式我们是让第一张跑到最后一张的后面
+    // #  向左无缝滚动时我们需要让最后一张跑到第一张的前面
+    // #  上面这种稍稍有点复杂了，自己可以尝试下
+    // 
+    // 所以这种情况我换了简单的方法，原理是：复制一份图片，有需要时拉回到对应的位置即可
+
+    var oWrap = document.getElementById("wrap");
+    var oUl = document.getElementById("img-list");
+    var oRight = document.getElementById("right");
+    var oLeft = document.getElementById("left");
+
+    var oOl = document.getElementById("dot-list");
+    var aOlLi = oOl.getElementsByTagName("li");
+    
+    oUl.innerHTML += oUl.innerHTML;// 拼接
+    var aLi= oUl.getElementsByTagName("li");
+    var iW = aLi[0].offsetWidth;// 500
+
+    oUl.style.width = iW * aLi.length + "px";// 加宽
+
+    var iNum = 0;
+    // 右箭头
+    oRight.addEventListener("click",function(){
+        gogogo("right");
+    },false);
+    // 左箭头
+    oLeft.addEventListener("click",function(){+
+        gogogo("left");
+    },false);
+
+    var iNum2 = 0;
+    function gogogo(dir){
+        if(dir == "right"){
+            iNum ++;
+            iNum2 ++;
+        }
+        else if(dir == "left"){
+            iNum --;
+            iNum2 --;
+        }
+        if(iNum === -1){
+            oUl.style.left = - (aLi.length / 2) * iW + "px";// 从1到6的时候
+            iNum = aLi.length / 2 - 1;
+        }
+        if(iNum === aLi.length){
+            oUl.style.left = - (aLi.length / 2 - 1) * iW + "px";// 从6到1的时候
+            iNum = aLi.length / 2;
+        }
+        startMove(oUl,{
+            left: - iNum * iW
+        });
+
+        // 控制点点的状态
+        if(iNum2 == -1){
+            iNum2 = aOlLi.length - 1;
+        }
+        if(iNum2 == aOlLi.length){
+            iNum2 = 0;
+        }
+        for(var i = 0;i < aOlLi.length;i ++){
+            aOlLi[i].className = "";
+        }
+        aOlLi[iNum2].className = "active";
+    }
+
+    // Hover点点的时候
+    for(var i = 0;i < aOlLi.length;i ++){
+        aOlLi[i].index = i;
+        aOlLi[i].onmouseover = function(){
+            iNum2 = iNum = this.index - 1;
+            // console.log(iNum2);
+            gogogo("right");
+        };
+    }
+
+    var timer = null;
+    timer = setInterval(function(){
+        gogogo("right");
+    },1000);
+
+
+    oWrap.onmouseover = function(){
+        clearInterval(timer);
+    };
+    oWrap.onmouseout = function(){
+        timer = setInterval(function(){
+            gogogo("right");
+        },1000);
+    };
+    </script>
+</body>
+</html>

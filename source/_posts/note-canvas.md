@@ -559,7 +559,7 @@ for(var i = 0;i < oImg.width * oImg.height;i ++){
 }
 oGC.putImageData(oImg,100,100);
 ```
-### 像素字（有问题）
+### 像素字
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -577,31 +577,26 @@ oGC.putImageData(oImg,100,100);
 </head>
 <body>
     <canvas id="c1" width="400" height="400"></canvas>
-
     <script>
-
     var oC = document.getElementById("c1");
     var oGC = oC.getContext('2d');
 
-    // var h = 60;
-    // var w = oGC.measureText('分期乐').width;// 放在这里和放在下面的值不一样呢
-
     oGC.font = '60px Helvetica';
-    oGC.textBaseline = 'middle'; //设置文本的垂直对齐方式
-    oGC.textAlign = 'center'; //设置文本的水平对对齐方式
+    oGC.textBaseline = 'middle'; // 设置文本的垂直对齐方式
+    oGC.textAlign = 'center'; // 设置文本的水平对对齐方式
     oGC.fillText('分期乐',oC.width/2,oC.height/2);
     // oGC.fillText('分期乐',(oC.width-w)/2,(oC.height-h)/2);
     
     var h = 60;
-    var w = oGC.measureText('分期乐').width;
+    var w = oGC.measureText('分期乐').width;// 要放在oGC.font下面获取
 
     console.log(h,w);
-    var oImg = oGC.getImageData((oC.width-w)/2,(oC.height-h)/2,w,h);
+    var oImg = oGC.getImageData((oC.width-w)/2,(oC.height-h)/2,w,h);// get,宽高，坐标
     oGC.clearRect(0,0,oC.width,oC.height);
     
     var arr = randomArr(w*h,w*h/5);
     
-    var newImg = oGC.createImageData(w,h);
+    var newImg = oGC.createImageData(w,h);// create,宽高
     
     for(var i=0;i<arr.length;i++){
         newImg.data[4*arr[i]] = oImg.data[4*arr[i]];
@@ -610,8 +605,7 @@ oGC.putImageData(oImg,100,100);
         newImg.data[4*arr[i]+3] = oImg.data[4*arr[i]+3];
     }
     
-    oGC.putImageData(newImg,(oC.width-w)/2,(oC.height-h)/2);
-
+    oGC.putImageData(newImg,(oC.width-w)/2,(oC.height-h)/2);// put,坐标
 
     function randomArr(iAll,iNow){
         var arr = [];
@@ -624,6 +618,83 @@ oGC.putImageData(oImg,100,100);
             newArr.push( arr.splice( Math.floor(Math.random()*arr.length) ,1) );
         }
         return newArr;
+    }
+
+    var aaaArr = [[1],[2],[3]];
+    console.log(3*aaaArr[2]);// 9
+    </script>
+</body>
+</html>
+```
+动画像素字
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    body{
+        background-color: #333;
+    }
+    canvas{
+        background-color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <canvas id="c1" width="400" height="400"></canvas>
+    <script>
+    var oC = document.getElementById("c1");
+    var oGC = oC.getContext('2d');
+
+    oGC.font = '60px Helvetica';
+    var w = oGC.measureText('分期乐').width;
+    oGC.textBaseline = 'middle';
+    oGC.textAlign = 'center';
+    oGC.fillStyle = 'red';
+    oGC.fillText('分期乐',oC.width/2,oC.height/2);
+
+    var h = 60;
+    var oImg = oGC.getImageData((oC.width-w)/2, (oC.height-h)/2, w, h);// get,宽高，坐标
+
+    oGC.clearRect(0,0,oC.width,oC.height);
+
+    var arr = randomArr(w*h, w*h/100);
+    var newImg = oGC.createImageData(w, h);// create,宽高
+
+    var num = 0;
+    var timer = setInterval(function(){
+        for(var i=0; i<arr[num].length; i++){
+            newImg.data[4*arr[num][i]] = oImg.data[4*arr[num][i]];
+            newImg.data[4*arr[num][i] + 1] = oImg.data[4*arr[num][i] + 1];
+            newImg.data[4*arr[num][i] + 2] = oImg.data[4*arr[num][i] + 2];
+            newImg.data[4*arr[num][i] + 3] = oImg.data[4*arr[num][i] + 3];
+        }
+
+        oGC.putImageData(newImg,(oC.width-w)/2,(oC.height-h)/2);// put,坐标
+        
+        num ++;
+        if(num == arr.length){
+            console.log('have closed timer');
+            clearInterval(timer);
+        }
+    },30);
+
+    function randomArr(iAll,iNow){
+        var arr = [];
+        var allArr = [];
+        for(var i=0;i<iAll;i++){
+            arr.push(i);
+        }
+        for(var k = 0;k < iAll/iNow;k ++){
+            var newArr = [];// 不能在for k外定义，会一直push不是我们想要的
+            for(var i=0;i<iNow;i++){
+                newArr.push( arr.splice( Math.floor(Math.random()*arr.length) ,1) );// 每次arr会去掉splice，所以newArr push进的不会重复
+            }
+            allArr.push(newArr);
+        }
+        return allArr;
     }
     </script>
 </body>
