@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    body{
+        background-color: #333;
+    }
+    canvas{
+        background-color: #fff;
+    }
+    </style>
+</head>
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+<script>
+var oC = document.querySelector("#c1");
+var oGC = oC.getContext('2d');
+var x = 200,
+    y = 200,
+    r = 150;
+
+function draw(){
+    var oDate = new Date(),
+        oHours = oDate.getHours(),
+        oMinutes = oDate.getMinutes(),
+        oSeconds = oDate.getSeconds(),
+        iHoursValue = (-90 + oHours * 30 + oMinutes / 2),
+        iMinutesValue = (-90 + oMinutes * 6 + oSeconds / 10),
+        iSecondsValue = (-90 + oSeconds * 6);
+
+    // 清画布
+    oGC.clearRect(0,0,oC.width,oC.height);
+
+    // 秒针，无需单独画圆了，画秒的时候会自动形成圆
+    oGC.beginPath();
+    for(var i = 0;i < 60;i ++){
+        oGC.moveTo(200,200);
+        oGC.arc(x, y, r, i*6*Math.PI/180, (i+1)*Math.PI/180,false);// 开始弧度，结束弧度
+    }
+    oGC.closePath();
+    oGC.stroke();
+    // 盖上秒
+    oGC.fillStyle = "white";
+    oGC.beginPath();
+    oGC.arc(x, y, r*19/20, 0, 2*Math.PI, false);
+    oGC.closePath();
+    oGC.fill();
+
+    // 时针
+    oGC.lineWidth = 3;
+    oGC.beginPath();
+    for(var i = 0;i < 12;i ++){
+        oGC.moveTo(x, y);
+        oGC.arc(x, y, r, i*30*Math.PI/180, (i+1)*30*Math.PI/180, false);
+    }
+    oGC.closePath();
+    oGC.stroke();
+    // 盖上时
+    oGC.beginPath();
+    oGC.moveTo(x,y);
+    oGC.arc(x, y, r*18/20, 0, 2*Math.PI);
+    oGC.closePath();
+    oGC.fill();
+
+    // 时
+    oGC.lineWidth = 5;
+    oGC.beginPath();
+    oGC.moveTo(x, y);
+    // 开始弧度和结束弧度一样就是一条线，直接画线的话需要旋转相应的度数
+    oGC.arc(x, y, r*10/20, iHoursValue*Math.PI/180,iHoursValue*Math.PI/180,false);
+    oGC.closePath();
+    oGC.stroke();
+
+    // 分
+    oGC.lineWidth = 3;
+    oGC.beginPath();
+    oGC.moveTo(x, y);
+    oGC.arc(x, y, r*14/20, iMinutesValue*Math.PI/180,iMinutesValue*Math.PI/180,false);
+    oGC.closePath();
+    oGC.stroke();
+
+    // 秒
+    oGC.lineWidth = 1;
+    oGC.beginPath();
+    oGC.moveTo(x, y);
+    oGC.arc(x, y, r*19/20, iSecondsValue*Math.PI/180,iSecondsValue*Math.PI/180,false);
+    oGC.closePath();
+    oGC.stroke();
+}
+draw();
+setInterval(draw,1000);
+</script>
+</body>
+</html>
