@@ -517,7 +517,7 @@ oGC.textAlign = 'center'; //设置文本的水平对对齐方式
 
 oGC.fillText('分期乐',oC.width/2,oC.height/2);
 ```
-### getImageData
+### getImageData(加深理解...)
 ``` javascript
 var oC = document.getElementById('c1');
 var oGC = oC.getContext('2d');
@@ -696,6 +696,366 @@ oGC.putImageData(oImg,100,100);
         }
         return allArr;
     }
+    </script>
+</body>
+</html>
+```
+### 设置/获取每一点的颜色
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+oGC.fillRect(0,0,100,100);
+
+var oImg = oGC.getImageData(0,0,100,100);
+
+console.log( getXY(oImg,3,5) );
+
+function getXY(obj,x,y){
+    var w = obj.width;
+    var h = obj.height;
+    var d = obj.data;
+    var color = [];
+
+    color[0] = d[4*(y*w+x)];// 行数*每一行宽(像素数)+X坐标(一行的第几列)
+    color[1] = d[4*(y*w+x) + 1];
+    color[2] = d[4*(y*w+x) + 2];
+    color[3] = d[4*(y*w+x) + 3];
+
+    return color;
+}
+
+
+for(var i = 0;i < oImg.width;i ++){
+    setXY(oImg,i,5,[255,0,0,255]);
+}
+oGC.putImageData(oImg,100,100);
+function setXY(obj,x,y,color){
+    var w = obj.width;
+    var h = obj.height;
+    var d = obj.data;
+
+    d[4*(y*w+x)] = color[0];
+    d[4*(y*w+x) + 1] = color[1];
+    d[4*(y*w+x) + 2] = color[2];
+    d[4*(y*w+x) + 3] = color[3];
+}
+```
+### 反色
+原理：255 - 当前色值
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+var yImg = new Image();
+yImg.src = 'test.jpg';// 不能跨域，可以在火狐下测试
+
+yImg.onload = function(){
+    draw(this);
+};
+function draw(obj){
+    oC.width = obj.width;
+    oGC.drawImage(obj,0,0);
+
+    var oImg = oGC.getImageData(0,0,obj.width,obj.height);
+
+    var w = oImg.width;
+    var h = oImg.height;
+
+    for(var i = 0;i < h;i ++){
+        for(var j = 0;j < w;j ++){
+            var result = [];
+
+            var color = getXY(oImg,j,i);// 0,0;1,0;2,0...
+            result[0] = 255-color[0];
+            result[1] = 255-color[1];
+            result[2] = 255-color[2];
+            result[3] = 255;// 透明度
+
+            setXY(oImg,j,i,result);
+        }
+    }
+    oGC.putImageData(oImg,0,obj.height);
+}
+
+
+function getXY(obj,x,y){
+    var w = obj.width;
+    var h = obj.height;
+    var d = obj.data;
+    var color = [];
+
+    color[0] = d[4*(y*w+x)];// 行数*每一行宽(像素数)+X坐标
+    color[1] = d[4*(y*w+x) + 1];
+    color[2] = d[4*(y*w+x) + 2];
+    color[3] = d[4*(y*w+x) + 3];
+
+    return color;
+}
+
+function setXY(obj,x,y,color){
+    var w = obj.width;
+    var h = obj.height;
+    var d = obj.data;
+
+    d[4*(y*w+x)] = color[0];
+    d[4*(y*w+x) + 1] = color[1];
+    d[4*(y*w+x) + 2] = color[2];
+    d[4*(y*w+x) + 3] = color[3];
+}
+```
+### 倒影/渐变
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+var yImg = new Image();
+yImg.src = 'test.jpg';// 不能跨域，可以在火狐下测试
+
+yImg.onload = function(){
+    draw(this);
+};
+function draw(obj){
+    oC.width = obj.width;
+    oGC.drawImage(obj,0,0);
+
+    var oImg = oGC.getImageData(0,0,obj.width,obj.height);
+
+    var w = oImg.width;
+    var h = oImg.height;
+
+    var newImage = oGC.createImageData(obj.width,obj.height);//用newImage解决倒一半的问题
+    for(var i = 0;i < h;i ++){
+        for(var j = 0;j < w;j ++){
+            var result = [];
+
+            var color = getXY(oImg,j,i);// 0,0;1,0;2,0...
+            result[0] = 255-color[0];
+            result[1] = 255-color[1];
+            result[2] = 255-color[2];
+            result[3] = 255*i/h;// 渐变的透明度
+
+            setXY(newImage,j,h-i,result);// h - i倒过来，用newImage解决倒一半的问题
+        }
+    }
+    oGC.putImageData(newImage,0,obj.height);
+}
+```
+### 马赛克
+原理：一张图片分为N块，取每一块的随机值当成此块的值
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+var yImg = new Image();
+yImg.src = 'test.jpg';// 不能跨域，可以在火狐下测试
+
+yImg.onload = function(){
+    draw(this);
+};
+function draw(obj){
+    oC.width = obj.width;
+    oC.height = obj.height*2;
+    oGC.drawImage(obj,0,0);
+
+    var oImg = oGC.getImageData(0,0,obj.width,obj.height);
+
+    var w = oImg.width;
+    var h = oImg.height;
+    var num = 10;// 调节
+
+    var newImage = oGC.createImageData(obj.width,obj.height);//用newImage解决倒一半的问题
+    
+    var stepW = w/num;
+    var stepH = h/num;
+
+    for(var i = 0;i < stepH;i ++){
+        for(var j = 0;j < stepW;j ++){
+            var color = getXY( oImg,j*num+Math.floor(Math.random()*num),i*num+Math.floor(Math.random()*num) );
+
+            for(var k = 0;k < num;k ++){
+                for(var l = 0;l < num;l ++){
+                    setXY(newImage,j*num+l,i*num+k,color);
+                }
+            }
+        }
+    }
+
+    oGC.putImageData(newImage,0,obj.height);
+}
+```
+### 叠加
+globalAlpha
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+oGC.fillRect(0,0,100,100);
+
+oGC.fillStyle = 'red';
+oGC.globalAlpha = 0.5;
+oGC.fillRect(50,50,100,100);
+```
+globalCompositeOperation
+``` javascript
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+oGC.fillRect(0,0,100,100);
+
+oGC.fillStyle = 'red';
+oGC.globalCompositeOperation = "destination-over";// source-over(默认的)
+oGC.fillRect(50,50,100,100);// 默认后画的在上面
+```
+### 导出图片
+``` javascript
+oGC.fillRect(0,0,100,100);
+
+// alert( oC.toDataURL() );// base64的图片信息
+var oImg = document.getElementById("img1");
+oImg.src = oC.toDataURL();// 火狐下右键直接可以导出图片
+```
+### isPointInPath
+``` javascript
+oGC.beginPath();
+oGC.arc(100,100,50,0,360*Math.PI/180,false);
+oGC.closePath();
+oGC.fill();
+
+oGC.beginPath();
+oGC.arc(200,200,50,0,360*Math.PI/180,false);
+oGC.closePath();
+oGC.fill();
+
+oC.onmousedown = function(ev){// 只能对整体进行操作
+    var oEvent = ev || event;
+    var x = oEvent.clientX - oC.offsetLeft;
+    var y = oEvent.clientY - oC.offsetTop;
+
+    if( oGC.isPointInPath(x,y) ){// 返回true or false，只是针对最后一次画出的圆有响应
+        console.log(123);
+    }
+};
+```
+解决
+``` javascript
+var oImg = document.getElementById("img1");
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
+
+var c1 = new Shape(100,100,50);
+var c2 = new Shape(200,200,50);
+
+oC.onmousedown = function(ev){
+    var oEvent = ev || event;
+    var point = {
+        x: oEvent.clientX - oC.offsetLeft,
+        y: oEvent.clientY - oC.offsetTop
+    };
+    c1.reDraw(point);
+    c2.reDraw(point);
+};
+
+c1.click = function(){
+    console.log(123);
+};
+c2.click = function(){
+    console.log(456);
+};
+
+function Shape(x,y,r){
+    this.x = x;
+    this.y = y;
+    this.r = r;
+
+    oGC.beginPath();
+    oGC.arc(this.x,this.y,this.r,0,2*Math.PI,false);// false是默认顺时针
+    oGC.closePath();
+    oGC.fill();
+}
+
+Shape.prototype.reDraw = function(point){
+    oGC.beginPath();
+    oGC.arc(this.x,this.y,this.r,0,2*Math.PI,false);// false是默认顺时针
+    oGC.closePath();
+    oGC.fill();
+
+    if( oGC.isPointInPath(point.x,point.y) ){
+        this.click();
+    }
+};
+```
+### jCanvaScript
+点击
+``` html
+<body>
+    <canvas id="c1" width="400" height="400"></canvas>
+    <script src="jCanvaScript.1.5.18.min.js"></script>
+    <script>
+    var oC = document.getElementById('c1');
+    var oGC = oC.getContext('2d');
+
+    jc.start('c1',true);// true代表重绘，在有事件操作时是我们所需要的
+
+    // jc.rect(100,100,50,50,'#f00',1);// 1/true代表实心
+    jc.circle(100,100,50,'#f00',1).click(function(){
+        console.log(123);
+    });
+
+    jc.start('c1');
+    </script>
+</body>
+```
+拖拽
+``` javascript
+jc.start('c1',true);
+
+jc.circle(100,100,50,'#f00',1).draggable();
+
+jc.start('c1');
+```
+运动
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    body{
+        background-color: #000;
+    }
+    canvas{
+        background-color: #fff;
+    }
+    #img1{
+        background-color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <canvas id="c1" width="400" height="400"></canvas>
+    <input type="button" value="按钮" id="btn1">
+    <script src="jCanvaScript.1.5.18.min.js"></script>
+    <script>
+    var oBtn = document.getElementById("btn1");
+    var oC = document.getElementById('c1');
+    var oGC = oC.getContext('2d');
+
+    jc.start('c1',true);
+    jc.circle(100,100,50,'#f00',1).id('c1');
+    jc.start('c1',true);
+
+    /*oBtn.onclick = function(){
+        jc('#c1').color('#000');
+    };*/
+    oBtn.onclick = function(){
+        jc('#c1').color('#000').animate({
+            x: 300,
+            y: 300,
+            radius: 5
+        },2000);
+    };
     </script>
 </body>
 </html>
