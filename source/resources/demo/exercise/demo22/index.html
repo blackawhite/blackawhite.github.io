@@ -57,12 +57,6 @@ layout: false
                 aLi[i].style.backgroundPosition = "0 0";
             }
         };
-        aLi[i].onclick = function(){
-            for(var i = 0;i < aLi.length;i ++){
-                aLi[i].onclick = aLi[i].onmouseover = aLi[i].onmouseout = null;
-            }
-            alert(this.index + 1);
-        };
     }
     </script>
 </body>
