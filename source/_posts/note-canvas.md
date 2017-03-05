@@ -5,6 +5,16 @@ tags:
 ---
 Canvas mark.
 <!-- more -->
+### 一般步骤
+``` javascript
+for(var i = 0;i < 10;i ++){
+    oGC.beginPath();
+    oGC.arc(i*25,i*25,(i+1)*8,0,2*Math.PI,false);
+    oGC.closePath();
+    oGC.fillStyle = 'rgba(255,0,255,'+ (10-i)*0.1 +')';
+    oGC.fill();
+}
+```
 ### 画矩形
 ``` html
 <!DOCTYPE html>
@@ -91,6 +101,36 @@ oGC.stroke();// 连点成线
 
 oGC.clearRect(0,0,oC.width,oC.height);// 清除画布
 ```
+### creatRoundRect
+``` javascript
+function creatRoundRect(ctx, x1, y1, width, height, radius){
+    // 移动到左上角的开始点
+    ctx.moveTo(x1 + radius, y1);
+    // 添加一条连接开始点到右上角的线段
+    ctx.lineTo(x1 + width - radius, y1);
+    // 添加右上角的一段圆弧
+    ctx.arcTo(x1 + width, y1, x1 + width, y1 + radius, radius);
+    // 添加一条连接到右下角的线段
+    ctx.lineTo(x1 + width, y1 + height - radius);
+    // 添加右下角的一段圆弧
+    ctx.arcTo(x1 + width, y1 + height, x1 + width - radius, y1 + height, radius);
+    // 添加一条由右下角连接到左下角的线段
+    ctx.lineTo(x1 + radius, y1 + height);
+    // 添加左下的圆弧
+    ctx.arcTo(x1, y1 + height, x1, y1 + height - radius,radius);
+    // 添加一条由左下角连接到左上角的线段
+    ctx.lineTo(x1, y1 + radius);
+    // 添加一段圆弧
+    ctx.arcTo(x1, y1, x1 + radius, y1, radius);
+    ctx.closePath();
+}
+var canvas_1 = document.getElementById("c1");
+var ctx = canvas_1.getContext("2d");
+
+ctx.lineWidth = 3;
+creatRoundRect(ctx, 30, 30, 70, 70, 20);
+ctx.stroke();
+```
 ### save/restore
 ``` javascript
 var oC = document.querySelector("#c1");
@@ -99,6 +139,7 @@ var oGC = oC.getContext('2d');
 oGC.save();
 
 oGC.fillStyle = "red";// 默认会作用于下面的所有，使用save,restore控制
+oGC.strokeStyle = "red";// 线颜色
 
 // .......
 oGC.beginPath();
@@ -202,7 +243,7 @@ oGC.arc(200,200,150,0,90*Math.PI/180,true);// true逆时针
 oGC.stroke();
 ```
 <a href="/resources/demo/exercise/demo34/index.html" target="_blank">时钟</a>
-### arcTo
+### arcTo(详解...)
 <a href="http://www.365mini.com/page/html5-canvas-arcto.htm">参考原文</a>
 ``` javascript
 var oC = document.getElementById('c1');
@@ -1060,3 +1101,5 @@ jc.start('c1');
 </body>
 </html>
 ```
+### 学习
+http://www.jianshu.com/p/2f79c3d8f9d0
