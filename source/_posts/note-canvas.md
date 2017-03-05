@@ -102,6 +102,7 @@ oGC.stroke();// 连点成线
 oGC.clearRect(0,0,oC.width,oC.height);// 清除画布
 ```
 ### creatRoundRect
+<img src="/resources/images/pages/canvas/creatRoundRect.jpg" alt="">
 ``` javascript
 function creatRoundRect(ctx, x1, y1, width, height, radius){
     // 移动到左上角的开始点
