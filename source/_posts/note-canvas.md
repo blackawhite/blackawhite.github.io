@@ -101,36 +101,36 @@ oGC.stroke();// 连点成线
 
 oGC.clearRect(0,0,oC.width,oC.height);// 清除画布
 ```
-### creatRoundRect
+### createRadiusRect
 <img src="/resources/images/pages/canvas/creatRoundRect.jpg" alt="">
 ``` javascript
-function creatRoundRect(ctx, x1, y1, width, height, radius){
-    // 移动到左上角的开始点
-    ctx.moveTo(x1 + radius, y1);
-    // 添加一条连接开始点到右上角的线段
-    ctx.lineTo(x1 + width - radius, y1);
-    // 添加右上角的一段圆弧
-    ctx.arcTo(x1 + width, y1, x1 + width, y1 + radius, radius);
-    // 添加一条连接到右下角的线段
-    ctx.lineTo(x1 + width, y1 + height - radius);
-    // 添加右下角的一段圆弧
-    ctx.arcTo(x1 + width, y1 + height, x1 + width - radius, y1 + height, radius);
-    // 添加一条由右下角连接到左下角的线段
-    ctx.lineTo(x1 + radius, y1 + height);
-    // 添加左下的圆弧
-    ctx.arcTo(x1, y1 + height, x1, y1 + height - radius,radius);
-    // 添加一条由左下角连接到左上角的线段
-    ctx.lineTo(x1, y1 + radius);
-    // 添加一段圆弧
-    ctx.arcTo(x1, y1, x1 + radius, y1, radius);
-    ctx.closePath();
-}
-var canvas_1 = document.getElementById("c1");
-var ctx = canvas_1.getContext("2d");
+var oC = document.getElementById("c1");
+var oGC = oC.getContext('2d');
 
-ctx.lineWidth = 3;
-creatRoundRect(ctx, 30, 30, 70, 70, 20);
-ctx.stroke();
+function createRadiusRect(oGC, x, y, w, h, r){
+    oGC.beginPath();
+    oGC.moveTo(x+r, y);
+    oGC.lineTo(x+w-r, y);
+
+    oGC.arcTo(x+w, y, x+w, y+r, r);// 右上角
+
+    oGC.lineTo(x+w, y+h-r);
+
+    oGC.arcTo(x+w, y+h, x+w-r, y+h, r);// 右下角
+
+    oGC.lineTo(x+r, y+h);
+
+    oGC.arcTo(x, y+h, x, y+h-r, r);// 左下角
+
+    oGC.lineTo(x, y+r);
+
+    oGC.arcTo(x, y, x+r, y, r);// 左上角
+    oGC.closePath();
+}
+oGC.lineWidth = 5;
+createRadiusRect(oGC, 30, 30, 200, 100, 20);
+oGC.strokeStyle = "#f0f";
+oGC.stroke();
 ```
 ### save/restore
 ``` javascript
