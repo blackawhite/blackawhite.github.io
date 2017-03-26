@@ -41,7 +41,7 @@ for(var i = 0;i < 10;i ++){
     var oGC = oC.getContext('2d');// webgl:搞3D的
 
     // 设置绘图
-    oGC.fillStyle = "red";// 对oGC.stroke()是无效的喔
+    oGC.fillStyle = "red";// 对oGC.stroke()是无效的喔，要写在fillRect的前面
     oGC.strokeStyle = "blue";
     oGC.lineWidth = 10;
 
@@ -420,7 +420,7 @@ function draw(obj){
                     oC.height = obj.width;
                     oGC.rotate(90 * Math.PI / 180);
                     // 旋转后跑出去了
-                    oGC.drawImage(obj,0,-obj.height);// 移动y轴(原始)方向距离
+                    oGC.drawImage(obj,0,-obj.height);// 移动y轴(原始)方向距离，实际上这时的旋转点相对于图片由左上角变成左下角了
                     break;
                 case 2:
                     oC.width = obj.width;
@@ -542,7 +542,7 @@ oGC.textBaseline = 'top';// middle,bottom
 oGC.shadowOffsetX = 5;
 oGC.shadowOffsetY = 5;
 oGC.shadowColor = "yellow";
-oGC.shadowBlue = 5;
+oGC.shadowBlur = 5;
 
 var w = oGC.measureText('分期乐').width;
 
@@ -566,7 +566,7 @@ var oGC = oC.getContext('2d');
 
 oGC.fillRect(0,0,100,100);
 
-var oImg = oGC.getImageData(0,0,100,100);//复制位置，复制宽高
+var oImg = oGC.getImageData(0,0,100,100);// 复制位置，复制宽高
 
 // alert( oImg.width );  // 一行的像素个数
 // alert( oImg.height );  // 一列的像素个数
@@ -591,7 +591,7 @@ oGC.putImageData(oImg,100,100);
 var oC = document.getElementById("c1");
 var oGC = oC.getContext('2d');
 
-var oImg = oGC.createImageData(100,100);
+var oImg = oGC.createImageData(100,100);// w,h
 
 for(var i = 0;i < oImg.width * oImg.height;i ++){
     oImg.data[4 * i] = 255;
@@ -638,7 +638,7 @@ oGC.putImageData(oImg,100,100);
     
     var arr = randomArr(w*h,w*h/5);
     
-    var newImg = oGC.createImageData(w,h);// create,宽高
+    var newImg = oGC.createImageData(w,h);// create一个新的,里面放随机的数据
     
     for(var i=0;i<arr.length;i++){
         newImg.data[4*arr[i]] = oImg.data[4*arr[i]];
