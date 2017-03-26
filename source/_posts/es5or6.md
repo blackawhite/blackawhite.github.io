@@ -5,7 +5,7 @@ tags:
 ---
 ES5/6新增方法记录
 <!-- more -->
-### let
+### let/const
 ``` javascript
 // 有代码块的概念
 {
@@ -24,7 +24,6 @@ for(let i=0; i<aLi.length; i++){
     };
 }
 ```
-### const
 ``` javascript
 // 必须给初始值，且一旦赋值，终身不变
 const a = '不允许改变';
