@@ -2804,3 +2804,17 @@ function mySort(data, field, rule) {
 mySort(data, 'time','ASC');
 console.dir( data );
 ```
+#### JSON转数组
+``` javascript
+var json = {
+    0:1,
+    1:2,
+    2:3,
+    length: 3
+}
+function toArray(json){
+    return Array.prototype.slice.call(json)
+}
+var arr = toArray(json);
+console.log(arr);
+```
