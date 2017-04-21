@@ -161,3 +161,66 @@ Vue学习中的一些注意点...
 </body>
 </html>
 ```
+### 单项数据流
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>父：{{num}}</p>
+        <!-- 自定义事件 -->
+        <my-custom :trans-num="num" v-on:change="numOpera"></my-custom>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+    Vue.component('my-custom', {
+        props: ['transNum'],
+        data: function() {
+            return {
+                // 注意这里是this.transNum
+                getNum: this.transNum
+            }
+        },
+        template: `
+            <div>
+                <button @click="changeNum">ChangeValue</button><br>
+                <span>{{getNum}}</span><br>
+                <span>{{addNum}}</span>
+            </div>
+        `,
+        methods: {
+            changeNum: function(){
+                // 不要直接改变传递过来的值：this.transNum ++
+                // 用data或data配合计算属性
+                this.getNum ++;
+
+                // 触发自定义事件
+                this.$emit('change');
+            }
+        },
+        computed: {
+            addNum: function() {
+                return this.getNum;
+            }
+        }
+    });
+    new Vue({
+        el: "#app",
+        data: {
+            num: 0
+        },
+        methods: {
+            numOpera: function() {
+                // console.log('子组件点击了');
+                this.num ++;
+            }
+        }
+    })
+    </script>
+</body>
+</html>
+```
