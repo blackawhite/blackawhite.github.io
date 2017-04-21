@@ -75,3 +75,89 @@ Vue学习中的一些注意点...
 </body>
 </html>
 ```
+### v-for/v-if
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in items" v-if="!item.isComplete">
+                {{item.text}}
+            </li>
+        </ul>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            items: [
+                {
+                    text: 'aaa',
+                    isComplete: true
+                },
+                {
+                    text: 'bbb',
+                    isComplete: false
+                },
+                {
+                    text: 'ccc',
+                    isComplete: true
+                }
+            ]
+        }
+    });
+    </script>
+</body>
+</html>
+```
+### 自定义事件
+使用$on(eventName)监听，$emit(eventName)触发
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{total}}</p>
+        <!-- 监听 -->
+        <my-button v-on:add="changeValue"></my-button>
+        <my-button v-on:add="changeValue"></my-button>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+    Vue.component('myButton', {
+        // <button v-on:click="$emit('add')">click</button>
+        template: `
+            <button v-on:click="chufa">click</button>
+        `,
+        methods: {
+            chufa: function() {
+                // 触发
+                this.$emit('add');
+            }
+        }
+    });
+    new Vue({
+        el: '#app',
+        data: {
+            total: 0
+        },
+        methods: {
+            changeValue: function() {
+                this.total += 1;
+            }
+        }
+    });
+    </script>
+</body>
+</html>
+```
