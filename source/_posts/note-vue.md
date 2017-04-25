@@ -224,3 +224,129 @@ Vue学习中的一些注意点...
 </body>
 </html>
 ```
+### 组件
+#### 模态框
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p,h4{
+            margin:0;
+        }
+        .modal{
+            width: 500px;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.2);
+            border-radius: 6px;
+            box-shadow: 0 3px 9px rgba(0,0,0,.5);
+
+        }
+        .modal-header {
+            padding: 15px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .modal-content div {
+            padding: 20px;
+        }
+        .modal-footer {
+            padding: 15px;
+            text-align: right;
+            border-top: 1px solid #e5e5e5;
+        }
+        .btn {
+            padding: 5px 15px;
+            border: none;
+            outline: none;
+        }
+        .blue {
+            color: #fff;
+            background-color: #39f;
+            border-color: #39f;
+        }
+    </style>
+    <script src="vue-new.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 注意:modal-title和modal-title的区别 -->
+        <m-modal modal-title="提醒" @my-confirm="confirm" @my-cancel="cancel">
+            <div slot="modal-content">
+                <ul>
+                    <li v-for="item in items">{{item}}</li>
+                </ul>
+            </div>
+            <div slot="modal-footer">
+                <span @click="confirm">确定</span>
+                <span @click="cancel">取消</span>
+            </div>
+        </m-modal>
+    </div>
+    <script>
+    /*
+        设置的props：
+            modalTitle 提醒信息 默认为 '这是一个模态框'
+
+        定制模板：
+            slot为modal-content     定制提醒信息模板
+            slot为modal-footer      定制底部模板
+
+        监控子组件状态变化：
+            事件名my-confirm        点击确定触发
+            事件名my-cancel         点击取消触发
+    */
+
+    Vue.component("m-modal",{
+        props: {
+            modalTitle: {
+                type: String,
+                default: "这是一个模态框"
+            }
+        },
+        template:`
+        <div class="modal">
+            <div class="modal-header">
+                <h4>{{modalTitle}}</h4>
+            </div>
+            <div class="modal-content">
+                <slot name="modal-content">
+                    <div>这是内容</div>
+                </slot>
+            </div>
+            <div class="modal-footer">
+                <slot name="modal-footer">
+                    <input class="btn blue" type="button" value="确定" @click="confirm" />
+                    <input class="btn" type="button" value="取消" @click="cancel" />
+                </slot>
+            </div>
+        </div>
+        `,
+        methods: {
+            confirm: function() {
+                this.$emit('my-confirm');
+            },
+            cancel: function() {
+                this.$emit('my-cancel');
+            }
+        }
+    });
+    new Vue({
+        el: "#app",
+        data: {
+            items: ["吃饭", "睡觉", "打豆豆"]
+        },
+        methods: {
+            confirm: function() {
+                console.log('子组件点击了确定');
+            },
+            cancel: function() {
+                console.log('子组件点击了取消');
+            }
+        }
+    })
+    </script>
+</body>
+</html>
+```
