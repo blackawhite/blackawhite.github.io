@@ -877,6 +877,24 @@ function jiayou(arr)
 }
 console.log(jiayou(arr));
 ```
+#### arr.filter
+```
+var arr = [1, 2, 1, 1];
+function unique(arr) {
+    return arr.filter(function(item, index) {
+        // indexOf返回第一个索引值
+        // 如果当前索引不是第一个索引，说明是重复值
+        console.log(arr.indexOf(item), index);
+        return arr.indexOf(item) === index;
+        // 0 0
+        // 1 1
+        // 0 2
+        // 0 3
+    });
+}
+
+console.log( unique(arr) );
+```
 ### 找数组最大/最小值
 #### 排序后掐头去尾法
 ``` javascript
