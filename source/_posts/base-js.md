@@ -845,7 +845,7 @@ obj = null;
 
 console.log(arr);
 ```
-#### push非重复的
+#### push非重复的，利用indexOf
 ``` javascript
 // arr[0] : arr[1]，相当退出内循环，此时j = false
 // arr[1] : arr[2]，arr[1] : arr[3]，发现相等又退出内循环，此时j = false
@@ -877,8 +877,7 @@ function jiayou(arr)
 }
 console.log(jiayou(arr));
 ```
-#### arr.filter
-```
+``` javascript
 var arr = [1, 2, 1, 1];
 function unique(arr) {
     return arr.filter(function(item, index) {
@@ -893,6 +892,19 @@ function unique(arr) {
     });
 }
 
+console.log( unique(arr) );
+```
+```
+var arr = [1, 2, 1, 1];
+function unique(arr) {
+    var ret = [];
+    arr.forEach(function(item){
+        if(!ret.includes(item)){// ES2016新增的
+            ret.push(item);
+        }
+    });
+    return ret;
+}
 console.log( unique(arr) );
 ```
 ### 找数组最大/最小值
